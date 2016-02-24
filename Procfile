@@ -1,1 +1,1 @@
-web: gunicorn run:MashupMap
+web: gunicorn run:app
