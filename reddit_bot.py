@@ -1,8 +1,11 @@
 import praw
 import re
 import music_api as m
+import os
 
-r = praw.Reddit(user_agent='my_mashup_mapper')
+user_agent = os.environ.get('USER_AGENT')
+
+r = praw.Reddit(user_agent=user_agent)
 submissions = r.get_subreddit('mashups').get_hot(limit=10)
 
 for submission in submissions:
