@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <title>Network | Circular images</title>
+
+  <style type="text/css">
+    body {
+      font: 10pt arial;
+    }
+    #mynetwork {
+      width: 80vw;
+      height: 80vh;
+      border: 1px solid lightgray;
+      background-color:#333333;
+    }
+  </style>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
+
+  <script type="text/javascript">
+    var nodes = null;
+    var edges = null;
+    var network = null;
+
+    // Called when the Visualization API is loaded.
+    function draw() {
+      // create people.
+      // value corresponds with the age of the person
+      nodes = {{ nodes | safe}};
+
+      // create connections between people
+      // value corresponds with the amount of contact between two people
+      edges = {{ edges | safe }};
+
+      // create a network
+      var container = document.getElementById('mynetwork');
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {
+        nodes: {
+          borderWidth:4,
+          size:40,
+          color: {
+            border: '#222222',
+            background: '#666666'
+          },
+          font:{color:'#eeeeee'}
+        },
+        edges: {
+          color: 'lightgray',
+          smooth:{type:'continuous'}
+        },
+        physics: { stabilization: false }
+      };
+      network = new vis.Network(container, data, options);
+    }
+  </script>
+</head>
+
+<body onload="draw()">
+
+<center>
+<h1>Reddit r/mashup map</h1>
+<div id="mynetwork"></div>
+</center>
+</body>
+</html>
+

@@ -1,0 +1,57 @@
+import praw
+import re
+import MashupMap.music_api as m
+import os
+from MashupMap import cache
+
+user_agent = os.environ.get('USER_AGENT')
+r = praw.Reddit(user_agent=user_agent)
+
+
+@cache.cached(timeout=60*60*4, key_prefix='get_mashup_graph')
+def get_mashup_graph():
+    submissions = r.get_subreddit('mashups').get_hot(limit=50)
+    nodes = []
+    edges = []
+
+    already_inserted = {}
+
+    for submission in submissions:
+        if not submission.is_self:
+            # text_in_par is an array of strings found inside parenthesis
+            text_in_par = re.findall('\(([^\)]+)\)', submission.title)
+
+            this_mashup_artists = []
+            if len(text_in_par) > 0:
+                artists_names = text_in_par[0].split(',')
+                for name in artists_names:
+                    # Check Music API to normalize name
+                    new_artist = m.get_artist(name)
+                    if new_artist is None:
+                        continue
+                    # Add artist to the current mashup list
+                    this_mashup_artists.append(new_artist.artistID)
+                    # If it's the first time we see this artist, create
+                    # a new node
+                    if new_artist.artistID not in already_inserted:
+                        # Mark as inserted
+                        already_inserted[new_artist.artistID] = True
+                        # Insert in node list
+                        nodes.append({
+                            "id": new_artist.artistID,
+                            "shape": "circularImage",
+                            "image": new_artist.imageURL,
+                            "label": new_artist.name
+                            })
+
+                    # Create Edges
+                    for a1 in this_mashup_artists:
+                        for a2 in this_mashup_artists:
+                            # Don't repeat edges
+                            if a1 < a2:
+                                edges.append({
+                                    "from": a1,
+                                    "to": a2
+                                    })
+
+    return nodes, edges
