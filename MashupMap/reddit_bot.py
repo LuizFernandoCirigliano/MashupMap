@@ -3,9 +3,15 @@ import re
 import MashupMap.music_api as m
 import os
 from MashupMap import cache
+import random
 
 user_agent = os.environ.get('USER_AGENT')
 r = praw.Reddit(user_agent=user_agent)
+
+
+def random_color():
+    rc = lambda: random.randint(0, 255)
+    return '#%02X%02X%02X' % (rc(), rc(), rc())
 
 
 @cache.cached(timeout=60*60*4, key_prefix='get_mashup_graph')
@@ -23,6 +29,7 @@ def get_mashup_graph():
             text_in_par = re.findall('\(([^\)]+)\)', submission.title)
             # print(submission.media_embed)
             this_mashup_artists = []
+            mashup_color = random_color()
             if len(text_in_par) > 0:
                 artists_names = text_in_par[0].split(',')
                 for name in artists_names:
@@ -54,7 +61,8 @@ def get_mashup_graph():
                                 edges.append({
                                     "from": a1,
                                     "to": a2,
-                                    "id": eid
+                                    "id": eid,
+                                    "color": mashup_color
                                     })
                                 content = submission.media_embed.get('content')
                                 author = submission.author.name
