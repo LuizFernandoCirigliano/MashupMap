@@ -24,7 +24,7 @@ def get_artist(artist_name):
     artist_json = response.get('results')[0]
     artist_name_norm = artist_json.get('artistName')
     artist_id = artist_json.get('artistId')
-    artwork = artist_json.get('artworkUrl100')
+    artwork = artist_json.get('artworkUrl60')
 
     if artist_id is None or artist_name is None:
         return None

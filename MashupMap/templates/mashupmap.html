@@ -45,15 +45,20 @@
           size:40,
           color: {
             border: '#222222',
-            background: '#666666'
           },
           font:{color:'#eeeeee'}
         },
         edges: {
           color: 'lightgray',
-          smooth:{type:'continuous'}
+          smooth: {
+            type:'continuous'
+          },
+          hoverWidth: 3
         },
-        physics: { stabilization: false }
+        physics: { stabilization: false },
+        interaction: {
+          hover:true
+        }
       };
       network = new vis.Network(container, data, options);
       network.on("selectEdge", function (params) {
