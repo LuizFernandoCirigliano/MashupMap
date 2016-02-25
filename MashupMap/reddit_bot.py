@@ -13,6 +13,7 @@ def get_mashup_graph():
     submissions = r.get_subreddit('mashups').get_hot(limit=50)
     nodes = []
     edges = []
+    songs = {}
 
     already_inserted = {}
 
@@ -20,7 +21,7 @@ def get_mashup_graph():
         if not submission.is_self:
             # text_in_par is an array of strings found inside parenthesis
             text_in_par = re.findall('\(([^\)]+)\)', submission.title)
-
+            # print(submission.media_embed)
             this_mashup_artists = []
             if len(text_in_par) > 0:
                 artists_names = text_in_par[0].split(',')
@@ -49,9 +50,14 @@ def get_mashup_graph():
                         for a2 in this_mashup_artists:
                             # Don't repeat edges
                             if a1 < a2:
+                                eid = len(edges)
                                 edges.append({
                                     "from": a1,
-                                    "to": a2
+                                    "to": a2,
+                                    "id": eid
                                     })
+                                content = submission.media_embed.get('content')
+                                if content is not None:
+                                    songs[eid] = content
 
-    return nodes, edges
+    return nodes, edges, songs

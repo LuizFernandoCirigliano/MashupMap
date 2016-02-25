@@ -22,18 +22,18 @@
   <script type="text/javascript">
     var nodes = null;
     var edges = null;
+    var songs = {{ songs | safe }} ;
     var network = null;
 
     // Called when the Visualization API is loaded.
     function draw() {
       // create people.
       // value corresponds with the age of the person
-      nodes = {{ nodes | safe}};
+      nodes = {{ nodes | safe }};
 
       // create connections between people
       // value corresponds with the amount of contact between two people
       edges = {{ edges | safe }};
-
       // create a network
       var container = document.getElementById('mynetwork');
       var data = {
@@ -57,6 +57,9 @@
         physics: { stabilization: false }
       };
       network = new vis.Network(container, data, options);
+      network.on("selectEdge", function (params) {
+        $('#playsong').html(songs[params.edges[0]]);
+      });
     }
   </script>
 </head>
@@ -66,6 +69,7 @@
 <center>
 <h1>Reddit r/mashup map</h1>
 <div id="mynetwork"></div>
+<div id="playsong"></div>
 </center>
 </body>
 </html>
