@@ -10,6 +10,13 @@ def hello():
         )
 
 
+@app.route("/full")
+def hello_full():
+    return render_template(
+        'mashupmap-full.html'
+        )
+
+
 @app.route("/graph")
 def get_graph():
     nodes, edges, songs = get_mashup_graph()

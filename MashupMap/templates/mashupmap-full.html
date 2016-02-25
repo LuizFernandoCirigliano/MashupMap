@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+  <title>Network | Circular images</title>
+
+  <style type="text/css">
+    #mynetwork {
+      background-color:black;
+    }
+    #infocontainer {
+      width: 200px;
+      height: 200px;
+      top: 0;
+      right: 0;
+      position: absolute;
+      background-color: black;
+      border-style: solid;
+      border-width: 2px;
+      border-color: gray;
+      color: white;
+    }
+  </style>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
+
+  <script type="text/javascript">
+    var nodes = null;
+    var edges = null;
+    var songs = null;
+    var network = null;
+
+    function request_graph() {
+      $.get("/graph", function(data) {
+        nodes = data.nodes;
+        edges = data.edges;
+        songs = data.songs;
+        draw();
+      })
+    }
+
+    function cv_resize() {
+        var w = $(window).width();
+        var h = $(window).height();
+        var network = $("#mynetwork");
+        network.css("width", w + "px");
+        network.css("height", h + "px");
+        var info = $("#infocontainer");
+    }
+    // Called when the Visualization API is loaded.
+    function draw() {
+      // create a network
+      var container = document.getElementById('mynetwork');
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {
+        width: '100%',
+        nodes: {
+          borderWidth:4,
+          size:30,
+          color: {
+            border: '#222222',
+          },
+          font:{color:'#eeeeee'}
+        },
+        edges: {
+          color: 'lightgray',
+          smooth: {
+            type:'continuous'
+          },
+          hoverWidth: 3
+        },
+        physics: { stabilization: false },
+        interaction: {
+          hover:true
+        }
+      };
+      network = new vis.Network(container, data, options);
+      network.on("selectEdge", function (params) {
+        var selectedSong = songs[params.edges[0]];
+        $('#playsong').html(selectedSong.embed);
+        $('#redditlink').attr("href", selectedSong.redditurl);
+        $('#author').html(selectedSong.author);
+      });
+      $(window).bind("resize", function(){
+        cv_resize();
+      });
+      cv_resize();
+    }
+
+  </script>
+</head>
+
+<body onload="request_graph()">
+  <div id="mynetwork"></div>
+
+
+  <div id="infocontainer">
+      <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
+      <b>Author: </b><div id="author"></div><br>
+      <a id="redditlink" href="" target="_blank">View on Reddit</a>
+  </div>
+
+</body>
+</html>
+
