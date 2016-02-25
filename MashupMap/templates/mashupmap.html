@@ -57,6 +57,7 @@
       network = new vis.Network(container, data, options);
       network.on("selectEdge", function (params) {
         $('#playsong').html(songs[params.edges[0]]);
+        $('.embedly-embed').width("90%");
       });
       $(window).on('resize', function(){
         network.redraw();

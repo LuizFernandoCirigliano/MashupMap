@@ -1,4 +1,4 @@
-from flask import render_template, jsonify
+from flask import render_template
 from MashupMap.reddit_bot import get_mashup_graph
 from MashupMap import app
 
