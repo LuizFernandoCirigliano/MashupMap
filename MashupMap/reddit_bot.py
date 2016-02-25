@@ -57,7 +57,13 @@ def get_mashup_graph():
                                     "id": eid
                                     })
                                 content = submission.media_embed.get('content')
+                                author = submission.author.name
+                                rurl = submission.permalink
                                 if content is not None:
-                                    songs[eid] = content
+                                    songs[eid] = {
+                                        "embed": content,
+                                        "author": author,
+                                        "redditurl": rurl
+                                    }
 
     return nodes, edges, songs
