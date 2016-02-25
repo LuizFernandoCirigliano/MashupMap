@@ -20,18 +20,19 @@
   <script type="text/javascript">
     var nodes = null;
     var edges = null;
-    var songs = {{ songs | safe }} ;
+    var songs = null;
     var network = null;
 
+    function request_graph() {
+      $.get("/graph", function(data) {
+        nodes = data.nodes;
+        edges = data.edges;
+        songs = data.songs;
+        draw();
+      })
+    }
     // Called when the Visualization API is loaded.
     function draw() {
-      // create people.
-      // value corresponds with the age of the person
-      nodes = {{ nodes | safe }};
-
-      // create connections between people
-      // value corresponds with the amount of contact between two people
-      edges = {{ edges | safe }};
       // create a network
       var container = document.getElementById('mynetwork');
       var data = {
@@ -69,7 +70,7 @@
   </script>
 </head>
 
-<body onload="draw()">
+<body onload="request_graph()">
 
 <div class="container">
   <div class="page-header">
