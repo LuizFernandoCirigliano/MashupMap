@@ -4,12 +4,6 @@ from MashupMap import app
 
 
 @app.route("/")
-def hello():
-    return render_template(
-        'mashupmap.html'
-        )
-
-
 @app.route("/full")
 def hello_full():
     return render_template(
