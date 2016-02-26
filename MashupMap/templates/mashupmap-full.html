@@ -11,13 +11,13 @@
       width: 200px;
       height: 200px;
       top: 0;
-      right: 0;
       position: absolute;
       background-color: black;
       border-style: solid;
       border-width: 2px;
-      border-color: gray;
+      border-color: white;
       color: white;
+      border-radius: 5%;
     }
   </style>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -25,12 +25,25 @@
   <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
   <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
-
+  <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
   <script type="text/javascript">
     var nodes = null;
     var edges = null;
     var songs = null;
     var network = null;
+
+    function start() {
+      request_graph();
+      $.fn.extend({
+        animateCss: function (animationName) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                $(this).removeClass('animated ' + animationName);
+            });
+        }
+      });
+    }
+
 
     function request_graph() {
       $.get("/graph", function(data) {
@@ -47,7 +60,14 @@
         var network = $("#mynetwork");
         network.css("width", w + "px");
         network.css("height", h + "px");
-        var info = $("#infocontainer");
+    }
+
+    function move_info_div(x, y) {
+      var infodiv = $("#infocontainer");
+      infodiv.show();
+      infodiv.css("left", x + "px");
+      infodiv.css("top", (y - 200) + "px");
+      $('#infocontainer').animateCss('bounceIn');
     }
     // Called when the Visualization API is loaded.
     function draw() {
@@ -85,6 +105,7 @@
         $('#playsong').html(selectedSong.embed);
         $('#redditlink').attr("href", selectedSong.redditurl);
         $('#author').html(selectedSong.author);
+        move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
       });
       $(window).bind("resize", function(){
         cv_resize();
@@ -95,15 +116,15 @@
   </script>
 </head>
 
-<body onload="request_graph()">
+<body onload="start()">
   <div id="mynetwork"></div>
 
-
-  <div id="infocontainer">
+  <div id="infocontainer" hidden>
       <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
-      <b>Author: </b><div id="author"></div><br>
+      <b>Author: </b><div id="author"></div>
       <a id="redditlink" href="" target="_blank">View on Reddit</a>
   </div>
+
 
 </body>
 </html>
