@@ -4,6 +4,9 @@
   <title>Mashup Map</title>
 
   <style type="text/css">
+    body {
+      background: black;
+    }
     #mynetwork {
       background-color:black;
       top:0;
@@ -24,11 +27,18 @@
       overflow: hidden;
     }
     .myheader {
-      background-color: transparent;
+      background-color: black;
       color: white;
       text-align: center;
       font-size: 32px;
     }
+    #loadingscreen {
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      text-align: center;
+    }
+
   </style>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -36,6 +46,7 @@
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
   <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
   <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
+  <link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
   <script type="text/javascript">
     var nodes = null;
     var edges = null;
@@ -56,12 +67,15 @@
 
 
     function request_graph() {
-      $.get("/graph", function(data) {
+      $.get("/graph").done(function(data) {
+        console.log("terminou");
         nodes = data.nodes;
         edges = data.edges;
         songs = data.songs;
         draw();
-      })
+        $(".myloader").hide();
+        $(".myheader").css("background-color", "transparent");
+      });
     }
 
     function cv_resize() {
@@ -93,6 +107,7 @@
         nodes: {
           borderWidth:4,
           size:30,
+          mass: 1.5,
           color: {
             border: '#222222',
           },
@@ -122,6 +137,7 @@
         cv_resize();
       });
       cv_resize();
+      $("#mynetwork").show();
     }
 
   </script>
@@ -129,8 +145,12 @@
 
 <body onload="start()">
   <div id="myheader" class="myheader">The Mashup Map <small>a visualization of r/mashup</small></div>
-  <div id="mysubheader" class="myheader"> <small>Click an edge to see the mashup between those artists</small></div>
-  <div id="mynetwork"></div>
+  <div id="mysubheader" class="myheader"> <small>Click a connection to see the mashup between those artists</small></div>
+  <br><br>
+  <div class="jawn myloader"></div>
+  <h3 style="color:black; text-align: center" class="myloader">Loading...</h3>
+
+  <div id="mynetwork" hidden></div>
 
   <div id="infocontainer" hidden>
       <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
