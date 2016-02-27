@@ -1,7 +1,11 @@
 from flask import Flask
 from flask.ext.cache import Cache
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+app.config.from_object('config')
 
-import MashupMap.views
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
+db = SQLAlchemy(app)
+
+import MashupMap.views, MashupMap.models

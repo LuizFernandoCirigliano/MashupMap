@@ -1,12 +1,12 @@
 import requests
-from MashupMap.models import Artist
-
-my_cache = {}
+import MashupMap.models as models
+from MashupMap import db
 
 
 def get_artist(artist_name):
-    if artist_name in my_cache:
-        return my_cache.get(artist_name)
+    artist = models.Artist.query.filter_by(name=artist_name).first()
+    if artist is not None:
+        return artist
 
     r = requests.get(
         'https://itunes.apple.com/search',
@@ -29,6 +29,12 @@ def get_artist(artist_name):
     if artist_id is None or artist_name is None:
         return None
 
-    new_artist = Artist(artist_id, artist_name_norm, artwork)
-    my_cache[artist_name] = new_artist
-    return new_artist
+    artist = models.get_or_create_by_id(
+        db.session,
+        models.Artist,
+        artist_id,
+        name=artist_name_norm,
+        imageURL=artwork
+        )
+
+    return artist

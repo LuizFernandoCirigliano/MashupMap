@@ -38,15 +38,15 @@ def get_mashup_graph():
                 if new_artist is None:
                     continue
                 # Add artist to the current mashup list
-                this_mashup_artists.append(new_artist.artistID)
+                this_mashup_artists.append(new_artist.id)
                 # If it's the first time we see this artist, create
                 # a new node
-                if new_artist.artistID not in already_inserted:
+                if new_artist.id not in already_inserted:
                     # Mark as inserted
-                    already_inserted[new_artist.artistID] = True
+                    already_inserted[new_artist.id] = True
                     # Insert in node list
                     nodes.append({
-                        "id": new_artist.artistID,
+                        "id": new_artist.id,
                         "shape": "circularImage",
                         "image": new_artist.imageURL,
                         "label": new_artist.name
