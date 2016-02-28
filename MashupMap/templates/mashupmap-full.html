@@ -57,8 +57,8 @@
     var nodeOptions = {
             shape: "circularImage",
             borderWidth:4,
-            size:30,
-            mass: 1.5,
+            size:25,
+            mass: 2,
             color: {
               border: '#222222',
             },
@@ -121,12 +121,17 @@
         width: '100%',
         nodes: nodeOptions,
         edges: {
+          width: 1,
           color: 'lightgray',
           smooth: false,
-          hoverWidth: 3
+          hoverWidth: 5
         },
         physics: {
           stabilization: false,
+          repulsion: {
+            springLength: 300,
+            springConstant: 0.01
+          }
         },
         interaction: {
           hover:true,
@@ -144,12 +149,12 @@
         move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
       });
       network.on("zoom", function(params) {
-        if (showingImages == true && params.scale < 0.5) {
+        if (showingImages == true && params.scale < 0.7) {
           showingImages = false;
           nodeOptions.shape = "icon";
           network.setOptions({nodes:nodeOptions});
         }
-        else if (showingImages == false && params.scale > 0.5) {
+        else if (showingImages == false && params.scale > 0.7) {
           showingImages = true;
           nodeOptions.shape = "circularImage";
           network.setOptions({nodes:nodeOptions});
