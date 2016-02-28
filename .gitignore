@@ -58,3 +58,4 @@ target/
 *.sublime-workspace
 db_repository
 .DS_Store
+*.db
