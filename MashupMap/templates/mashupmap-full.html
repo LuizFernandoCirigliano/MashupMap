@@ -15,16 +15,27 @@
     }
     #infocontainer {
       width: 200px;
-      height: 200px;
+      height: 160px;
       top: 0;
       position: absolute;
-      background-color: black;
+      background-color: #252525;
       border-style: solid;
       border-width: 2px;
       border-color: white;
       color: white;
       border-radius: 5%;
       overflow: hidden;
+    }
+    #myplayer {
+      position:absolute;
+      width:356px;
+      height:200px;
+      margin-left:-178px;
+      bottom:0px;
+      left:50%;
+      border-style: solid;
+      border-width: 2px;
+      border-color: white;
     }
     .myheader {
       background-color: black;
@@ -47,11 +58,13 @@
   <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
   <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
+  <link href="/static/stylesheets/playbutton.css" rel="stylesheet" type="text/css">
   <script type="text/javascript">
     var nodes = null;
     var edges = null;
     var songs = null;
     var network = null;
+    var current_song = null;
 
     var showingImages=false;
     var nodeOptions = {
@@ -62,7 +75,10 @@
             color: {
               border: '#222222',
             },
-            font:{color:'#eeeeee'}
+            font:{color:'#eeeeee'},
+            icon: {
+              code: '\u2022'
+            }
           };
 
     function start() {
@@ -75,9 +91,19 @@
             });
         }
       });
+      var icon = $('.play');
+      icon.click(function() {
+         icon.toggleClass('active');
+         return false;
+      });
+      $(window).bind("resize", function(){
+        cv_resize();
+      });
     }
 
-
+    function play_song() {
+      $("#playsong").html(current_song);
+    }
     function request_graph() {
       $.get("/graph").done(function(data) {
         console.log("terminou");
@@ -102,7 +128,7 @@
       var infodiv = $("#infocontainer");
       infodiv.show();
       infodiv.css("left", x + "px");
-      infodiv.css("top", (y - 200) + "px");
+      infodiv.css("top", (y - 150) + "px");
       $('#infocontainer').animateCss('bounceIn');
       $('#mysubheader').hide();
     }
@@ -145,7 +171,7 @@
       network = new vis.Network(container, data, options);
       network.on("selectEdge", function (params) {
         var selectedSong = songs[params.edges[0]];
-        $('#playsong').html(selectedSong.embed);
+        current_song = selectedSong.embed;
         $('#redditlink').attr("href", selectedSong.redditurl);
         $('#author').html(selectedSong.author);
         move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
@@ -162,11 +188,10 @@
           network.setOptions({nodes:nodeOptions});
         }
       });
-      $(window).bind("resize", function(){
-        cv_resize();
-      });
+
       cv_resize();
       $("#mynetwork").show();
+
     }
 
   </script>
@@ -182,12 +207,19 @@
   <div id="mynetwork" hidden></div>
 
   <div id="infocontainer" hidden>
-      <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
+      {# <a href="#" title="Play video" class="play"></a> #}
+      <center>
+      <br>
+      <div class="play-button" onclick="play_song()"></div>
+      <br>
       <b>Author: </b><div id="author"></div>
       <a id="redditlink" href="" target="_blank">View on Reddit</a>
+      </center>
   </div>
 
-
+  <div id="myplayer">
+    <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
+  </div>
 </body>
 </html>
 
