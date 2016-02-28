@@ -3,59 +3,14 @@
 <head>
   <title>Mashup Map</title>
 
-  <style type="text/css">
-    body {
-      background: black;
-    }
-    #mynetwork {
-      background-color:black;
-      top:0;
-      position: absolute;
-      z-index: -1;
-    }
-    #infocontainer {
-      width: 200px;
-      height: 160px;
-      top: 0;
-      position: absolute;
-      background-color: #252525;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-      color: white;
-      border-radius: 5%;
-      overflow: hidden;
-    }
-    #myplayer {
-      position:absolute;
-      width:356px;
-      height:200px;
-      margin-left:-178px;
-      bottom:0px;
-      left:50%;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-    }
-    .myheader {
-      background-color: black;
-      color: white;
-      text-align: center;
-      font-size: 32px;
-    }
-    #loadingscreen {
-      width: 100vw;
-      height: 100vh;
-      background-color: black;
-      text-align: center;
-    }
 
-  </style>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
   <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
+  <link href="/static/stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
+ 
   <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/playbutton.css" rel="stylesheet" type="text/css">
@@ -71,7 +26,7 @@
             shape: "circularImage",
             borderWidth:4,
             size:25,
-            mass: 2,
+            mass: 8,
             color: {
               border: '#222222',
             },
@@ -156,8 +111,10 @@
           // enabled: false,
           stabilization: false,
           repulsion: {
-            springLength: 300,
-            springConstant: 0.01
+            nodeDistance: 200,
+            springLength: 20000,
+            springConstant: 0.001,
+            damping : 0.01
           }
           // stabilization.iterations: 200,
         },
@@ -191,6 +148,7 @@
 
       cv_resize();
       $("#mynetwork").show();
+      $
 
     }
 
@@ -219,6 +177,23 @@
 
   <div id="myplayer">
     <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
+      
+  </div>
+  <div id="random_mashup">
+        <button type="button" id="random_mashup_button"class="btn btn-success btn-circle btn-lg">
+          <i class="glyphicon glyphicon-random"></i>
+        </button>
+  </div>
+  <div id="random_label">
+    <label for="random_mashup_button">Random</label>
+  </div>
+  <div id="request_mashup">
+        <button type="button" id="request_mashup_button" class="btn btn-success btn-circle btn-lg">
+          <i class="glyphicon glyphicon-music"></i>
+        </button>
+  </div>
+  <div id="request_label">
+    <label for="request_mashup_button">Request Mashup</label>
   </div>
 </body>
 </html>
