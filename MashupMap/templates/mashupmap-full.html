@@ -56,9 +56,18 @@
       });
     }
 
-    function play_song() {
-      $("#playsong").html(current_song);
+    function choose_random() {
+      var random = Math.floor(Math.random()*songs.length);
+      while (random == current_song) {
+        random = Math.floor(Math.random()*songs.length);
+      }
+      current_song = random;
+      play_song();
     }
+    function play_song() {
+      $("#playsong").html(songs[current_song].embed);
+    }
+
     function request_graph() {
       $.get("/graph").done(function(data) {
         console.log("terminou");
@@ -127,8 +136,9 @@
       };
       network = new vis.Network(container, data, options);
       network.on("selectEdge", function (params) {
-        var selectedSong = songs[params.edges[0]];
-        current_song = selectedSong.embed;
+        console.log(params)
+        current_song = params.edges[0]
+        var selectedSong = songs[current_song];
         $('#redditlink').attr("href", selectedSong.redditurl);
         $('#author').html(selectedSong.author);
         move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);

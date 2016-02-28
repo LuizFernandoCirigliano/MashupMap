@@ -12,7 +12,7 @@ def random_color():
 def get_mashup_graph():
     nodes = []
     edges = []
-    songs = {}
+    songs = []
 
     artists = Artist.query.all()
     mashups = Mashup.query.all()
@@ -36,10 +36,11 @@ def get_mashup_graph():
                         "color": mashup_color,
                         "title": mashup.title
                         })
-                    songs[eid] = {
+                    songs.append({
                         "embed": mashup.content,
                         "author": mashup.author,
-                        "redditurl": mashup.permalink
-                    }
+                        "redditurl": mashup.permalink,
+                        "title": mashup.title
+                    })
 
     return nodes, edges, songs
