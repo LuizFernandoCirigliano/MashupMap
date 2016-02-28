@@ -9,6 +9,7 @@ MarkupSafe==0.23
 pbr==1.8.1
 pickleDB==0.6.2
 praw==3.4.0
+psycopg2==2.6.1
 requests==2.9.1
 simplejson==3.8.2
 six==1.10.0
