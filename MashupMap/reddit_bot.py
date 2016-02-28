@@ -34,6 +34,8 @@ def insert_submission_in_db(submission):
         return None
 
     artists_names = artist_list_from_title(submission.title)
+    if artists_names == None:
+        return None
     content = submission.media_embed.get('content')
     if content is None:
         return None
