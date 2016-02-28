@@ -14,16 +14,26 @@ user_agent = os.environ.get('USER_AGENT')
 r = praw.Reddit(user_agent=user_agent)
 
 
+
+def artist_list_from_title(title):
+    # text_in_par is an array of tuples. Each tuple contains a match for at least one of the
+    #cases in the regex. If the first case is found, the match is stored on the position 0 of the tuple,
+    # if the second case if found, its stored in the position 1 of the tuple.
+    text_in_par = re.findall('\(([^\)]+)\) | \[([^\]]+)\]', title)
+    if len(text_in_par) == 0 or len(text_in_par[0]) == 0:
+        return None
+
+
+    text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
+
+    artists_names = [x.strip() for x in text_from_match.split(',')]
+    return artists_names
+
 def insert_submission_in_db(submission):
     if submission.is_self:
         return None
-    # text_in_par is an array of strings found inside parenthesis
-    text_in_par = re.findall('\(([^\)]+)\)', submission.title)
-    if len(text_in_par) == 0:
-        return None
-
-    artists_names = text_in_par[0].split(',')
-
+    
+    artists_names = artist_list_from_title(submission.title)
     content = submission.media_embed.get('content')
     if content is None:
         return None
@@ -76,6 +86,16 @@ def download_new_submissions():
         params={
             "after": last
         },
+        limit=None
+    )
+    for submission in submissions:
+        insert_submission_in_db(submission)
+
+
+
+def download_top_submissions():
+    last = pdb.get(KEY_LAST_REDDIT)
+    submissions = r.get_subreddit('mashups').get_top_from_all(
         limit=None
     )
     for submission in submissions:
