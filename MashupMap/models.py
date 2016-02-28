@@ -9,7 +9,7 @@ artists = db.Table(
 
 class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), index=True, unique=True)
+    name = db.Column(db.String(200), index=True, unique=True)
     imageURL = db.Column(db.String(2000))
 
     def __repr__(self):
@@ -19,7 +19,7 @@ class Artist(db.Model):
 class Mashup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300))
-    author = db.Column(db.String(32), index=True)
+    author = db.Column(db.String(100), index=True)
     permalink = db.Column(db.String(1000), unique=True)
     date = db.Column(db.DateTime, index=True)
     artists = db.relationship(
