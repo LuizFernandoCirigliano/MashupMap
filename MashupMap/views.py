@@ -1,5 +1,5 @@
 from flask import render_template, jsonify
-from MashupMap.reddit_bot import get_mashup_graph
+from MashupMap.graph_maker import get_mashup_graph
 from MashupMap import app
 
 

@@ -53,6 +53,18 @@
     var songs = null;
     var network = null;
 
+    var showingImages=false;
+    var nodeOptions = {
+            shape: "circularImage",
+            borderWidth:4,
+            size:30,
+            mass: 1.5,
+            color: {
+              border: '#222222',
+            },
+            font:{color:'#eeeeee'}
+          };
+
     function start() {
       request_graph();
       $.fn.extend({
@@ -103,26 +115,24 @@
         edges: edges
       };
       var options = {
-        width: '100%',
-        nodes: {
-          borderWidth:4,
-          size:30,
-          mass: 1.5,
-          color: {
-            border: '#222222',
-          },
-          font:{color:'#eeeeee'}
+        layout: {
+          improvedLayout:false
         },
+        width: '100%',
+        nodes: nodeOptions,
         edges: {
           color: 'lightgray',
-          smooth: {
-            type:'continuous'
-          },
+          smooth: false,
           hoverWidth: 3
         },
-        physics: { stabilization: false },
+        physics: {
+          stabilization: false,
+        },
         interaction: {
-          hover:true
+          hover:true,
+          tooltipDelay: 200,
+          hideEdgesOnDrag: true,
+          navigationButtons: true
         }
       };
       network = new vis.Network(container, data, options);
@@ -132,6 +142,18 @@
         $('#redditlink').attr("href", selectedSong.redditurl);
         $('#author').html(selectedSong.author);
         move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
+      });
+      network.on("zoom", function(params) {
+        if (showingImages == true && params.scale < 0.5) {
+          showingImages = false;
+          nodeOptions.shape = "icon";
+          network.setOptions({nodes:nodeOptions});
+        }
+        else if (showingImages == false && params.scale > 0.5) {
+          showingImages = true;
+          nodeOptions.shape = "circularImage";
+          network.setOptions({nodes:nodeOptions});
+        }
       });
       $(window).bind("resize", function(){
         cv_resize();

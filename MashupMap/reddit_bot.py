@@ -2,22 +2,16 @@ import praw
 import re
 import MashupMap.music_api as m
 import os
-from MashupMap import cache, db
-import random
+from MashupMap import db
 import pickledb
 import datetime
-from MashupMap.models import Artist, Mashup
+from MashupMap.models import Mashup
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
 pdb = pickledb.load('pickle.db', False)
 
 user_agent = os.environ.get('USER_AGENT')
 r = praw.Reddit(user_agent=user_agent)
-
-
-def random_color():
-    rc = lambda: random.randint(0, 255)
-    return '#%02X%02X%02X' % (rc(), rc(), rc())
 
 
 def insert_submission_in_db(submission):
@@ -34,7 +28,10 @@ def insert_submission_in_db(submission):
     if content is None:
         return None
 
-    author = submission.author.name
+    author = None
+    if submission.author:
+        author = submission.author.name
+
     reddit_url = submission.permalink
     date = datetime.datetime.utcfromtimestamp(
         submission.created_utc
@@ -76,44 +73,8 @@ def download_new_submissions():
         after_field='after',
         params={
             "after": last
-        }
+        },
+        limit=None
     )
     for submission in submissions:
         insert_submission_in_db(submission)
-
-
-@cache.cached(timeout=60*60*4, key_prefix='get_mashup_graph')
-def get_mashup_graph():
-    nodes = []
-    edges = []
-    songs = {}
-
-    artists = Artist.query.all()
-    mashups = Mashup.query.all()
-
-    for artist in artists:
-        nodes.append({
-            "id": artist.id,
-            "shape": "circularImage",
-            "image": artist.imageURL,
-            "label": artist.name
-        })
-    for mashup in mashups:
-        mashup_color = random_color()
-        for a1 in mashup.artists:
-            for a2 in mashup.artists:
-                if a1.id < a2.id:
-                    eid = len(edges)
-                    edges.append({
-                        "from": a1.id,
-                        "to": a2.id,
-                        "id": eid,
-                        "color": mashup_color
-                        })
-                    songs[eid] = {
-                        "embed": mashup.content,
-                        "author": mashup.author,
-                        "redditurl": mashup.permalink
-                    }
-
-    return nodes, edges, songs
