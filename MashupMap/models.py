@@ -39,9 +39,13 @@ def get_or_create(session, model, **kwargs):
         return instance
     else:
         instance = model(**kwargs)
-        session.add(instance)
-        session.commit()
-        return instance
+        try:
+            session.add(instance)
+            session.commit()
+            return instance
+        except:
+            session.rollback()
+            return None
 
 
 def get_or_create_by_id(session, model, instance_id, **kwargs):

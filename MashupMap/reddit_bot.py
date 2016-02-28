@@ -57,13 +57,15 @@ def insert_submission_in_db(submission):
         if new_artist is not None:
             # Add artist to the current mashup
             mashup.artists.append(new_artist)
-    db.session.add(mashup)
-    db.session.commit()
+    try:
+        db.session.add(mashup)
+        db.session.commit()
 
-    last = pdb.get(KEY_LAST_REDDIT)
-    if last is None or submission.id > last:
-        pdb.set(KEY_LAST_REDDIT, last)
-
+        last = pdb.get(KEY_LAST_REDDIT)
+        if last is None or submission.id > last:
+            pdb.set(KEY_LAST_REDDIT, last)
+    except:
+        db.session.rollback()
     return mashup
 
 
