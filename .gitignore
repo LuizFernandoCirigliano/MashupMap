@@ -57,3 +57,4 @@ target/
 *.sublime-project
 *.sublime-workspace
 db_repository
+*.db
