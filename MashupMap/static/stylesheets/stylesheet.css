@@ -1,0 +1,98 @@
+    body {
+      background: black;
+    }
+    #mynetwork {
+      background-color:black;
+      top:0;
+      position: absolute;
+      z-index: -1;
+    }
+    #infocontainer {
+      width: 200px;
+      height: 160px;
+      top: 0;
+      position: absolute;
+      background-color: #252525;
+      border-style: solid;
+      border-width: 2px;
+      border-color: white;
+      color: white;
+      border-radius: 5%;
+      overflow: hidden;
+    }
+    #myplayer {
+      position:absolute;
+      width:356px;
+      height:200px;
+      margin-left:-178px;
+      bottom:0px;
+      left:50%;
+      border-style: solid;
+      border-width: 2px;
+      border-color: white;
+    }
+    .myheader {
+      background-color: black;
+      color: white;
+      text-align: center;
+      font-size: 32px;
+    }
+    #loadingscreen {
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      text-align: center;
+    }
+
+
+    .btn-circle {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      padding: 6px 0;
+      font-size: 12px;
+      line-height: 1.428571429;
+      border-radius: 15px;
+    }
+    .btn-circle.btn-lg {
+      width: 50px;
+      height: 50px;
+      padding: 10px 16px;
+      font-size: 18px;
+      line-height: 1.33;
+      border-radius: 25px;
+    }
+    .btn-circle.btn-xl {
+      width: 70px;
+      height: 70px;
+      padding: 10px 16px;
+      font-size: 24px;
+      line-height: 1.33;
+      border-radius: 35px;
+    }
+
+    #request_mashup {
+      position: fixed;
+      right: 31%;
+      bottom: 4%;
+
+    }
+    #request_label {
+      position: fixed;
+      right: 28.0%;
+      bottom: 0.3%;
+      color: white;
+      font-size: 15px;
+    }
+    #random_mashup {
+      position: fixed;
+      left: 31%;
+      bottom: 4%;
+    }
+    #random_label {
+      position: fixed;
+      left: 30.5%;
+      bottom: 0.3%;
+      color: white;
+      font-size: 15px;
+    }
