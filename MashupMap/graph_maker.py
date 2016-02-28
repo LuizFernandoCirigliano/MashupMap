@@ -33,7 +33,8 @@ def get_mashup_graph():
                         "from": a1.id,
                         "to": a2.id,
                         "id": eid,
-                        "color": mashup_color
+                        "color": mashup_color,
+                        "title": mashup.title
                         })
                     songs[eid] = {
                         "embed": mashup.content,
