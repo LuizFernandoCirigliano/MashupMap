@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from MashupMap.reddit_bot import download_top_submissions, artist_list_from_title
+from MashupMap.reddit_bot import download_top_submissions, artist_list_from_title, download_new_submissions
 app = Flask(__name__)
 app.config.from_object('config')
 
