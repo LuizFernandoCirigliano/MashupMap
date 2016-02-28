@@ -20,12 +20,14 @@ class Mashup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300))
     author = db.Column(db.String(32), index=True)
-    permalink = db.Column(db.String(2000), unique=True)
+    permalink = db.Column(db.String(1000), unique=True)
+    date = db.Column(db.DateTime, index=True)
     artists = db.relationship(
         'Artist',
         secondary=artists,
         backref=db.backref('artist_mashups')
         )
+    content = db.Column(db.String(1000))
 
     def __repr__(self):
         return '<Mashup %r>' % (self.title)
