@@ -6,7 +6,7 @@
 
     var showingImages=false;
     var nodeOptions = {
-            shape: "circularImage",
+            shape: "icon",
             borderWidth:4,
             size:25,
             mass: 8,
@@ -49,6 +49,7 @@
     }
     function play_song() {
       $("#playsong").html(songs[current_song].embed);
+      $("#infocontainer").hide();
     }
 
     function request_graph() {
