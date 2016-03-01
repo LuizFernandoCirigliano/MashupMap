@@ -95,7 +95,7 @@
         width: '100%',
         nodes: nodeOptions,
         edges: {
-          width: 0.1,
+          width: 1,
           color: 'lightgray',
           smooth: false,
           hoverWidth: 5

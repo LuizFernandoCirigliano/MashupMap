@@ -15,7 +15,7 @@ def get_mashup_graph():
     songs = []
 
     artists = Artist.query.all()
-    mashups = Mashup.query.all()
+    mashups = Mashup.query.limit(300)
 
     for artist in artists:
         nodes.append({
