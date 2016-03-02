@@ -9,7 +9,7 @@
             shape: "icon",
             borderWidth:4,
             size:25,
-            mass: 4,
+            mass: 2,
             color: {
               border: '#222222',
             },
@@ -102,9 +102,12 @@
         },
         physics: {
           // enabled: false,
-          stabilization: false,
+          stabilization: {
+            enabled:true,
+            iterations:200
+          },
           repulsion: {
-            nodeDistance: 200,
+            nodeDistance: 100,
             springLength: 1000,
             springConstant: 0.01,
             damping : 0.01
