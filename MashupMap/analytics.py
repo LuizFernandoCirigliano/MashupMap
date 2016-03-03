@@ -1,4 +1,4 @@
-from models import Counters, get_or_create
+from MashupMap.models import Counters, get_or_create
 from MashupMap import db
 
 
