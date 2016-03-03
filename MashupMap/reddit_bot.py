@@ -3,12 +3,11 @@ import re
 import MashupMap.music_api as m
 import os
 from MashupMap import db
-import pickledb
+
 import datetime
-from MashupMap.models import Mashup
+from MashupMap.models import Mashup, pdb
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
-pdb = pickledb.load('pickle.db', False)
 
 user_agent = os.environ.get('USER_AGENT')
 r = praw.Reddit(user_agent=user_agent)

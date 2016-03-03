@@ -1,11 +1,13 @@
 from flask import render_template, jsonify
 from MashupMap.graph_maker import get_mashup_graph
 from MashupMap import app
+from MashupMap.analytics import count_stuff
 
 
 @app.route("/")
 @app.route("/full")
 def hello_full():
+
     return render_template(
         'mashupmap-full.html'
         )
@@ -19,3 +21,9 @@ def get_graph():
         "edges": edges,
         "songs": songs
     })
+
+
+@app.route("/count/<key>", methods=["POST"])
+def count_route(key):
+    count_stuff(key)
+    return ""

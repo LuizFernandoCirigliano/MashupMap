@@ -48,6 +48,7 @@
       play_song();
     }
     function play_song() {
+      $.post("/count/playcounter");
       $("#playsong").html(songs[current_song].embed);
       $("#infocontainer").hide();
     }
