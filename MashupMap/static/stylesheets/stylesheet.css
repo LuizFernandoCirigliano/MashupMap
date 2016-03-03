@@ -31,6 +31,36 @@
       border-width: 2px;
       border-color: white;
     }
+    #request_mashup {
+      position: absolute;
+      left:50%;
+      margin-left:200px;
+      bottom: 4%;
+    }
+    #request_label {
+      position: absolute;
+      left:50%;
+      margin-left:195px;
+      bottom: 0.3%;
+      color: white;
+      font-size: 15px;
+      text-align: center;
+    }
+    #random_mashup {
+      position: absolute;
+      left:50%;
+      margin-left:-240px;
+      bottom: 4%;
+    }
+    #random_label {
+      position: absolute;
+      left:50%;
+      margin-left:-245px;
+      bottom: 0.3%;
+      color: white;
+      font-size: 15px;
+      text-align: center;
+    }
     .myheader {
       background-color: black;
       color: white;
@@ -69,30 +99,4 @@
       font-size: 24px;
       line-height: 1.33;
       border-radius: 35px;
-    }
-
-    #request_mashup {
-      position: fixed;
-      right: 31%;
-      bottom: 4%;
-
-    }
-    #request_label {
-      position: fixed;
-      right: 28.0%;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-    }
-    #random_mashup {
-      position: fixed;
-      left: 31%;
-      bottom: 4%;
-    }
-    #random_label {
-      position: fixed;
-      left: 30.5%;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
     }
