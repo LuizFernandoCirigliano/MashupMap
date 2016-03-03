@@ -98,7 +98,7 @@
         edges: {
           width: 1,
           color: 'lightgray',
-          smooth: false,
+          // smooth: true,
           hoverWidth: 5
         },
         physics: {
