@@ -33,6 +33,19 @@ class Mashup(db.Model):
         return '<Mashup %r>' % (self.title)
 
 
+class Counters(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    key = db.Column(db.String(10), index=True, unique=True)
+    value = db.Column(db.Integer)
+
+    def __repr__(self):
+        return self.key + ": " + str(self.value)
+
+    def __init__(self, key, value=0):
+        self.key = key
+        self.value = value
+
+
 def get_or_create(session, model, **kwargs):
     instance = session.query(model).filter_by(**kwargs).first()
     if instance:

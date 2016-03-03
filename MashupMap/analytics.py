@@ -1,23 +1,15 @@
-from config import basedir
-import os
-
-
-play_counter_path = os.path.join(basedir, 'playcounter.db')
+from models import Counters, get_or_create
+from MashupMap import db
 
 
 def count_stuff(key):
-    if key == "playcounter":
-        try:
-            with open(play_counter_path) as f:
-                counter = int(f.read()) + 1
-        except IOError:
-            counter = 1
-        with open(play_counter_path, "w") as f:
-            f.write(str(counter))
+    if key == "playcount":
+        mycnt = get_or_create(db.session, Counters, key=key)
+        mycnt.value += 1
+        db.session.commit()
 
 
 def print_stuff(key):
-    if key == "playcounter":
-        with open(play_counter_path) as f:
-            counter = int(f.read())
-            print(counter)
+    if key == "playcount":
+        mycnt = get_or_create(db.session, Counters, key=key)
+        print(key + " ", mycnt.value)
