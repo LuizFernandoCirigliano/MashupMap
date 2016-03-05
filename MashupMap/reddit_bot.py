@@ -81,13 +81,16 @@ def insert_submission_in_db(submission):
 
 
 def download_new_submissions():
-    last = pdb.get(KEY_LAST_REDDIT)
+    # last = pdb.get(KEY_LAST_REDDIT)
+    # submissions = r.get_subreddit('mashups').get_hot(
+    #     after_field='after',
+    #     params={
+    #         "after": last
+    #     },
+    #     limit=None
+    # )
     submissions = r.get_subreddit('mashups').get_hot(
-        after_field='after',
-        params={
-            "after": last
-        },
-        limit=None
+        limit=200
     )
     for submission in submissions:
         insert_submission_in_db(submission)
