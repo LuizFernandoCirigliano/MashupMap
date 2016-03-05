@@ -39,17 +39,46 @@
       });
     }
 
-    function choose_random() {
+    function play_random_song() {
       var random = Math.floor(Math.random()*songs.length);
       while (random == current_song) {
         random = Math.floor(Math.random()*songs.length);
       }
       current_song = random;
-      play_song();
+      play_song(songs[current_song].embed, true);
     }
-    function play_song() {
+
+    function play_selected_song() {
+      var selectedSong = songs[current_song];
+      play_song(selectedSong.embed, false);
+    }
+
+    function play_song(song_embed, continuous) {
       $.post("/count/playcount");
-      $("#playsong").html(songs[current_song].embed);
+      $("#playsong").html(song_embed);
+      var iframe = $("#playsong iframe").get(0);
+      // initialize the player.
+      var player = new playerjs.Player(iframe);
+
+      // Wait for the player to be ready.
+      player.on('ready', function(){
+        if (continuous) {
+          // Listen to the play event.
+          player.on('ended', function(){
+            // Tell Google analytics that a video was played.
+            play_random_song();
+          });
+
+          // Listen to the play event.
+          player.on('error', function(){
+            // Tell Google analytics that a video was played.
+            console.log("Iframe Error");
+            play_random_song();
+          });
+        }
+        //autoplay the video.
+        player.play();
+      });
       $("#infocontainer").hide();
     }
 
@@ -123,6 +152,10 @@
         }
       };
       network = new vis.Network(container, data, options);
+      network.on("dragStart", function(params) {
+         $("#infocontainer").hide();
+      });
+
       network.on("selectEdge", function (params) {
         console.log(params)
         current_song = params.edges[0]
@@ -131,6 +164,7 @@
         $('#author').html(selectedSong.author);
         move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
       });
+
       network.on("zoom", function(params) {
         if (showingImages == true && params.scale < 0.7) {
           showingImages = false;
@@ -147,7 +181,7 @@
       cv_resize();
       $("#mynetwork").show();
       $('#random_mashup_button').click(function(){
-        choose_random();
+        play_random_song();
       });
 
     }
