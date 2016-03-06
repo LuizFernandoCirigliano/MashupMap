@@ -52,11 +52,15 @@
       $("#infocontainer").hide();
     }
     $('request_mashup_button').click(function() {
+      
         request_form_counter++;
     });
 
     function request_graph() {
-      $.get("/graph").done(function(data) {
+      var artist_name = $('#artist_name_div').text();
+      
+      console.log(artist_name);
+      $.get("/graph/artist/" + artist_name).done(function(data) {
         console.log("terminou");
         nodes = data.nodes;
         edges = data.edges;
@@ -147,6 +151,8 @@
       $("#mynetwork").show();
       $('#random_mashup_button').click(function(){
         choose_random();
+        $('#artist_name_div').text(artist_name);
       });
+
 
     }

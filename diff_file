@@ -1,0 +1,155 @@
+diff --git a/MashupMap/graph_maker.py b/MashupMap/graph_maker.py
+index 720b22a..0c7f5b0 100644
+--- a/MashupMap/graph_maker.py
++++ b/MashupMap/graph_maker.py
+@@ -1,6 +1,6 @@
+ import random
+ from MashupMap import cache
+-from MashupMap.models import Mashup
++from MashupMap.models import Mashup, Artist
+ 
+ 
+ def random_color():
+@@ -45,3 +45,54 @@ def get_mashup_graph():
+             "label": a.name
+         })
+     return nodes, edges, songs
++
++
++# @cache.cached(timeout=60*2, key_prefix='get_artist_mashups')
++def get_artist_mashups(artist_name):
++    artistset = set()
++    nodes = []
++    edges = []
++    songs = []
++
++    # mashups = random.sample(Mashup.query.all(), 300)
++    try:
++        artist = Artist.query.filter_by(name=artist_name).first()
++    except:
++        return get_mashup_graph()
++
++    if artist:
++        mashups = artist.artist_mashups
++    else:
++        return get_mashup_graph()
++        
++    # print(artist.artist_mashups)
++    # mashups = Mashup.query.filter(artist.in_(artists)).all()
++
++    for mashup in mashups:
++        mashup_color = random_color()
++        for a1 in mashup.artists:
++            artistset.add(a1)
++            for a2 in mashup.artists:
++                if a1.id < a2.id:
++                    eid = len(edges)
++                    edges.append({
++                        "from": a1.id,
++                        "to": a2.id,
++                        "id": eid,
++                        "color": mashup_color,
++                        "title": mashup.title
++                        })
++                    songs.append({
++                        "embed": mashup.content,
++                        "author": mashup.author,
++                        "redditurl": mashup.permalink,
++                        "title": mashup.title
++                    })
++
++    for a in artistset:
++        nodes.append({
++            "id": a.id,
++            "image": a.imageURL,
++            "label": a.name
++        })
++    return nodes, edges, songs
+\ No newline at end of file
+diff --git a/MashupMap/static/js/scripts.js b/MashupMap/static/js/scripts.js
+index 49ffdaf..9ea7b9b 100644
+--- a/MashupMap/static/js/scripts.js
++++ b/MashupMap/static/js/scripts.js
+@@ -9,7 +9,7 @@
+             shape: "icon",
+             borderWidth:4,
+             size:25,
+-            mass: 2,
++            mass: 4,
+             color: {
+               border: '#222222',
+             },
+@@ -48,10 +48,12 @@
+       play_song();
+     }
+     function play_song() {
+-      $.post("/count/playcount");
+       $("#playsong").html(songs[current_song].embed);
+       $("#infocontainer").hide();
+     }
++    $('request_mashup_button').click(function() {
++        request_form_counter++;
++    });
+ 
+     function request_graph() {
+       $.get("/graph").done(function(data) {
+@@ -98,17 +100,14 @@
+         edges: {
+           width: 1,
+           color: 'lightgray',
+-          // smooth: true,
++          smooth: false,
+           hoverWidth: 5
+         },
+         physics: {
+           // enabled: false,
+-          stabilization: {
+-            enabled:true,
+-            iterations:200
+-          },
++          stabilization: false,
+           repulsion: {
+-            nodeDistance: 100,
++            nodeDistance: 200,
+             springLength: 1000,
+             springConstant: 0.01,
+             damping : 0.01
+diff --git a/MashupMap/views.py b/MashupMap/views.py
+index b3c35e1..822c54a 100644
+--- a/MashupMap/views.py
++++ b/MashupMap/views.py
+@@ -1,5 +1,5 @@
+ from flask import render_template, jsonify
+-from MashupMap.graph_maker import get_mashup_graph
++from MashupMap.graph_maker import get_mashup_graph, get_artist_mashups
+ from MashupMap import app
+ from MashupMap.analytics import count_stuff
+ 
+@@ -12,6 +12,11 @@ def hello_full():
+         'mashupmap-full.html'
+         )
+ 
++@app.route("/artist/<artist_name>")
++def artist_mashups(artist_name):
++    return render_template('mashupmap-artist.html', artist_name=artist_name)
++
++
+ 
+ @app.route("/graph")
+ def get_graph():
+@@ -23,6 +28,15 @@ def get_graph():
+     })
+ 
+ 
++@app.route("/graph/artist/<artist_name>")
++def get_artist_graph(artist_name):
++    nodes, edges, songs = get_artist_mashups(artist_name)
++    return jsonify({
++        "nodes": nodes,
++        "edges": edges,
++        "songs": songs
++})
++
+ @app.route("/count/<key>", methods=["POST"])
+ def count_route(key):
+     count_stuff(key)
