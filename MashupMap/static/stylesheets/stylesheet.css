@@ -109,3 +109,11 @@
       top: 12%;
       /*height: 2%;*/
     }
+
+    #submit_artist_div {
+      position: absolute;
+      right: 1.5%;
+      top: 18%;
+    }
+
+

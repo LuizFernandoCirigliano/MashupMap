@@ -56,15 +56,27 @@
     });
 
     function request_graph() {
-      $.get("/graph").done(function(data) {
-        console.log("terminou");
-        nodes = data.nodes;
-        edges = data.edges;
-        songs = data.songs;
-        draw();
-        $(".myloader").hide();
-        $(".myheader").css("background-color", "transparent");
-      });
+       var artist_name = $('#artist_input').val();
+    
+        console.log(artist_name);
+        $.get("/graph/artist/" + artist_name).done(function(data) {
+            nodes = data.nodes;
+            edges = data.edges;
+            songs = data.songs;
+            draw();
+            $(".myloader").hide();
+            $(".myheader").css("background-color", "transparent");
+        })
+        .fail(function(data) {
+            $.get("/graph").done(function(data) {
+              nodes = data.nodes;
+              edges = data.edges;
+              songs = data.songs;
+              draw();
+              $(".myloader").hide();
+              $(".myheader").css("background-color", "transparent");
+            });
+        });
     }
 
     function cv_resize() {
@@ -148,5 +160,14 @@
       $('#random_mashup_button').click(function(){
         choose_random();
       });
+
+        $('#submit_artist').click(function() {
+            request_graph();
+        });
+
+        $('#artist_input').change(function() {
+          console.log('Input form changed!');
+          request_graph();
+        });
 
     }
