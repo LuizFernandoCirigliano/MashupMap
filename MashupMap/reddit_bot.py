@@ -5,7 +5,7 @@ import os
 from MashupMap import db
 
 import datetime
-from MashupMap.models import Mashup, pdb
+from MashupMap.models import Mashup
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
 
@@ -72,22 +72,25 @@ def insert_submission_in_db(submission):
         db.session.add(mashup)
         db.session.commit()
 
-        last = pdb.get(KEY_LAST_REDDIT)
-        if last is None or submission.id > last:
-            pdb.set(KEY_LAST_REDDIT, last)
+        # last = pdb.get(KEY_LAST_REDDIT)
+        # if last is None or submission.id > last:
+        #     pdb.set(KEY_LAST_REDDIT, last)
     except:
         db.session.rollback()
     return mashup
 
 
 def download_new_submissions():
-    last = pdb.get(KEY_LAST_REDDIT)
+    # last = pdb.get(KEY_LAST_REDDIT)
+    # submissions = r.get_subreddit('mashups').get_hot(
+    #     after_field='after',
+    #     params={
+    #         "after": last
+    #     },
+    #     limit=None
+    # )
     submissions = r.get_subreddit('mashups').get_hot(
-        after_field='after',
-        params={
-            "after": last
-        },
-        limit=None
+        limit=200
     )
     for submission in submissions:
         insert_submission_in_db(submission)
