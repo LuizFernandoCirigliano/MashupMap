@@ -164,24 +164,31 @@
 		$('#submit_artist').click(function() {
 			// request_graph();
 			if($('#artist_form').is(':hidden')) {
-				$('#artist_form').show();  
+				$('#artist_form').show();
+				$('#submit_artist').attr('class', 'btn btn-success btn-circle btn-lg');
 			}
 			else if($('#artist_form').is(':visible')) {
-				request_graph();
-				$('#artist_form').hide();
+				after_input();
 			}
 			
 		});
 
-		$('#artist_input').submit(function() {
+		function after_input() {
 			request_graph();
 			$('#artist_form').hide();
+			$('#artist_form').val('');
+			$('#submit_artist').attr('class', 'btn btn-success btn-circle btn-md');
+
+		}
+
+		$('#artist_input').submit(function() {
+			console.log('Submitted input!');
+			after_input();
 		});
 
-		$('#artist_input').change(function() {
-		  console.log('Input form changed!');
-		  request_graph();
-		  $('#artist_form').hide();
-		});
+		// $('#artist_input').change(function() {
+		//   console.log('Input form changed!');
+		//   after_input();
+		// });
 
 	}
