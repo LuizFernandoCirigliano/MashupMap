@@ -203,24 +203,35 @@ function draw() {
 
 }
 
+function search_artist() {
+	if ($('#artist_input').val().length == 0) {
+		nodes = old_nodes;
+		edges = old_edges;
+		songs = old_songs;
+		old_nodes = null; //User inputs empty string, old variables return to null
+  		old_edges = null;
+  		old_songs = null;
+		draw();
+	}
+  	else {
+  		if(old_nodes == null && old_edges == null && old_songs == null) {
+  			old_nodes = nodes; //if the variables are null, the current state is full graph, which needs to be saved for later (when the user wants the full graph again).
+	  		old_edges = edges;
+	  		old_songs = songs;
+  		}
+ 		request_graph();
+  	}
+}
+
 $(document).ready(function() {
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
-			if ($('#artist_input').val().length == 0) {
-		 		nodes = old_nodes;
-		  		edges = old_edges;
-		  		songs = old_songs;
-		  		draw();
-		  	}
-		  	else {
-		  		old_nodes = nodes;
-		  		old_edges = edges;
-		  		old_songs = songs;
-		 		request_graph();
-		  	}
+			search_artist();
 		}
-	});
+	}
+);
 
+$('#search_artist_button').click(search_artist);
 
 	// $('#artist_input').change(function() {
 	// 	console.log('Input form changed!');
