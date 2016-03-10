@@ -28,6 +28,7 @@ class Mashup(db.Model):
         backref=db.backref('artist_mashups')
         )
     content = db.Column(db.String(1000))
+    isBroken = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Mashup %r>' % (self.title)
