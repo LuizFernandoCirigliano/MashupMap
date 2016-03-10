@@ -87,6 +87,7 @@ function play_song(song_embed, continuous) {
 function create_network(data) {
 	songs = data.songs;
 	if(network != null) {
+		console.log('network != null');
 		var newData = {
 			nodes: data.nodes,
 			edges: data.edges
@@ -100,19 +101,30 @@ function create_network(data) {
 		$(".myloader").hide();
 		$(".myheader").css("background-color", "transparent");
 	}
-	
+
 }
 
 function request_graph() {
 	var artist_name = $('#artist_input').val();
-	console.log(artist_name);
-	$.get("/graph/artist/" + artist_name).done(function(data) {
-		create_network(data);
-	}).fail(function(data) { //when it fails by sending an empty string and receiving an error, just request the normal graph.
+	console.log(artist_name, artist_name.length);
+	if (artist_name.length > 0) {
+		$.get("/graph/artist/" + artist_name).done(function(data) {
+			create_network(data);
+		});
+	}
+	else {
 		$.get("/graph").done(function(data) {
 			create_network(data);
 		});
-	});
+	}
+
+	// $.get("/graph/artist/" + artist_name).done(function(data) {
+	// 	create_network(data);
+	// }).fail(function(data) { //when it fails by sending an empty string and receiving an error, just request the normal graph.
+	// 	$.get("/graph").done(function(data) {
+	// 		create_network(data);
+	// 	});
+	// });
 }
 
 function cv_resize() {
@@ -179,9 +191,11 @@ function draw() {
 	});
 
 	network.on("selectEdge", function (params) {
-		console.log(params)
-		current_song = params.edges[0]
+		console.log(params);
+		current_song = params.edges[0];
+		console.log(current_song);
 		var selectedSong = songs[current_song];
+		console.log(selectedSong);
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
 		move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
@@ -209,9 +223,9 @@ function draw() {
 }
 
 function search_artist() {
-	delete nodes;
-	delete edges;
-	delete songs;
+	// delete nodes;
+	// delete edges;
+	// delete songs;
 	request_graph();
 
 }
@@ -225,4 +239,3 @@ $(document).ready(function() {
 	$('#search_artist_button').click(request_graph);
 
 });
-
