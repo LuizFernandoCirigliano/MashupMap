@@ -110,6 +110,9 @@ function request_graph() {
 	if (artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data);
+		})
+		.fail(function() {
+			$('#no_artist_error').show(0).delay(2000).hide(0);
 		});
 	}
 	else {
@@ -118,13 +121,6 @@ function request_graph() {
 		});
 	}
 
-	// $.get("/graph/artist/" + artist_name).done(function(data) {
-	// 	create_network(data);
-	// }).fail(function(data) { //when it fails by sending an empty string and receiving an error, just request the normal graph.
-	// 	$.get("/graph").done(function(data) {
-	// 		create_network(data);
-	// 	});
-	// });
 }
 
 function cv_resize() {
@@ -193,9 +189,7 @@ function draw() {
 	network.on("selectEdge", function (params) {
 		console.log(params);
 		current_song = params.edges[0];
-		console.log(current_song);
 		var selectedSong = songs[current_song];
-		console.log(selectedSong);
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
 		move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);

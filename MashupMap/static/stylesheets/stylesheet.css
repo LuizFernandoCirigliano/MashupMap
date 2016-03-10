@@ -116,4 +116,7 @@
       top: 18%;
     }
 
-
+    #no_artist_error {
+      color: red;
+      font-size: 2em;
+    }

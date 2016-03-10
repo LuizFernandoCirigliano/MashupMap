@@ -43,13 +43,11 @@
     <span class="input-group-addon" id="search_artist_button">
         <i class="glyphicon glyphicon-search"></i>
     </span>
-    <p style="color:red;" hidden>Sorry, no mashups from this artist.</p>
+
   </div>
-  <!--  <div id="submit_artist_div">
-        <button type="button" id="submit_artist"class="btn btn-success btn-circle btn-lg">
-          <i class="glyphicon glyphicon-search"></i>
-        </button>
-  </div> -->
+  <div>
+    <p id="no_artist_error" hidden>Sorry, no mashups from this artist.</p>
+  </div>
 
   <div id="infocontainer" hidden>
       {# <a href="#" title="Play video" class="play"></a> #}
@@ -64,7 +62,6 @@
 
   <div id="myplayer">
     <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
-
   </div>
   <div id="random_mashup">
         <button type="button" id="random_mashup_button"class="btn btn-success btn-circle btn-lg">
