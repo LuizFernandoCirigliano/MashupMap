@@ -1,13 +1,19 @@
-from flask import render_template, jsonify
+from flask import render_template, jsonify, g
 from MashupMap.graph_maker import get_mashup_graph
 from MashupMap import app
 from MashupMap.analytics import count_stuff
+from Users.views import user_api
+from flask.ext.login import current_user
+
+
+@app.before_request
+def before_request():
+    g.user = current_user
 
 
 @app.route("/")
 @app.route("/full")
 def hello_full():
-
     return render_template(
         'mashupmap-full.html'
         )
@@ -27,3 +33,6 @@ def get_graph():
 def count_route(key):
     count_stuff(key)
     return ""
+
+
+app.register_blueprint(user_api, url_prefix='/user')
