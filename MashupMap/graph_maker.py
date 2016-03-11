@@ -64,7 +64,7 @@ def get_artist_mashups(artist_name):
         mashups = artist.artist_mashups
     else:
         return get_mashup_graph()
-        
+
     # print(artist.artist_mashups)
     # mashups = Mashup.query.filter(artist.in_(artists)).all()
 
