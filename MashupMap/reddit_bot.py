@@ -9,7 +9,7 @@ from MashupMap.models import Mashup
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
 
-user_agent = os.environ.get('USER_AGENT')
+user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
 
