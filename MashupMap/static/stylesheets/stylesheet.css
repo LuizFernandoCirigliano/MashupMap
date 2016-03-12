@@ -100,3 +100,23 @@
       line-height: 1.33;
       border-radius: 35px;
     }
+
+
+    #artist_form {
+      width: 20%;
+      position: absolute;
+      right: 1%;
+      top: 12%;
+      /*height: 2%;*/
+    }
+
+    #submit_artist_div {
+      position: absolute;
+      right: 1.5%;
+      top: 18%;
+    }
+
+    #no_artist_error {
+      color: red;
+      font-size: 2em;
+    }

@@ -1,9 +1,10 @@
 from flask import render_template, jsonify, g
-from MashupMap.graph_maker import get_mashup_graph
+from MashupMap.graph_maker import get_mashup_graph, get_artist_mashups
 from MashupMap import app
 from MashupMap.analytics import count_stuff
 from Users.views import user_api
 from flask.ext.login import current_user
+from MashupMap.music_api import get_artist
 
 
 @app.before_request
@@ -27,6 +28,21 @@ def get_graph():
         "edges": edges,
         "songs": songs
     })
+
+
+@app.route("/graph/artist/<artist_name>")
+def get_artist_graph(artist_name):
+    artist = get_artist(artist_name)
+    print(artist.name)
+    if artist:
+        nodes, edges, songs = get_artist_mashups(artist.name)
+        return jsonify({
+            "nodes": nodes,
+            "edges": edges,
+            "songs": songs
+        })
+    else:
+        return get_graph()
 
 
 @app.route("/count/<key>", methods=["POST"])

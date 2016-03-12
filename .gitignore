@@ -60,3 +60,4 @@ db_repository
 .DS_Store
 *.db
 venv3
+output
