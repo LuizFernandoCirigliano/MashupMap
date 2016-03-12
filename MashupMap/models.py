@@ -29,7 +29,8 @@ class Mashup(db.Model):
         )
     content = db.Column(db.String(1000))
     isBroken = db.Column(db.Boolean, default=False)
-
+    url = db.Column(db.String(1000))
+    
     def __repr__(self):
         return '<Mashup %r>' % (self.title)
 
