@@ -60,8 +60,8 @@ def main():
     mashups = Mashup.query.all()
     # print(len(mashups))
     for m in mashups:
-        print(m)
-        if check_link(m.permalink):
+        print(m.content)
+        if check_link(m.content):
             print('Broken link!')
             m.isBroken = True
             db.session.commit()
