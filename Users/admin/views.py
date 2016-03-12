@@ -19,8 +19,9 @@ class ModelView(OriginalModelView):
 
 
 class MashupView(ModelView):
-    # column_exclude_list = ['content']
-    pass
+    column_exclude_list = ['content', 'permalink']
+    column_filters = ['isBroken']
+    can_view_details = True
 
 
 # Create customized index view class that handles login & registration

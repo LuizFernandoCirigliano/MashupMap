@@ -56,7 +56,8 @@ def get_artist_mashups(artist_name):
 
     # mashups = random.sample(Mashup.query.all(), 300)
     try:
-        artist = Artist.query.filter_by(name=artist_name).first() #later on, I'll implement the query using ID.
+        # later on, I'll implement the query using ID.
+        artist = Artist.query.filter_by(name=artist_name).first()
     except:
         return get_mashup_graph()
 
