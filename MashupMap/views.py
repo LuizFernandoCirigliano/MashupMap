@@ -13,7 +13,7 @@ def before_request():
 
 @app.route("/")
 @app.route("/full")
-def hello_full():
+def index():
     return render_template(
         'mashupmap-full.html'
         )

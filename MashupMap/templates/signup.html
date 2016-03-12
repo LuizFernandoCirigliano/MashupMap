@@ -4,6 +4,15 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+      <div class="col-md-12 text-center">
+      <p class="error-message validation-error"> {{message}} </p>
+      </div>
+    {% endfor %}
+    {% endif %}
+{% endwith %}
 <form action="/user/register" method="post" class="form-horizontal" role="form">
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}

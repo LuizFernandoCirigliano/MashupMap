@@ -8,7 +8,8 @@ app.config.from_object('config')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 db = SQLAlchemy(app)
 
-import MashupMap.views, MashupMap.models
+import MashupMap.views
+import MashupMap.models
 
 from MashupMap.models import Mashup
 print(Mashup.query.count())

@@ -4,6 +4,8 @@ from flask import flash
 from wtforms import StringField, PasswordField
 from wtforms import validators
 from wtforms.fields.html5 import EmailField
+from Users.models import User
+from sqlalchemy import or_
 
 
 class FormWithFlash(Form):
@@ -44,9 +46,9 @@ class LoginForm(FormWithFlash):
         return True
 
     def get_user(self):
-        logininfo = self.form.login.data
-        return db.User.filter(db.users.login == logininfo |
-                              db.users.email == logininfo).first()
+        logininfo = self.login.data
+        return User.query.filter(or_(User.login == logininfo,
+                                 User.email == logininfo)).first()
 
 
 class SignupForm(FormWithFlash):

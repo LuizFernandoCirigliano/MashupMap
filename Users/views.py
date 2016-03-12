@@ -31,16 +31,16 @@ def register():
 @user_api.route('/login', methods=['POST', 'GET'])
 def login():
     form = LoginForm()
+    next_url = request.args.get('next')
     if form.validate_on_submit():
         user = form.get_user()
         login_user(user)
-        next_url = request.args.get('next')
         # if not next_is_valid(next_url):
         #     return abort(400)
         return redirect(next_url or url_for('index'))
     else:
         form.flash_errors()
-        return render_template('login.html', form=form)
+        return render_template('login.html', form=form, next_url=next_url)
 
 
 @user_api.route('/logout')

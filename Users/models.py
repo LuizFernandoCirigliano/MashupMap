@@ -26,6 +26,11 @@ class User(db.Model):
         backref=db.backref('users_in_role')
         )
 
+    def __init__(self, login, email, password):
+        self.login = login
+        self.email = email
+        self.password = generate_password_hash(password)
+
     # Flask-Login integration
     def is_authenticated(self):
         return True
