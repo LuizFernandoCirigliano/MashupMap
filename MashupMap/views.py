@@ -43,6 +43,3 @@ def get_artist_graph(artist_name):
 def count_route(key):
     count_stuff(key)
     return ""
-
-from Users.views import user_api
-app.register_blueprint(user_api, url_prefix='/user')
