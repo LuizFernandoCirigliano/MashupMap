@@ -15,6 +15,9 @@ class Artist(db.Model):
     def __repr__(self):
         return '<Artist %r>' % (self.name)
 
+    def __str__(self):
+        return self.name
+
 
 class Mashup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +36,9 @@ class Mashup(db.Model):
 
     def __repr__(self):
         return '<Mashup %r>' % (self.title)
+
+    def __str__(self):
+        return self.title
 
 
 class Counters(db.Model):

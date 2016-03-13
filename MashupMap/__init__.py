@@ -3,7 +3,6 @@ from flask.ext.cache import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask.ext.login import LoginManager
-from flask.ext.principal import Principal
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -11,16 +10,15 @@ app.config.from_object('config')
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 db = SQLAlchemy(app)
 
-principals = Principal(app)
-
 lm = LoginManager()
 lm.init_app(app)
 
-import MashupMap.views
-import MashupMap.models
 import Users.views
 import Users.models
-from Users.admin.views import ModelView, MashupView, MyAdminIndexView
+import MashupMap.views
+import MashupMap.models
+
+from Users.admin.views import ModelView, MashupView, MyAdminIndexView, UserView, RoleView
 admin = Admin(app,
               name='mashupmap',
               template_mode='bootstrap3',
@@ -28,3 +26,5 @@ admin = Admin(app,
               index_view=MyAdminIndexView())
 admin.add_view(ModelView(MashupMap.models.Artist, db.session))
 admin.add_view(MashupView(MashupMap.models.Mashup, db.session))
+admin.add_view(UserView(Users.models.User, db.session))
+admin.add_view(RoleView(Users.models.Role, db.session))

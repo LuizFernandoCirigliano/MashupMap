@@ -13,6 +13,9 @@ class Role(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), index=True, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 # Create user model.
 class User(db.Model):
@@ -54,6 +57,21 @@ class User(db.Model):
         self.password = generate_password_hash(password)
         db.session.commit()
 
+    def has_permission(self, name):
+        """Check out whether a user has a permission or not."""
+        permission = Role.query.filter_by(name=name).first()
+        # if the permission does not exist or was not given to the user
+        if not permission or permission not in self.roles:
+            return False
+        return True
+
+    @property
+    def is_admin(self):
+        return self.has_permission('admin')
+
     # Required for administrative interface
     def __unicode__(self):
-        return self.username
+        return self.login
+
+    def __str__(self):
+        return self.login
