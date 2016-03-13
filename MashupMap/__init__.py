@@ -18,7 +18,7 @@ import Users.models
 import MashupMap.views
 import MashupMap.models
 
-from Users.admin.views import ModelView, MashupView,\
+from Users.admin.views import MashupView,\
     MyAdminIndexView, UserView, RoleView, ArtistView
 admin = Admin(app,
               name='mashupmap',

@@ -22,11 +22,12 @@ def index():
 
 @app.route("/graph")
 def get_graph():
-    nodes, edges, songs = get_mashup_graph()
+    nodes, edges, songs, song_for_edge = get_mashup_graph()
     return jsonify({
         "nodes": nodes,
         "edges": edges,
-        "songs": songs
+        "songs": songs,
+        "song_for_edge": song_for_edge
     })
 
 
@@ -35,11 +36,12 @@ def get_artist_graph(artist_name):
     artist = get_artist(artist_name)
     print(artist.name)
     if artist:
-        nodes, edges, songs = get_artist_mashups(artist.name)
+        nodes, edges, songs, song_for_edge = get_artist_mashups(artist.name)
         return jsonify({
             "nodes": nodes,
             "edges": edges,
-            "songs": songs
+            "songs": songs,
+            "song_for_edge": song_for_edge
         })
     else:
         return get_graph()

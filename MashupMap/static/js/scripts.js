@@ -1,6 +1,7 @@
 var nodes = null;
 var edges = null;
 var songs = null;
+var song_for_edge = null;
 var network = null;
 var current_song = null;
 
@@ -18,6 +19,40 @@ var nodeOptions = {
 		icon: {
 		  code: '\u2022'
 		}
+};
+
+var options = {
+	layout: {
+		improvedLayout:false
+	},
+	width: '100%',
+	nodes: nodeOptions,
+	edges: {
+		width: 1,
+		color: 'lightgray',
+		// smooth: true,
+		hoverWidth: 5
+	},
+	physics: {
+	  // enabled: false,
+		stabilization: {
+			enabled:true,
+			iterations:100
+		},
+		repulsion: {
+			nodeDistance: 100,
+			springLength: 1000,
+			springConstant: 0.01,
+			damping : 0.01
+		}
+	  // stabilization.iterations: 200,
+	},
+	interaction: {
+		hover:true,
+		tooltipDelay: 100,
+		hideEdgesOnDrag: true,
+		navigationButtons: true
+	}
 };
 
 function start() {
@@ -47,7 +82,8 @@ function play_random_song() {
 		random = Math.floor(Math.random()*songs.length);
 	}
 	current_song = random;
-	play_song(songs[current_song].embed, true);
+	var selectedSong = songs[current_song];
+	play_song(selectedSong.embed, true);
 }
 
 function play_selected_song() {
@@ -62,7 +98,7 @@ function play_song(song_embed, continuous) {
 	// initialize the player.
 	var player = new playerjs.Player(iframe);
 
-  // Wait for the player to be ready.
+  	// Wait for the player to be ready.
 	player.on('ready', function(){
 		if (continuous) {
 	  // Listen to the play event.
@@ -72,9 +108,9 @@ function play_song(song_embed, continuous) {
 			});
 
 	  // Listen to the play event.
-		player.on('error', function(){
-		// Tell Google analytics that a video was played.
-			console.log("Iframe Error");
+			player.on('error', function(){
+			// Tell Google analytics that a video was played.
+				console.log("Iframe Error");
 				play_random_song();
 			});
 		}
@@ -86,6 +122,8 @@ function play_song(song_embed, continuous) {
 
 function create_network(data) {
 	songs = data.songs;
+	song_for_edge = data.song_for_edge;
+
 	if(network != null) {
 		console.log('network != null');
 		var newData = {
@@ -101,7 +139,6 @@ function create_network(data) {
 		$(".myloader").hide();
 		$(".myheader").css("background-color", "transparent");
 	}
-
 }
 
 function request_graph() {
@@ -120,7 +157,6 @@ function request_graph() {
 			create_network(data);
 		});
 	}
-
 }
 
 function cv_resize() {
@@ -148,47 +184,14 @@ function draw() {
 		nodes: nodes,
 		edges: edges
 	};
-	var options = {
-		layout: {
-			improvedLayout:false
-		},
-		width: '100%',
-		nodes: nodeOptions,
-		edges: {
-			width: 1,
-			color: 'lightgray',
-			// smooth: true,
-			hoverWidth: 5
-		},
-		physics: {
-		  // enabled: false,
-			stabilization: {
-				enabled:true,
-				iterations:200
-			},
-			repulsion: {
-				nodeDistance: 100,
-				springLength: 1000,
-				springConstant: 0.01,
-				damping : 0.01
-			}
-		  // stabilization.iterations: 200,
-		},
-		interaction: {
-			hover:true,
-			tooltipDelay: 100,
-			hideEdgesOnDrag: true,
-			navigationButtons: true
-		}
-	};
+
 	network = new vis.Network(container, data, options);
 	network.on("dragStart", function(params) {
 	 $("#infocontainer").hide();
 	});
 
 	network.on("selectEdge", function (params) {
-		console.log(params);
-		current_song = params.edges[0];
+		current_song = song_for_edge[params.edges[0]];
 		var selectedSong = songs[current_song];
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
@@ -217,11 +220,7 @@ function draw() {
 }
 
 function search_artist() {
-	// delete nodes;
-	// delete edges;
-	// delete songs;
 	request_graph();
-
 }
 
 $(document).ready(function() {
