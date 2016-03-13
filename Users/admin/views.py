@@ -19,9 +19,15 @@ class ModelView(OriginalModelView):
         return redirect(url_for('user_api.login', next=request.url))
 
 
+class ArtistView(ModelView):
+    column_searchable_list = ['name']
+    can_view_details = True
+
+
 class MashupView(ModelView):
     column_exclude_list = ['content', 'permalink']
     column_filters = ['isBroken']
+    column_searchable_list = ['title', 'url']
     can_view_details = True
 
 
@@ -29,6 +35,7 @@ class UserView(ModelView):
     can_create = False
     can_edit = False
     column_exclude_list = ['password']
+    column_searchable_list = ['login', 'email']
 
 
 class RoleView(ModelView):
