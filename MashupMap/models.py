@@ -31,7 +31,7 @@ class Mashup(db.Model):
         backref=db.backref('artist_mashups')
         )
     content = db.Column(db.String(1000))
-    isBroken = db.Column(db.Boolean, default=False)
+    isBroken = db.Column(db.Boolean)
     url = db.Column(db.String(1000))
 
     def __repr__(self):
