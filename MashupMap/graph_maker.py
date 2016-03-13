@@ -15,7 +15,7 @@ def get_mashup_graph():
     edges = []
     songs = []
 
-    mashups = random.sample(Mashup.query.all(), 300)
+    mashups = random.sample(list(Mashup.query.filter_by(isBroken=False)), 300)
 
     for mashup in mashups:
         mashup_color = random_color()
@@ -62,6 +62,9 @@ def get_artist_mashups(artist_name):
 
     if artist:
         mashups = artist.artist_mashups
+        for m in mashups:
+            if m.isBroken:
+                mashups.remove(m)
     else:
         return get_mashup_graph()
 
