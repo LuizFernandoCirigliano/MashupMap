@@ -65,7 +65,7 @@ def main():
     try:
         for i,m in enumerate(mashups):
             # print(m.url)
-            print(i)
+            print(m.id)
             if check_link(m.url) :
                 print('Broken link!')
                 m.isBroken = True
