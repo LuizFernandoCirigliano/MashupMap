@@ -16,6 +16,7 @@ pickleDB==0.6.2
 praw==3.4.0
 psycopg2==2.6.1
 requests==2.9.1
+selenium==2.52.0
 simplejson==3.8.2
 six==1.10.0
 SQLAlchemy==1.0.12
@@ -25,3 +26,4 @@ Tempita==0.5.2
 update-checker==0.11
 Werkzeug==0.11.4
 WTForms==2.1
+xvfbwrapper==0.2.8
