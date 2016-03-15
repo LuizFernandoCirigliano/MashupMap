@@ -13,13 +13,7 @@ def graph_for_mashup_list(mashups):
     nodes = []
     edges = []
     songs = []
-<<<<<<< HEAD
-
-    mashups = random.sample(list(Mashup.query.filter_by(isBroken=False)), 300)
-
-=======
     song_for_edge = []
->>>>>>> master
     for mashup in mashups:
         mashup_color = random_color()
         song_id = len(songs)
@@ -54,7 +48,7 @@ def graph_for_mashup_list(mashups):
 
 @cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
 def get_mashup_graph():
-    mashups = random.sample(Mashup.query.all(), 300)
+    mashups = random.sample(list(Mashup.query.filter_by(isBroken=False)), 300)
 
     return graph_for_mashup_list(mashups)
 
