@@ -58,11 +58,12 @@ def check_link(url):
 
 
 def main():
-    start_index = get_broken_index()
-    mashups = Mashup.query.filter(Mashup.id > start_index)
-    # print(len(mashups))
+    start_index = int(get_broken_index())
+    print('Start index: ' + str(start_index))
+    mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
+    # print('Mashups', mashups, '\n')
     try:
-        for m in mashups:
+        for i,m in enumerate(mashups):
             # print(m.url)
             print(m.id)
             if check_link(m.url) :
@@ -70,16 +71,22 @@ def main():
                 m.isBroken = True
             else:
                 m.isBroken = False
-
             if m.id % 30 == 0:
                 db.session.commit()
                 save_broken_index(m.id)
                 print('Committing...')
+    except Exception as e:
+        print(e, e.args)
+        db.session.commit()
+        save_broken_index(m.id - 1)
+        print('Exception. Committing...')
+        return
     except:
         db.session.commit()
         save_broken_index(m.id - 1)
-        print('Committing...')
+        print('User interruption. Committing...')
         return
+
 
     db.session.commit()
     save_broken_index(m.id)

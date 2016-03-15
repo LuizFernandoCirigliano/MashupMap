@@ -14,7 +14,7 @@ def print_stuff(key):
         mycnt = get_or_create(db.session, Counters, key=key)
         print(key + " ", mycnt.value)
 
-def save_broken_index(start_index=0):
+def save_broken_index(start_index):
     key = "strt_index"
     mycnt = get_or_create(db.session, Counters, key=key)
     mycnt.value = start_index
