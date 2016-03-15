@@ -16,7 +16,8 @@ def before_request():
 @app.route("/full")
 def index():
     return render_template(
-        'mashupmap-full.html'
+        #'mashupmap-full.html'
+        'index.html'
         )
 
 
