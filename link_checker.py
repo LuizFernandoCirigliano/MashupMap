@@ -63,7 +63,7 @@ def main():
     mashups = Mashup.query.filter(Mashup.id > str(start_index))
     # print('Mashups', mashups, '\n')
     try:
-        for m in mashups:
+        for m in list(mashups):
             # print(m.url)
             print(m.id)
             if check_link(m.url) :
