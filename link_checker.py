@@ -63,9 +63,9 @@ def main():
     mashups = Mashup.query.filter(Mashup.id > str(start_index))
     # print('Mashups', mashups, '\n')
     try:
-        for m in mashups:
+        for i,m in enumerate(mashups):
             # print(m.url)
-            print(m.id)
+            print(i)
             if check_link(m.url) :
                 print('Broken link!')
                 m.isBroken = True
@@ -81,7 +81,7 @@ def main():
         save_broken_index(m.id - 1)
         print('Interruption. Committing...')
         return
-    
+
 
     db.session.commit()
     save_broken_index(m.id)
