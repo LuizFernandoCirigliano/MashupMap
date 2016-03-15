@@ -20,6 +20,13 @@ def index():
         )
 
 
+@app.route("/playlist")
+def playlist():
+    return render_template(
+        'mashup-playlist.html'
+        )
+
+
 @app.route("/graph")
 def get_graph():
     nodes, edges, songs, song_for_edge = get_mashup_graph()

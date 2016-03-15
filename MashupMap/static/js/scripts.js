@@ -5,7 +5,6 @@ var song_for_edge = null;
 var network = null;
 var current_song = null;
 
-
 var showingImages=false;
 var nodeOptions = {
 		shape: "icon",
@@ -55,75 +54,12 @@ var options = {
 	}
 };
 
-function start() {
-	request_graph();
-	$.fn.extend({
-		animateCss: function (animationName) {
-		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-		$(this).addClass('animated ' + animationName).one(animationEnd, function() {
-		$(this).removeClass('animated ' + animationName);
-		});
-		}
-	});
-	var icon = $('.play');
-	icon.click(function() {
-		icon.toggleClass('active');
-		return false;
-	});
-	$(window).bind("resize", function(){
-		cv_resize();
-	});
-}
-
-
-function play_random_song() {
-	var random = Math.floor(Math.random()*songs.length);
-	while (random == current_song) {
-		random = Math.floor(Math.random()*songs.length);
-	}
-	current_song = random;
-	var selectedSong = songs[current_song];
-	play_song(selectedSong.embed, true);
-}
-
-function play_selected_song() {
-	var selectedSong = songs[current_song];
-	play_song(selectedSong.embed, false);
-}
-
-function play_song(song_embed, continuous) {
-	$.post("/count/playcount");
-	$("#playsong").html(song_embed);
-	var iframe = $("#playsong iframe").get(0);
-	// initialize the player.
-	var player = new playerjs.Player(iframe);
-
-  	// Wait for the player to be ready.
-	player.on('ready', function(){
-		if (continuous) {
-	  // Listen to the play event.
-			player.on('ended', function(){
-		// Tell Google analytics that a video was played.
-				play_random_song();
-			});
-
-	  // Listen to the play event.
-			player.on('error', function(){
-			// Tell Google analytics that a video was played.
-				console.log("Iframe Error");
-				play_random_song();
-			});
-		}
-	//autoplay the video.
-		player.play();
-	});
-	$("#infocontainer").hide();
-}
-
 function create_network(data) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
-
+	//Temporary
+	set_playlist(songs.slice(0,4));
+	//end
 	if(network != null) {
 		console.log('network != null');
 		var newData = {
@@ -143,8 +79,7 @@ function create_network(data) {
 
 function request_graph() {
 	var artist_name = $('#artist_input').val();
-	console.log(artist_name, artist_name.length);
-	if (artist_name.length > 0) {
+	if (typeof(artist) != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data);
 		})
@@ -230,5 +165,21 @@ $(document).ready(function() {
 		}
 	});
 	$('#search_artist_button').click(request_graph);
-
+	request_graph();
+	$.fn.extend({
+		animateCss: function (animationName) {
+		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+		$(this).addClass('animated ' + animationName).one(animationEnd, function() {
+		$(this).removeClass('animated ' + animationName);
+		});
+		}
+	});
+	var icon = $('.play');
+	icon.click(function() {
+		icon.toggleClass('active');
+		return false;
+	});
+	$(window).bind("resize", function(){
+		cv_resize();
+	});
 });
