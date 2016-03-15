@@ -7,6 +7,8 @@
     this.init(players);
   };
 
+  var prev_time = 0;
+
   $Player.prototype.init = function(players){
     this.index = 0;
 
@@ -64,7 +66,12 @@
 
       // Update meter
       player.on('timeupdate', function(data){
-        $meter.width((data.seconds/data.duration)*100 + '%');
+        data.seconds = Math.round(data.seconds);
+        if (data.seconds != prev_time) {
+            var new_width = (data.seconds/data.duration)*100 + '%';
+            $meter.width(new_width);
+            prev_time = data.seconds;
+        }
       });
 
       // Play events
