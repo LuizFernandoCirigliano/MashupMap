@@ -61,7 +61,7 @@ def main():
     start_index = int(get_broken_index())
     mashups = Mashup.query.filter(Mashup.id > start_index)
     print('Start index: ' + str(start_index))
-    print('Mashups', mashups)
+    # print('Mashups', mashups, '\n')
     try:
         for m in mashups:
             # print(m.url)
