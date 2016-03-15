@@ -81,6 +81,7 @@ def main():
         save_broken_index(m.id - 1)
         print('Interruption. Committing...')
         return
+    
 
     db.session.commit()
     save_broken_index(m.id)
