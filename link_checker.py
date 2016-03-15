@@ -78,7 +78,7 @@ def main():
     except:
         db.session.commit()
         save_broken_index(m.id - 1)
-        print('Committing...')
+        print('User interruption. Committing...')
         return
 
     db.session.commit()
