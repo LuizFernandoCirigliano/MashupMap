@@ -9,7 +9,8 @@ from MashupMap.analytics import count_stuff
 def hello_full():
 
     return render_template(
-        'mashupmap-full.html'
+        #'mashupmap-full.html'
+        'index.html'
         )
 
 
