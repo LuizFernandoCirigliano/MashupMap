@@ -61,6 +61,7 @@ def main():
     start_index = get_broken_index()
     mashups = Mashup.query.filter(Mashup.id > start_index)
     # print(len(mashups))
+    print(mashups)
     try:
         for m in mashups:
             # print(m.url)
@@ -75,7 +76,7 @@ def main():
                 db.session.commit()
                 save_broken_index(m.id)
                 print('Committing...')
-    except e:
+    except Exception as e:
         print(e, e.args)
         db.session.commit()
         save_broken_index(m.id - 1)
