@@ -60,7 +60,7 @@ def check_link(url):
 def main():
     start_index = int(get_broken_index())
     print('Start index: ' + str(start_index))
-    mashups = Mashup.query.filter(Mashup.id > int(start_index))
+    mashups = Mashup.query.filter(Mashup.id > str(start_index))
     # print('Mashups', mashups, '\n')
     try:
         for m in mashups:
