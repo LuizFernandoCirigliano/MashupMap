@@ -67,11 +67,9 @@
       // Update meter
       player.on('timeupdate', function(data){
         data.seconds = Math.round(data.seconds);
-        if (data.seconds != prev_time) {
-            var new_width = (data.seconds/data.duration)*100 + '%';
-            $meter.width(new_width);
-            prev_time = data.seconds;
-        }
+        var new_width = (data.seconds/data.duration)*100 + '%';
+        $meter.width(new_width);
+        prev_time = data.seconds;
       });
 
       // Play events

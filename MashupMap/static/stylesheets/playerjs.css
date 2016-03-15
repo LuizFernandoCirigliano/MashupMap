@@ -111,9 +111,11 @@ a {
     background: #fff;
     height: 15px;
     margin: 0; }
-    .controls .progress .meter {
-      background: #EBE54D;
-      width: 0%; }
+.controls .progress .meter {
+      background-color: #EBE54D;
+      width: 0%;
+      height: 100%;
+  }
   .controls .mute {
     color: #EBE54D;
     float: left;
