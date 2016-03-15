@@ -71,7 +71,6 @@ def main():
                 m.isBroken = True
             else:
                 m.isBroken = False
-
             if m.id % 30 == 0:
                 db.session.commit()
                 save_broken_index(m.id)
