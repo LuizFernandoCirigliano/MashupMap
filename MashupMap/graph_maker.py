@@ -53,8 +53,6 @@ def get_mashup_graph():
     return graph_for_mashup_list(mashups)
 
 
-
-@cache.cached(timeout=60*60*4, key_prefix='get_artist_mashups')
 def get_artist_mashups(artist_name):
     # mashups = random.sample(Mashup.query.all(), 300)
     try:
