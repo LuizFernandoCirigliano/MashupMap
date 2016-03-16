@@ -121,12 +121,11 @@ function play_song(song_embed, continuous) {
 	$("#infocontainer").hide();
 }
 
-function create_network(data, artist_name) {
-	songs = data.songs;
-	song_for_edge = data.song_for_edge;
-
-	if(network != null && artist_name == undefined) {
+function create_network(data, new_artist) {
+	if(network != null && new_artist != undefined) {
 		if(artists_displayed.length == 0) {
+			songs = songs.concat(data.songs);
+			song_for_edge = song_for_edge.concat(data.song_for_edge);
 			console.log('First artist inserted!');
 			var newData = {
 				nodes: data.nodes,
@@ -134,16 +133,22 @@ function create_network(data, artist_name) {
 			};
 		}
 		else {
+			songs = data.songs;
+			song_for_edge = data.song_for_edge;
 			console.log('Another artist inserted!');
 			var newData = {
-				nodes: network.body.nodes.concat(data.nodes),
-				edges: network.body.edges.concat(data.edges)
+				nodes: data.nodes.concat(nodes),
+				edges: data.edges.concat(edges)
 			};
+			console.log(newData);
 		}
-		artists_displayed.push(artist_name);
+		artists_displayed.push(new_artist);
 		network.setData(newData);
 	}
 	else {
+		artists_displayed = [];
+		songs = data.songs;
+		song_for_edge = data.song_for_edge;
 		nodes = data.nodes;
 		edges = data.edges;
 		draw();
