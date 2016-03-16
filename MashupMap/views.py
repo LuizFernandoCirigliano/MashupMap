@@ -5,15 +5,16 @@ from MashupMap.analytics import count_stuff
 
 
 @app.route("/")
-@app.route("/full")
-def hello_full():
-
+def index():
     return render_template(
-        #'mashupmap-full.html'
         'index.html'
         )
 
-
+@app.route("/full")
+def mashup_map():
+    return render_template(
+        'mashupmap-full.html'
+        )
 @app.route("/graph")
 def get_graph():
     nodes, edges, songs = get_mashup_graph()
