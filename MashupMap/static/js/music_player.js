@@ -3,18 +3,25 @@ var my_songs;
 var $tracks = $('#tracks'),
     players = [],
     count = 0,
-    isReady = false;
+    isReady = false,
+    multi;
 
 var player_start = function() {
     var index = 0;
 
-    var multi = new $Player(players);
+    multi = new $Player(players);
 
     // Set the callout.
     multi.on('active', function(index) {
         $('.panel').removeClass('callout').eq(index).addClass('callout');
     });
 
+    configure_panels();
+
+    isReady = true;
+};
+
+function configure_panels() {
     // Go to a track by clicking on it.
     $('.panel').on('click', function() {
         if (!isReady) {
@@ -24,9 +31,7 @@ var player_start = function() {
         multi.play(index);
         return false;
     });
-
-    isReady = true;
-};
+}
 
 // We need to wait for all the players to be ready before we go.
 var onReady = function() {
@@ -67,5 +72,21 @@ function set_playlist(songs) {
             player.unmute();
             onReady();
         });
+    });
+}
+
+function add_song_to_playlist(song) {
+    $tracks.append(html_for_song(song));
+    var iframe_set = $('.track iframe');
+    var count = iframe_set.length;
+    iframe_set.each(function(i, e) {
+        if (i == count - 1) {
+            var player = new playerjs.Player(e);
+            player.on('ready', function () {
+                console.log("new guy ready");
+                multi.add_player(player);
+                configure_panels();
+            });
+        }
     });
 }

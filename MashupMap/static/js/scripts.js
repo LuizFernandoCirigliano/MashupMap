@@ -179,4 +179,8 @@ $(document).ready(function() {
 	$(window).bind("resize", function(){
 		cv_resize();
 	});
+
+	$('#add_song').click(function() {
+		add_song_to_playlist(songs[5]);
+	});
 });
