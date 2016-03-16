@@ -1,10 +1,24 @@
     body {
       background: black;
     }
+    div.full-height {
+        min-height:100vh;
+    }
+    div.full-width {
+       width: 100vw;
+       margin-left: auto;
+       margin-right: auto;
+       max-width: initial;
+    }
+    div.menu {
+        background-color: transparent;
+        border-color: green;
+    }
     #mynetwork {
       background-color:black;
       top:0;
-      position: absolute;
+      width: 100%;
+      /*position: absolute;*/
       z-index: -1;
     }
     #infocontainer {
@@ -101,13 +115,8 @@
       border-radius: 35px;
     }
 
-
-    #artist_form {
-      width: 20%;
-      position: absolute;
-      right: 1%;
-      top: 12%;
-      /*height: 2%;*/
+    .search-bar {
+        width:100%;
     }
 
     #submit_artist_div {

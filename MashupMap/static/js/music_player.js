@@ -57,22 +57,34 @@ function html_for_song(obj) {
 }
 
 function set_playlist(songs) {
+    console.log($tracks);
     my_songs = songs;
     var new_songs = ''
     for (var i = 0; i < my_songs.length; i++) {
         var obj = my_songs[i];
         new_songs += html_for_song(obj);
     }
+
+    var disp = $tracks.css("display");
+
     $tracks.append(new_songs);
-    // grab the iframes and create players from them.
-    $('.track iframe').each(function(i, e) {
-        var player = new playerjs.Player(e);
-        players.push(player);
-        player.on('ready', function() {
-            player.unmute();
-            onReady();
+
+    $tracks.css("display", 'none');
+
+    setTimeout(function(){
+        $tracks.css("display", disp);
+
+        // grab the iframes and create players from them.
+        $('.track iframe').each(function(i, e) {
+            var player = new playerjs.Player(e);
+            players.push(player);
+            player.on('ready', function() {
+                player.unmute();
+                onReady();
+            });
         });
-    });
+    }, 20);
+
 }
 
 function add_song_to_playlist(song) {

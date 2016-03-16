@@ -56,7 +56,7 @@ var options = {
 function create_network(data) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
-	set_playlist(songs.slice(0,4));
+	set_playlist([songs[0]]);
 	if(network != null) {
 		console.log('network != null');
 		var newData = {
@@ -95,6 +95,7 @@ function cv_resize() {
 	var w = $(window).width();
 	var h = $(window).height();
 	var network = $("#mynetwork");
+	// network.css("width", "100%");
 	network.css("width", w + "px");
 	network.css("height", h + "px");
 }
@@ -180,7 +181,7 @@ $(document).ready(function() {
 		cv_resize();
 	});
 
-	$('#add_song').click(function() {
-		add_song_to_playlist(songs[5]);
+	$('.play-button').click(function() {
+		add_song_to_playlist(songs[current_song]);
 	});
 });
