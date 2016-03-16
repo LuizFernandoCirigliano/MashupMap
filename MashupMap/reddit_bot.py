@@ -59,7 +59,8 @@ def insert_submission_in_db(submission):
         author=author,
         permalink=reddit_url,
         date=date,
-        content=content
+        content=content,
+        url=submission.url
     )
 
     for name in artists_names:
