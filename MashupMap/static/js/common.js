@@ -2,6 +2,7 @@
 
 (function($, document, window){
 
+
   //Wraps the player with jQuery and a playerjs player to create controls.
   var $Player = function(players){
     this.init(players);
@@ -63,33 +64,7 @@
 
     // Loop through all the providers and set up events.
     $.each(this.players, $.proxy(function(i, player){
-
-      // Update meter
-      player.on('timeupdate', function(data){
-        data.seconds = Math.round(data.seconds);
-        var new_width = (data.seconds/data.duration)*100 + '%';
-        $meter.width(new_width);
-        prev_time = data.seconds;
-      });
-
-      // Play events
-      player.on('play', function(){
-        this.emit('active', i);
-        $play.removeClass('paused');
-      }, this);
-
-      player.on('pause', function(){
-        $play.addClass('paused');
-      });
-
-      player.on('ended', function(){
-        this.next();
-      }, this);
-
-      player.on('error', function(){
-          this.next();
-      }, this);
-
+        this.configure_player(i, player);
     }, this));
 
     // Index dependant actions.
@@ -251,6 +226,42 @@
   // Attach a listener.
   $Player.prototype.on = function(event, cb){
     this.events[event].push(cb);
+  };
+
+  $Player.prototype.add_player = function(player) {
+      var i = this.players.length;
+      this.players.push(player);
+      this.configure_player(i, player);
+  };
+
+  $Player.prototype.configure_player = function(i, player) {
+      var $play =  $('.controls .play'),
+          $meter = $('.controls .meter');
+      // Update meter
+      player.on('timeupdate', function(data){
+        data.seconds = Math.round(data.seconds);
+        var new_width = (data.seconds/data.duration)*100 + '%';
+        $meter.width(new_width);
+        prev_time = data.seconds;
+      });
+
+      // Play events
+      player.on('play', function(){
+        this.emit('active', i);
+        $play.removeClass('paused');
+      }, this);
+
+      player.on('pause', function(){
+        $play.addClass('paused');
+      });
+
+      player.on('ended', function(){
+        this.next();
+      }, this);
+
+      player.on('error', function(){
+          this.next();
+      }, this);
   };
 
   window.$Player = $Player;
