@@ -36,15 +36,14 @@ var options = {
 	  // enabled: false,
 		stabilization: {
 			enabled:true,
-			iterations:100
+			iterations:400
 		},
 		repulsion: {
-			nodeDistance: 100,
+			nodeDistance: 50,
 			springLength: 1000,
 			springConstant: 0.01,
 			damping : 0.01
 		}
-	  // stabilization.iterations: 200,
 	},
 	interaction: {
 		hover:true,
@@ -77,7 +76,7 @@ function create_network(data) {
 
 function request_graph() {
 	var artist_name = $('#artist_input').val();
-	if (typeof(artist) != 'undefined' && artist_name.length > 0) {
+	if (typeof(artist_name) != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data);
 		})
