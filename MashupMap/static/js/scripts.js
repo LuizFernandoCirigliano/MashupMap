@@ -143,8 +143,8 @@ function create_network(data) {
 
 function request_graph() {
 	var artist_name = $('#artist_input').val();
-	console.log(artist_name, artist_name.length);
-	if (artist_name.length > 0) {
+	// console.log(artist_name, artist_name.length);
+	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data);
 		})
