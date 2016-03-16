@@ -4,6 +4,7 @@ var songs = null;
 var song_for_edge = null;
 var network = null;
 var current_song = null;
+var artists_displayed = [];
 
 
 var showingImages=false;
@@ -120,16 +121,26 @@ function play_song(song_embed, continuous) {
 	$("#infocontainer").hide();
 }
 
-function create_network(data) {
+function create_network(data, artist_name) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
 
-	if(network != null) {
-		console.log('network != null');
-		var newData = {
-			nodes: data.nodes,
-			edges: data.edges
-		};
+	if(network != null && artist_name == undefined) {
+		if(artists_displayed.length == 0) {
+			console.log('First artist inserted!');
+			var newData = {
+				nodes: data.nodes,
+				edges: data.edges
+			};
+		}
+		else {
+			console.log('Another artist inserted!');
+			var newData = {
+				nodes: network.body.nodes.concat(data.nodes),
+				edges: network.body.edges.concat(data.edges)
+			};
+		}
+		artists_displayed.push(artist_name);
 		network.setData(newData);
 	}
 	else {
@@ -142,11 +153,12 @@ function create_network(data) {
 }
 
 function request_graph() {
-	var artist_name = $('#artist_input').val();
-	// console.log(artist_name, artist_name.length);
+	if (artist_name == undefined) {
+		var artist_name = $('#artist_input').val();
+	}
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
-			create_network(data);
+			create_network(data, artist_name);
 		})
 		.fail(function() {
 			$('#no_artist_error').show(0).delay(2000).hide(0);
@@ -196,6 +208,16 @@ function draw() {
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
 		move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
+	});
+
+	network.on("selectNode", function (params) {
+		// console.log(params);
+		var node_id = params.nodes[0];
+		console.log(node_id);
+		var obj = network.body.nodes[node_id];
+		artist_name = obj.labelModule.lines[0];
+		console.log(artist_name);
+		request_graph(artist_name);
 	});
 
 	network.on("zoom", function(params) {
