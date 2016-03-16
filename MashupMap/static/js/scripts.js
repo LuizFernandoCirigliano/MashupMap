@@ -57,9 +57,7 @@ var options = {
 function create_network(data) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
-	//Temporary
 	set_playlist(songs.slice(0,4));
-	//end
 	if(network != null) {
 		console.log('network != null');
 		var newData = {

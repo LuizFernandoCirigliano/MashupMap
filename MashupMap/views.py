@@ -17,6 +17,7 @@ def before_request():
 def index():
     return render_template(
         'mashupmap-full.html'
+        # 'index.html'
         )
 
 

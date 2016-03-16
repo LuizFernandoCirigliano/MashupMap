@@ -1,7 +1,7 @@
 import random
 from MashupMap import cache
 from MashupMap.models import Mashup, Artist
-
+from sqlalchemy import or_
 
 def random_color():
     rc = lambda: random.randint(0, 255)
@@ -48,12 +48,11 @@ def graph_for_mashup_list(mashups):
 
 @cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
 def get_mashup_graph():
-    mashups = random.sample(Mashup.query.all(), 50)
+    mashups = random.sample(list(Mashup.query.filter(or_(Mashup.isBroken==None, Mashup.isBroken==False))), 300)
 
     return graph_for_mashup_list(mashups)
 
 
-@cache.cached(timeout=60*60*4, key_prefix='get_artist_mashups')
 def get_artist_mashups(artist_name):
     # mashups = random.sample(Mashup.query.all(), 300)
     try:
@@ -64,6 +63,9 @@ def get_artist_mashups(artist_name):
 
     if artist:
         mashups = artist.artist_mashups
+        for m in mashups:
+            if m.isBroken:
+                mashups.remove(m)
     else:
         return get_mashup_graph()
 

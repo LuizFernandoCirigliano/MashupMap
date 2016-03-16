@@ -64,7 +64,8 @@ def get_or_create(session, model, **kwargs):
             session.add(instance)
             session.commit()
             return instance
-        except:
+        except Exception as e:
+            print(e)
             session.rollback()
             return None
 

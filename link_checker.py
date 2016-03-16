@@ -1,7 +1,9 @@
 import requests
 import re
 from selenium import webdriver
+from MashupMap import db
 from MashupMap.models import Mashup
+from MashupMap.analytics import get_broken_index, save_broken_index
 
 #need to update pip requirements
 
@@ -21,8 +23,8 @@ def check_soundcloud(url_check):
     driver.get(url_check)
     html = driver.page_source
     #afterwards, I'll make it more efficient by using phantomJS to search instead of regex in the whole page source.
-    match = re.search('We can.t find that track\.', html) #searches for error pattern form souncloud in source code
-
+    match = re.search('We can.t find that track', html) #searches for error pattern form souncloud in source code
+    #We can’t find that track.
     if match:
         return True
     else:
@@ -42,10 +44,10 @@ def check_vimeo(url):
 
 def check_link(url):
     if re.search('youtube', url):
-        print('youtube')
+        # print('youtube')
         return check_youtube(url)
     elif re.search('soundcloud', url):
-        print('soundcloud')
+        # print('soundcloud')
         return check_soundcloud(url)
     elif re.search('vimeo', url):
         return check_vimeo(url)
@@ -56,16 +58,39 @@ def check_link(url):
 
 
 def main():
-    # print(check_vimeo('https://vimeo.com/121562736'))
-    mashups = Mashup.query.all()
-    # print(len(mashups))
-    for m in mashups:
-        print(m.content)
-        if check_link(m.content):
-            print('Broken link!')
-            m.isBroken = True
-            db.session.commit()
+    start_index = int(get_broken_index())
+    print('Start index: ' + str(start_index))
+    mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
+    # print('Mashups', mashups, '\n')
+    try:
+        for i,m in enumerate(mashups):
+            # print(m.url)
+            print(m.id)
+            if check_link(m.url) :
+                print('Broken link!')
+                m.isBroken = True
+            else:
+                m.isBroken = False
+            if m.id % 30 == 0:
+                db.session.commit()
+                save_broken_index(m.id)
+                print('Committing...')
+    except Exception as e:
+        print(e, e.args)
+        db.session.commit()
+        save_broken_index(m.id - 1)
+        print('Exception. Committing...')
+        return
+    except:
+        db.session.commit()
+        save_broken_index(m.id - 1)
+        print('User interruption. Committing...')
+        return
 
+
+    db.session.commit()
+    save_broken_index(m.id)
+    print('Committed!')
 
 
 
