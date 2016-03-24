@@ -24,7 +24,7 @@ main, menu, nav, section, summary {
     display: block
 }*/
 
-audio, canvas, progress, video {
+/*audio, canvas, progress, video {
     display: inline-block;
     vertical-align: baseline
 }
@@ -36,7 +36,7 @@ audio:not([controls]) {
 
 [hidden], template {
     display: none
-}
+}*/
 
 a {
     background-color: transparent
@@ -193,10 +193,10 @@ table {
 td, th {
     padding: 0
 }
-
+/*
 .hidden, [hidden] {
     display: none !important
-}
+}*/
 
 .pure-img {
     max-width: 100%;
