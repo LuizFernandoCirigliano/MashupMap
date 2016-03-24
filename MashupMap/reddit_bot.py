@@ -9,7 +9,7 @@ from MashupMap.models import Mashup
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
 
-user_agent = os.environ.get('USER_AGENT')
+user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
 
@@ -33,7 +33,7 @@ def insert_submission_in_db(submission):
         return None
 
     artists_names = artist_list_from_title(submission.title)
-    if artists_names == None:
+    if artists_names is None:
         return None
     content = submission.media_embed.get('content')
     if content is None:
@@ -59,7 +59,8 @@ def insert_submission_in_db(submission):
         author=author,
         permalink=reddit_url,
         date=date,
-        content=content
+        content=content,
+        url=submission.url
     )
 
     for name in artists_names:

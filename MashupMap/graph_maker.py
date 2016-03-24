@@ -1,24 +1,28 @@
 import random
 from MashupMap import cache
-from MashupMap.models import Mashup
-
+from MashupMap.models import Mashup, Artist
+from sqlalchemy import or_
 
 def random_color():
     rc = lambda: random.randint(0, 255)
     return '#%02X%02X%02X' % (rc(), rc(), rc())
 
 
-@cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
-def get_mashup_graph():
+def graph_for_mashup_list(mashups):
     artistset = set()
     nodes = []
     edges = []
     songs = []
-
-    mashups = random.sample(Mashup.query.all(), 300)
-
+    song_for_edge = []
     for mashup in mashups:
         mashup_color = random_color()
+        song_id = len(songs)
+        songs.append({
+            "embed": mashup.content,
+            "author": mashup.author,
+            "redditurl": mashup.permalink,
+            "title": mashup.title
+        })
         for a1 in mashup.artists:
             artistset.add(a1)
             for a2 in mashup.artists:
@@ -30,13 +34,8 @@ def get_mashup_graph():
                         "id": eid,
                         "color": mashup_color,
                         "title": mashup.title
-                        })
-                    songs.append({
-                        "embed": mashup.content,
-                        "author": mashup.author,
-                        "redditurl": mashup.permalink,
-                        "title": mashup.title
                     })
+                    song_for_edge.append(song_id)
 
     for a in artistset:
         nodes.append({
@@ -44,4 +43,30 @@ def get_mashup_graph():
             "image": a.imageURL,
             "label": a.name
         })
-    return nodes, edges, songs
+    return nodes, edges, songs, song_for_edge
+
+
+@cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
+def get_mashup_graph():
+    mashups = random.sample(list(Mashup.query.filter(or_(Mashup.isBroken==None, Mashup.isBroken==False))), 300)
+
+    return graph_for_mashup_list(mashups)
+
+
+def get_artist_mashups(artist_name):
+    # mashups = random.sample(Mashup.query.all(), 300)
+    try:
+        # later on, I'll implement the query using ID.
+        artist = Artist.query.filter_by(name=artist_name).first()
+    except:
+        return get_mashup_graph()
+
+    if artist:
+        mashups = artist.artist_mashups
+        for m in mashups:
+            if m.isBroken:
+                mashups.remove(m)
+    else:
+        return get_mashup_graph()
+
+    return graph_for_mashup_list(mashups)
