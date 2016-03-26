@@ -3,6 +3,8 @@ import re
 import MashupMap.music_api as m
 import os
 from MashupMap import db
+from populate_urls import get_url_from_embed
+import link_checker
 
 import datetime
 from MashupMap.models import Mashup
@@ -47,6 +49,10 @@ def insert_submission_in_db(submission):
     date = datetime.datetime.utcfromtimestamp(
         submission.created_utc
     )
+    # print(content)
+    url = get_url_from_embed(content)
+    print(url)
+    isBroken = link_checker.check_link(url)
 
     check_mash = Mashup.query.filter_by(
         permalink=reddit_url
@@ -60,7 +66,8 @@ def insert_submission_in_db(submission):
         permalink=reddit_url,
         date=date,
         content=content,
-        url=submission.url
+        url=url,
+        isBroken = isBroken
     )
 
     for name in artists_names:

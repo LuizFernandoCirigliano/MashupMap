@@ -124,6 +124,7 @@ function create_network(data) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
 
+	//if the graph already exists, just update the data. More efficient than creating a new one.
 	if(network != null) {
 		console.log('network != null');
 		var newData = {
@@ -132,7 +133,7 @@ function create_network(data) {
 		};
 		network.setData(newData);
 	}
-	else {
+	else { //create a new graph and store it on the network variable.
 		nodes = data.nodes;
 		edges = data.edges;
 		draw();
@@ -143,16 +144,17 @@ function create_network(data) {
 
 function request_graph() {
 	var artist_name = $('#artist_input').val();
-	// console.log(artist_name, artist_name.length);
+
+	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data);
 		})
-		.fail(function() {
+		.fail(function() { //display error if artist is not found.
 			$('#no_artist_error').show(0).delay(2000).hide(0);
 		});
 	}
-	else {
+	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
 			create_network(data);
 		});
