@@ -808,7 +808,7 @@ a.pure-button-selected {
 }
 
 .pure-menu-horizontal .pure-menu-list {
-    display: inline-block
+    display: inline-block;
 }
 
 .pure-menu-horizontal .pure-menu-item, .pure-menu-horizontal .pure-menu-heading,
@@ -894,7 +894,7 @@ a.pure-button-selected {
 
 .pure-menu-heading {
     text-transform: uppercase;
-    color: #565d64
+    color: #565d64;
 }
 
 .pure-menu-link {

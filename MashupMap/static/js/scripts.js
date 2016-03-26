@@ -53,7 +53,10 @@ var options = {
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
 		navigationButtons: true,
-		selectConnectedEdges: false //false, otherwise selecting a node will select adjacent edges.
+		selectConnectedEdges: false, //false, otherwise selecting a node will select adjacent edges.
+		keyboard: {
+			enabled: true
+		}
 	}
 };
 

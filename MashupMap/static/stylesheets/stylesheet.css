@@ -1,3 +1,11 @@
+
+/*
+Our colors:
+
+Our dark blue is: #426baa
+
+*/
+
     body {
       background: black;
     }
@@ -36,27 +44,20 @@
       border-width: 2px;
       border-color: white;
     }
-    #request_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:200px;
-      bottom: 4%;
-    }
-    #request_label {
-      position: absolute;
-      left:50%;
-      margin-left:195px;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-      text-align: center;
-    }
+
+
     #random_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:-240px;
-      bottom: 4%;
+        position: absolute;
+        right: 15px;
+        bottom: 180px;
     }
+
+    #random_mashup_button {
+        background-color: #426baa;
+        /*width: 34px;
+        height: 34px;*/
+    }
+
     #random_label {
       position: absolute;
       left:50%;
@@ -134,4 +135,58 @@
     }
     .footer {
         color: #777;
+    }
+    div.vis-network div.vis-navigation div.vis-button div {
+        color: #fff;
+    }
+    .navigation-button {
+        /*Copied from div.vis-network div.vis-navigation div.vis-button div */
+        width: 34px;
+        height: 34px;
+        /*-moz-border-radius: 17px;*/
+        /*border-radius: 17px;*/
+        position: absolute;
+        /*display: inline-block;
+        background-position: 2px 2px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;*/
+        color: #fff;
+        /*This is our default blue color!*/
+        background-color: #426baa;
+        opacity: 100%;
+    }
+
+    .navigation-button-up {
+        bottom: 130px;
+        right: 55px;
+    }
+    .navigation-button-right {
+        bottom: 90px;
+        right: 15px;
+    }
+    .navigation-button-left {
+        bottom: 90px;
+        right: 95px;
+    }
+    .navigation-button-down {
+        bottom: 50px;
+        right: 55px;
+    }
+    .navigation-button-zoomIn {
+        bottom: 10px; /* 10px + 2 * 34px + 2px (padding) */
+        right: 15px;
+    }
+    .navigation-button-zoomOut {
+        bottom: 10px;
+        right: 95px;
+    }
+    .navigation-button-zoomExtends {
+        bottom: 10px; /* 50px + 2 * 34px + 2px (padding) */
+        right: 55px;
     }
