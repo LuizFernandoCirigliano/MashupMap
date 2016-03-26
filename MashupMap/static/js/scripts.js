@@ -52,7 +52,8 @@ var options = {
 		hover:true,
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
-		navigationButtons: true
+		navigationButtons: true,
+		selectConnectedEdges: false //false, otherwise selecting a node will select adjacent edges.
 	}
 };
 
@@ -122,7 +123,6 @@ function play_song(song_embed, continuous) {
 }
 
 function create_network(data, new_artist) {
-	$("#infocontainer").hide();
 	if(network != null && new_artist != undefined) {
 			songs = data.songs;
 			song_for_edge = data.song_for_edge;
