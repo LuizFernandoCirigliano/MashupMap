@@ -37,7 +37,7 @@ def get_graph():
 @app.route("/graph/artist/<artist_name>")
 def get_artist_graph(artist_name):
     artist = get_artist(artist_name)
-    print(artist.name)
+    print(artist)
     if artist:
         nodes, edges, songs, song_for_edge = get_artist_mashups(artist.name)
         return jsonify({
@@ -47,7 +47,10 @@ def get_artist_graph(artist_name):
             "song_for_edge": song_for_edge
         })
     else:
-        return get_graph()
+        print('No artist found!')
+        # return get_graph()
+        return 'No artist found', 404
+        # raise InvalidUsage('No artist found', status_code=404)
 
 
 @app.route("/count/<key>", methods=["POST"])

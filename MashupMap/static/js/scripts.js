@@ -138,7 +138,7 @@ function create_network(data, new_artist) {
 	}
 
 	else {
-		console.log('Preparing to create network');
+		// console.log('Preparing to create network');
 		artists_displayed = [];
 		songs = data.songs;
 		song_for_edge = data.song_for_edge;
@@ -155,12 +155,14 @@ function request_graph(artist_name) {
 	if (artist_name == undefined) {
 		var artist_name = $('#artist_input').val();
 	}
+	console.log(artist_name);
 	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data, artist_name);
 		})
 		.fail(function() { //display error if artist is not found.
+			console.log('Failed to find artist!');
 			$('#no_artist_error').show(0).delay(2000).hide(0);
 		});
 	}
@@ -252,6 +254,8 @@ $(document).ready(function() {
 			request_graph();
 		}
 	});
-	$('#search_artist_button').click(request_graph);
+	$('#search_artist_button').click(function() {
+		request_graph();
+	});
 	$('#random_mashup_button').click(play_random_song);
 });
