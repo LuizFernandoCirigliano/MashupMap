@@ -122,30 +122,23 @@ function play_song(song_embed, continuous) {
 }
 
 function create_network(data, new_artist) {
+	$("#infocontainer").hide();
 	if(network != null && new_artist != undefined) {
-		if(artists_displayed.length == 0) {
-			songs = songs.concat(data.songs);
-			song_for_edge = song_for_edge.concat(data.song_for_edge);
-			console.log('First artist inserted!');
+			songs = data.songs;
+			song_for_edge = data.song_for_edge;
+			console.log('Artist selected!');
 			var newData = {
 				nodes: data.nodes,
 				edges: data.edges
-			};
-		}
-		else {
-			songs = data.songs;
-			song_for_edge = data.song_for_edge;
-			console.log('Another artist inserted!');
-			var newData = {
-				nodes: data.nodes.concat(nodes),
-				edges: data.edges.concat(edges)
-			};
+			}
 			console.log(newData);
-		}
+
 		artists_displayed.push(new_artist);
 		network.setData(newData);
 	}
+
 	else {
+		console.log('Preparing to create network');
 		artists_displayed = [];
 		songs = data.songs;
 		song_for_edge = data.song_for_edge;
@@ -155,9 +148,10 @@ function create_network(data, new_artist) {
 		$(".myloader").hide();
 		$(".myheader").css("background-color", "transparent");
 	}
+
 }
 
-function request_graph() {
+function request_graph(artist_name) {
 	if (artist_name == undefined) {
 		var artist_name = $('#artist_input').val();
 	}
@@ -170,10 +164,12 @@ function request_graph() {
 		});
 	}
 	else {
+		console.log('Create network');
 		$.get("/graph").done(function(data) {
 			create_network(data);
 		});
 	}
+
 }
 
 function cv_resize() {
@@ -204,7 +200,7 @@ function draw() {
 
 	network = new vis.Network(container, data, options);
 	network.on("dragStart", function(params) {
-	 $("#infocontainer").hide();
+		$("#infocontainer").hide();
 	});
 
 	network.on("selectEdge", function (params) {
@@ -218,11 +214,12 @@ function draw() {
 	network.on("selectNode", function (params) {
 		// console.log(params);
 		var node_id = params.nodes[0];
-		console.log(node_id);
+		// console.log(node_id);
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
 		console.log(artist_name);
 		request_graph(artist_name);
+
 	});
 
 	network.on("zoom", function(params) {
@@ -240,9 +237,7 @@ function draw() {
 
 	cv_resize();
 	$("#mynetwork").show();
-	$('#random_mashup_button').click(function(){
-	play_random_song();
-	});
+
 
 }
 
@@ -257,5 +252,5 @@ $(document).ready(function() {
 		}
 	});
 	$('#search_artist_button').click(request_graph);
-
+	$('#random_mashup_button').click(play_random_song);
 });
