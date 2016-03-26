@@ -48,7 +48,7 @@ def graph_for_mashup_list(mashups):
 
 @cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
 def get_mashup_graph():
-    mashups = random.sample(list(Mashup.query.filter(or_(Mashup.isBroken==None, Mashup.isBroken==False))), 300)
+    mashups = random.sample(list(Mashup.query.filter(or_(Mashup.isBroken==None, Mashup.isBroken==False))), 100)
 
     return graph_for_mashup_list(mashups)
 

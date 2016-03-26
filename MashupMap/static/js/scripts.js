@@ -11,7 +11,7 @@ var nodeOptions = {
 		shape: "icon",
 		borderWidth:4,
 		size:25,
-		mass: 4,
+		mass: 1,
 		color: {
 		  border: '#222222',
 		},
@@ -28,7 +28,7 @@ var options = {
 	width: '100%',
 	nodes: nodeOptions,
 	edges: {
-		width: 1,
+		width: 2,
 		color: 'lightgray',
 		// smooth: true,
 		hoverWidth: 5
