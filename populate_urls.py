@@ -20,10 +20,14 @@ def get_url_from_embed(embed_code):
         except:
             return None
 
-mashups = Mashup.query.all()
-for m in mashups:
-    m.url = get_url_from_embed(m.content)
-db.session.commit()
+def main():
+    mashups = Mashup.query.all()
+    for m in mashups:
+        m.url = get_url_from_embed(m.content)
+    db.session.commit()
 
-mashups_check = Mashup.query.all()
-print([m.url for m in mashups_check])
+    mashups_check = Mashup.query.all()
+    print([m.url for m in mashups_check])
+
+if __name__ == '__main__':
+    main()

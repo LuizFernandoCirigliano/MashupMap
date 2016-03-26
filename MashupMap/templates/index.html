@@ -1,200 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-		<meta charset="UTF-8" />
-        <link rel="shortcut icon" href="../favicon.ico">
-        <link rel="stylesheet" type="text/css" href="/static/stylesheets/SlitSlider/style.css" />
-        <link rel="stylesheet" type="text/css" href="/static/stylesheets/SlitSlider/custom.css" />
-        <link rel="stylesheet" href="/static/stylesheets/Pure/marketing.css">
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% extends "base/header.html" %}
 
-		<script type="text/javascript" src="/static/js/SlitSlider/modernizr.custom.79639.js"></script>
-		<noscript>
-			<link rel="stylesheet" type="text/css" href="/static/stylesheets/SlitSlider/styleNoJS.css" />
-		</noscript>
-    </head>
-    <body>
-        <div class="header">
-            <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                <a class="pure-menu-heading" href="">MashupMap</a>
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Graph</a></li>
-                        <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li>
-                    </ul>
-            </div>
-        </div>
-        <div class="container demo-1">
-            <div id="slider" class="sl-slider-wrapper">
-				<div class="sl-slider">
-					<div class="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation="0" data-slice2-rotation="0" data-slice1-scale="0" data-slice2-scale="0">
-						<div class="sl-slide-inner">
-<!-- --------------------------------------------------------------------------------- -->
-
-                            <div class="splash-container">
-                                <div class="splash">
-                                    <h1 class="splash-head">MashupMap</h1>
-                                        <p class="splash-subhead">
-                                            Rediscover music.
-                                        </p>
-                                        <p>
-                                            <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
-                                        </p>
-                                </div>
-                            </div>
-
-                            <div class="content-wrapper">
-                                <div class="content">
-                                    <h3 class="content-head is-center">We offer you a different musical experience </h3>
-                                        <div class="l-box pure-u-1 is-center">
-                                            <p>
-                                                Imagine how great it would be to see a combination of your favorite artists.
-                                            </p>
-                                            <p>
-                                                Imagine how great it would be to discover new artists, new musical genres, new music being part of the process.
-                                            </p>
-                                            <p>
-                                                Imagine the MashupMap.
-                                            </p>
-                                        </div>
-                                        <div class="pure-g is-center">
-                                            <div class="l-box pure-u-1 pure-u-md-1-2">
-                                                <h3 class="content-subhead">
-                                                    <i class="fa fa-cubes"></i>
-                                                        Mashup Database
-                                                </h3>
-                                                <p>
-                                                    The first organized and searchable mashup database, containing combinations of songs made by different artists!
-                                                </p>
-                                            </div>
-                                            <div class="l-box pure-u-1 pure-u-md-1-2">
-                                                <h3 class="content-subhead">
-                                                    <i class="fa fa-mobile"></i>
-                                                        Visualization
-                                                </h3>
-                                                <p>
-                                                    With the MashupMap you will have a unique visualization of music, being able to discover the most unexpected combinations of artists through an intuitive and pleasant way.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <div class="ribbon l-box-lrg pure-g is-center">
-                                    <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5 is-center">
-                                        <nav id="nav-arrows" class="nav-arrows">
-							                <div class="round-button is-center">
-                                                <div class="round-button-circle is-center">
-                                                    <a href="" class="round-button nav-arrow-next">Have fun</a>
-                                                </div>
-                                            </div>
-                                        </nav>
-                                    </div>
-                                </div>
-                                <div class="footer l-box is-center">
-                                    <a class="content-subhead is-center" href="mailto:gabriel.simoes@yale.edu">Contact Us</a>
-                                </div>
-                            </div>
+{% block body_block %}
 
 
-<!-- --------------------------------------------------------------------------------- -->
 
-						</div>
-					</div>
 
-					<div class="sl-slide bg-2" data-orientation="vertical" data-slice1-rotation="10" data-slice2-rotation="-15" data-slice1-scale="1.5" data-slice2-scale="1.5">
-						<div class="sl-slide-inner"">
-						    <object type="text/html" data="http://www.mashupmap.me/" width="100%" height="100%" style="overflow:hidden;"></object>
-						</div>
-					</div>
-				</div><!-- /sl-slider -->
-			</div><!-- /slider-wrapper -->
-        </div>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<script type="text/javascript" src="/static/js/SlitSlider/jquery.ba-cond.min.js"></script>
-		<script type="text/javascript" src="/static/js/SlitSlider/jquery.slitslider.js"></script>
-		<script type="text/javascript">
-			$(function() {
+      <div class="splash-container">
+          <div class="splash">
+              <h1 class="splash-head">MashupMap</h1>
+              <p class="splash-subhead">
+                  Rediscover music.
+              </p>
+              <p>
+                  <a href="/full" class="pure-button pure-button-primary">Get Started</a>
+              </p>
+          </div>
+      </div>
 
-				var Page = (function() {
+      <div class="content-wrapper">
+          <div class="content">
+              <h2 class="content-head is-center">We offer you a different musical experience </h2>
+              <div class="l-box pure-u-1 is-center">
+                  <p>
+                      Imagine how great it would be to see a combination of your favorite artists.
+                  </p>
+                  <p>
+                      Imagine how great it would be to discover new artists, new musical genres, new music being part of the process.
+                  </p>
+                  <p>
+                      Imagine the MashupMap.
+                  </p>
+              </div>
+              <div class="pure-g">
+                  <div class="l-box pure-u-1 pure-u-md-1-2">
 
-					var $navArrows = $( '#nav-arrows' ),
-						$nav = $( '#nav-dots > span' ),
-						slitslider = $( '#slider' ).slitslider( {
-							onBeforeChange : function( slide, pos ) {
+                      <h3 class="content-subhead">
+                          <i class="fa fa-rocket"></i>
+                          Mashup Database
+                      </h3>
+                      <p>
+                          The first organized and searchable mashup database, containing combinations of songs made by different artists!
+                      </p>
+                  </div>
+                  <div class="l-box pure-u-1 pure-u-md-1-2">
+                      <h3 class="content-subhead">
+                          <i class="fa fa-mobile"></i>
+                          Visualization
+                      </h3>
+                      <p>
+                          With the MashupMap you will have a unique visualization of music, being able to discover the most unexpected combinations of artists through an intuitive and pleasant way.
+                      </p>
+                  </div>
+              </div>
+          </div>
 
-								$nav.removeClass( 'nav-dot-current' );
-								$nav.eq( pos ).addClass( 'nav-dot-current' );
+          <div class="ribbon l-box-lrg pure-g">
 
-							}
-						} ),
+              <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5 is-center">
+                  <div class="round-button is-center" >
+                      <div class="round-button-circle is-center" id="start_map_button">
+                          <a href="/full" class="round-button">Have fun</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="footer l-box is-center">
+             <a href="mailto:luiz.cirigliano@yale.edu">Contact Us</a>
+          </div>
 
-						init = function() {
-
-							initEvents();
-
-						},
-						initEvents = function() {
-
-							// add navigation events
-							$navArrows.children( ':last' ).on( 'click', function() {
-
-								slitslider.next();
-								return false;
-
-							} );
-
-							$navArrows.children( ':first' ).on( 'click', function() {
-
-								slitslider.previous();
-								return false;
-
-							} );
-
-							$nav.each( function( i ) {
-
-								$( this ).on( 'click', function( event ) {
-
-									var $dot = $( this );
-
-									if( !slitslider.isActive() ) {
-
-										$nav.removeClass( 'nav-dot-current' );
-										$dot.addClass( 'nav-dot-current' );
-
-									}
-
-									slitslider.jump( i + 1 );
-									return false;
-
-								} );
-
-							} );
-
-						};
-
-						return { init : init };
-
-				})();
-
-				Page.init();
-
-				/**
-				 * Notes:
-				 *
-				 * example how to add items:
-				 */
-
-				/*
-
-				var $items  = $('<div class="sl-slide sl-slide-color-2" data-orientation="horizontal" data-slice1-rotation="-5" data-slice2-rotation="10" data-slice1-scale="2" data-slice2-scale="1"><div class="sl-slide-inner bg-1"><div class="sl-deco" data-icon="t"></div><h2>some text</h2><blockquote><p>bla bla</p><cite>Margi Clarke</cite></blockquote></div></div>');
-
-				// call the plugin's add method
-				ss.add($items);
-
-				*/
-
-			});
-		</script>
-	</body>
+      </div>
+  </div>
+    </body>
 </html>
+
+{% endblock %}

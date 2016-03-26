@@ -1,6 +1,11 @@
     body {
       background: black;
     }
+
+    #graph_body {
+        background: black;
+    }
+
     #mynetwork {
       background-color:black;
       top:0;
@@ -102,13 +107,13 @@
     }
 
 
-    #artist_form {
-      width: 20%;
-      position: absolute;
+    #artist_input {
+      width: 80%;
+      /*position: absolute;
       right: 1%;
-      top: 12%;
-      /*height: 2%;*/
+      top: 12%;*/
     }
+
 
     #submit_artist_div {
       position: absolute;
@@ -119,4 +124,7 @@
     #no_artist_error {
       color: red;
       font-size: 2em;
+    }
+    .footer {
+        color: #777;
     }

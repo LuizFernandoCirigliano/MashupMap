@@ -12,7 +12,7 @@ var nodeOptions = {
 		shape: "icon",
 		borderWidth:4,
 		size:25,
-		mass: 4,
+		mass: 1,
 		color: {
 		  border: '#222222',
 		},
@@ -29,7 +29,7 @@ var options = {
 	width: '100%',
 	nodes: nodeOptions,
 	edges: {
-		width: 1,
+		width: 2,
 		color: 'lightgray',
 		// smooth: true,
 		hoverWidth: 5
@@ -155,16 +155,16 @@ function request_graph(artist_name) {
 	if (artist_name == undefined) {
 		var artist_name = $('#artist_input').val();
 	}
+	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
 			create_network(data, artist_name);
 		})
-		.fail(function() {
+		.fail(function() { //display error if artist is not found.
 			$('#no_artist_error').show(0).delay(2000).hide(0);
 		});
 	}
-	else {
-		console.log('Create network');
+	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
 			create_network(data);
 		});
@@ -246,6 +246,7 @@ function search_artist() {
 }
 
 $(document).ready(function() {
+	start();
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
 			request_graph();

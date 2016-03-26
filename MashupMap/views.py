@@ -13,14 +13,16 @@ def before_request():
 
 
 @app.route("/")
-@app.route("/full")
 def index():
     return render_template(
-        'mashupmap-full.html'
-        # 'index.html'
+        'index.html'
         )
 
-
+@app.route("/full")
+def mashup_map():
+    return render_template(
+        'mashupmap-full.html'
+        )
 @app.route("/graph")
 def get_graph():
     nodes, edges, songs, song_for_edge = get_mashup_graph()
