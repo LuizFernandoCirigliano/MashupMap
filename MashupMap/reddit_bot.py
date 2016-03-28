@@ -52,8 +52,9 @@ def insert_submission_in_db(submission):
     # print(content)
     url = get_url_from_embed(content)
     print(url)
-    isBroken = link_checker.check_link(url)
-
+    # isBroken = link_checker.check_link(url)
+    #checking for broken links takes longer and new links are rarely broken.
+    isBroken = False
     check_mash = Mashup.query.filter_by(
         permalink=reddit_url
     ).first()

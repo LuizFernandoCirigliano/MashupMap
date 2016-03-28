@@ -62,7 +62,13 @@ def get_artist_mashups(artist_name):
         return get_mashup_graph()
 
     if artist:
-        mashups = artist.artist_mashups
+        mashups = []
+        #to use filter method on collection object, we would need to configure the lazy attribute to dynamic.
+        for m in artist.artist_mashups:
+            if not m.isBroken:
+                mashups.append(m)
+        print(mashups)
+        # print(len(mashups))
         for m in mashups:
             if m.isBroken:
                 mashups.remove(m)

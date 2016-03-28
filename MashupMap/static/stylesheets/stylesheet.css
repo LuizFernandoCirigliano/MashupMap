@@ -143,8 +143,8 @@ Our dark blue is: #426baa
         /*Copied from div.vis-network div.vis-navigation div.vis-button div */
         width: 34px;
         height: 34px;
-        /*-moz-border-radius: 17px;*/
-        /*border-radius: 17px;*/
+        -moz-border-radius: 17px;
+        border-radius: 17px;
         position: absolute;
         /*display: inline-block;
         background-position: 2px 2px;
