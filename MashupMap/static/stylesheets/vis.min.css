@@ -970,10 +970,10 @@ div.vis-network-tooltip {
 }
 
 div.vis-network div.vis-navigation div.vis-button {
-    width: 34px;
-    height: 34px;
-    /*-moz-border-radius: 17px;
-    border-radius: 17px;
+    width: 40px;
+    height: 40px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
     position: absolute;
     display: inline-block;
     background-position: 2px 2px;
@@ -984,7 +984,8 @@ div.vis-network div.vis-navigation div.vis-button {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none*/
+    user-select: none;
+    background-color: #426baa;
 }
 
 div.vis-network div.vis-navigation div.vis-button:hover {
@@ -995,68 +996,62 @@ div.vis-network div.vis-navigation div.vis-button:active {
     box-shadow: 0 0 1px 3px rgba(56, 207, 21, .95)
 }
 
-@font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}
-
 div.vis-network div.vis-navigation div.vis-button.vis-up {
-    /*background-image: url(img/network/upArrow.png);*/
-    content: "\e093";
-    font-family:"Glyphicons Halflings";
-    font-style: normal;
-    font-weight: 400;
-    line-height:1;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 24px;
-    display: inline-block;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background-image: url(icons/arrow-up.png);
+    background-size: 90%;
 
+    bottom: 165px;
+    right: 65px;
 
-    position: absolute;
-    bottom: 50px;
-    left: 55px;
-    color: #ffffff;
 
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-down {
     /*background-image: url(img/network/downArrow.png);*/
-    bottom: 10px;
-    left: 55px
+    background-image: url(icons/arrow-down.png);
+    background-size: 90%;
+    bottom: 65px;
+    right: 65px;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-left {
     /*background-image: url(img/network/leftArrow.png);*/
-    bottom: 10px;
-    left: 15px
+    background-image: url(icons/arrow-left.png);
+    background-size: 90%;
+    bottom: 115px;
+    right: 115px
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-right {
     /*background-image: url(img/network/rightArrow.png);*/
-    bottom: 10px;
-    left: 95px
+    background-image: url(icons/arrow-right.png);
+    background-size: 90%;
+    bottom: 115px;
+    right: 15px
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
     /*background-image: url(img/network/plus.png);*/
-    bottom: 10px;
+    background-image: url(icons/zoomIn.png);
+    background-size: 90%;
+    bottom: 15px;
     right: 15px
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
     /*background-image: url(img/network/minus.png);*/
-    bottom: 10px;
-    right: 55px
+    background-image: url(icons/zoomOut.png);
+    background-size: 90%;
+    bottom: 15px;
+    right: 115px
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
     /*background-image: url(img/network/zoomExtends.png);*/
-    bottom: 50px;
-    right: 15px
+    background-image: url(icons/zoomExtend.png);
+    background-size: 90%;
+    bottom: 15px;
+    right: 65px
 }
 
 div.vis-color-picker {
