@@ -366,3 +366,16 @@ h4 {
     font-weight:bold;
     text-decoration:none;
 }
+
+/*carousel*/
+.carousel {
+  width:100%;
+}
+
+.horse {
+    border-style: solid;
+    border-width: medium;
+    border-color: white;
+    width:80%;
+    height:80%;
+}
