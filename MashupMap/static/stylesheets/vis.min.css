@@ -970,13 +970,18 @@ div.vis-network-tooltip {
 }
 
 div.vis-network div.vis-navigation div.vis-button {
-    width: 40px;
-    height: 40px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
+    /*width: 40px;
+    height: 40px;*/
+    width: 3.5vw;
+    height: 3.5vw;
+    /*-moz-border-radius: 20px;
+    border-radius: 20px;*/
+    -moz-border-radius: 3.5vw;
+    border-radius: 3.5vw;
     position: absolute;
     display: inline-block;
-    background-position: 2px 2px;
+    /*background-position: 2px 2px;*/
+    background-position: 0.2vw 0.2vw;
     background-repeat: no-repeat;
     cursor: pointer;
     -webkit-touch-callout: none;
@@ -1002,8 +1007,8 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
     background-image: url(icons/arrow-up.png);
     background-size: 90%;
 
-    bottom: 65px;
-    right: 115px;
+    bottom: 5vw;
+    right: 9vw;
 
 
 }
@@ -1012,48 +1017,48 @@ div.vis-network div.vis-navigation div.vis-button.vis-down {
     /*background-image: url(img/network/downArrow.png);*/
     background-image: url(icons/arrow-down.png);
     background-size: 90%;
-    bottom: 15px;
-    right: 115px;
+    bottom: 1vw;
+    right: 9vw;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-left {
     /*background-image: url(img/network/leftArrow.png);*/
     background-image: url(icons/arrow-left.png);
     background-size: 90%;
-    bottom: 15px;
-    right: 165px
+    bottom: 1vw;
+    right: 13vw
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-right {
     /*background-image: url(img/network/rightArrow.png);*/
     background-image: url(icons/arrow-right.png);
     background-size: 90%;
-    bottom: 15px;
-    right: 65px
+    bottom: 1vw;
+    right: 5vw
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
     /*background-image: url(img/network/plus.png);*/
     background-image: url(icons/zoomIn.png);
     background-size: 90%;
-    bottom: 65px;
-    right: 15px
+    bottom: 5vw;
+    right: 1vw
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
     /*background-image: url(img/network/minus.png);*/
     background-image: url(icons/zoomOut.png);
     background-size: 90%;
-    bottom: 15px;
-    right: 15px
+    bottom: 1vw;
+    right: 1vw
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
     /*background-image: url(img/network/zoomExtends.png);*/
     background-image: url(icons/zoomExtend.png);
     background-size: 90%;
-    bottom: 115px;
-    right: 15px
+    bottom: 9vw;
+    right: 1vw
 }
 
 div.vis-color-picker {

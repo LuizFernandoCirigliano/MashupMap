@@ -57,13 +57,16 @@ Our dark blue is: #426baa
         /*background-color: #426baa;*/
         /*width: 34px;
         height: 34px;*/
-        width: 40px;
-        height: 40px;
-        -moz-border-radius: 20px;
-        border-radius: 20px;
+        width: 3.5vw;
+        height: 3.5vw;
+        /*-moz-border-radius: 20px;
+        border-radius: 20px;*/
+        -moz-border-radius: 2vw;
+        border-radius: 2vw;
         position: absolute;
         display: inline-block;
-        background-position: 2px 2px;
+        /*background-position: 2px 2px;*/
+        background-position: 0.2vw 0.2vw;
         background-repeat: no-repeat;
         cursor: pointer;
         -webkit-touch-callout: none;
@@ -73,8 +76,11 @@ Our dark blue is: #426baa
         -ms-user-select: none;
         user-select: none;
         background-color: #426baa;
-        bottom: 1.5%;
-        right: 34%;
+        bottom: 1.5vw;
+        /*right: 32vw;*/
+        right: 50%;
+        margin-right: -26.5vw;
+        text-align: center;
     }
     #random_mashup_button:hover {
         box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
