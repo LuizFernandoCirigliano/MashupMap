@@ -22,7 +22,7 @@ Our dark blue is: #426baa
     }
     #infocontainer {
       width: 250px;
-      height: 100px;
+      height: auto;
       position: absolute;
       top: 55px;
       right:0;
