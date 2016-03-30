@@ -989,11 +989,13 @@ div.vis-network div.vis-navigation div.vis-button {
 }
 
 div.vis-network div.vis-navigation div.vis-button:hover {
-    box-shadow: 0 0 3px 3px rgba(56, 207, 21, .3)
+    /*box-shadow: 0 0 3px 3px rgba(56, 207, 21, .3);*/
+    box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
+    /*426baa*/
 }
 
 div.vis-network div.vis-navigation div.vis-button:active {
-    box-shadow: 0 0 1px 3px rgba(56, 207, 21, .95)
+    box-shadow: 0 0 1px 3px rgba(22, 87, 176, .95);
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-up {
