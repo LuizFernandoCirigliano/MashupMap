@@ -22,7 +22,7 @@ Our dark blue is: #426baa
     }
     #infocontainer {
       width: 250px;
-      height: 80px;
+      height: 100px;
       position: absolute;
       top: 55px;
       right:0;
@@ -34,6 +34,10 @@ Our dark blue is: #426baa
       color: white;
       border-radius: 5%;
       overflow: hidden;
+      font-size: 0.9em;
+    }
+    .song_info {
+        font-size: 0.8em;
     }
     #myplayer {
       position:absolute;

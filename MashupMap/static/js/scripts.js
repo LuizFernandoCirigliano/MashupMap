@@ -212,6 +212,7 @@ function draw() {
 		current_song = song_for_edge[params.edges[0]];
 		var selectedSong = songs[current_song];
 		play_selected_song();
+		$('#song_title').html(selectedSong.title);
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
 		move_info_div();
