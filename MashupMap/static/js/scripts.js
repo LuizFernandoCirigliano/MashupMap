@@ -189,8 +189,8 @@ function cv_resize() {
 function move_info_div(x, y) {
 	var infodiv = $("#infocontainer");
 	infodiv.show();
-	infodiv.css("left", x + "px");
-	infodiv.css("top", (y - 150) + "px");
+	// infodiv.css("left", x + "px");
+	// infodiv.css("top", (y - 150) + "px");
 	$('#infocontainer').animateCss('bounceIn');
 	$('#mysubheader').hide();
 }
@@ -211,9 +211,11 @@ function draw() {
 	network.on("selectEdge", function (params) {
 		current_song = song_for_edge[params.edges[0]];
 		var selectedSong = songs[current_song];
+		play_selected_song();
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
-		move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
+		move_info_div();
+		// move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
 	});
 
 	network.on("selectNode", function (params) {
@@ -240,10 +242,9 @@ function draw() {
 		}
 	});
 
+
 	cv_resize();
 	$("#mynetwork").show();
-
-
 }
 
 function search_artist() {
