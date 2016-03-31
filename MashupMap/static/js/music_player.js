@@ -23,11 +23,11 @@ var player_start = function() {
 
 function configure_panels() {
     // Go to a track by clicking on it.
-    $('.panel').on('click', function() {
+    $('.track').on('click', function() {
         if (!isReady) {
             return false;
         }
-        var index = $('.panel').index(this);
+        var index = $('.track').index(this);
         multi.play(index);
         return false;
     });
@@ -43,15 +43,9 @@ var onReady = function() {
 
 function html_for_song(obj) {
     return ['<li class="track">',
-        '<div class="panel">',
-        '<div class="row">',
-        '<div class="large-12 medium-12 small-12 columns">',
         '<h4>' + obj.title + '</h4>',
         '<p>' + obj.author + '</p>',
-        '</div>',
-        '</div>',
         '<div class="iframe">' + obj.embed + '</div>',
-        '</div>',
         '</li>'
     ].join(' ');
 }
@@ -101,4 +95,9 @@ function add_song_to_playlist(song) {
             });
         }
     });
+}
+
+function remove_song_from_playlist(index) {
+    var tracks = $('.track');
+    tracks[index].remove();
 }

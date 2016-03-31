@@ -19,7 +19,7 @@ a:link {
     text-decoration: none;
 }
 
-/* 
+/*
 a:hover {
     text-decoration: underline;
 }
@@ -120,6 +120,7 @@ a.pure-button-primary {
 
 .home-menu .pure-menu-heading {
     color: #34a5da;
+    /*color: #428bca;*/
     font-weight: 400;
     font-size: 120%;
 }
@@ -211,7 +212,7 @@ a.pure-button-primary {
 }
 
 h4 {
-    color: #34a5da;  
+    color: #34a5da;
 }
 
 /* This is a modifier class used when the content-head is inside a ribbon */
@@ -245,7 +246,7 @@ h4 {
  */
 @media (min-width: 48em) {
 
-   
+
 
     /* We increase the body font size */
     body {
@@ -314,7 +315,7 @@ h4 {
         left: 0;
         position: fixed !important;
     }
-    
+
     .content-wrapper {
         /* These styles are required for the "scroll-over" effect */
         position: absolute;
@@ -341,8 +342,8 @@ h4 {
     border-radius: 50%;
 	border:0PX solid #EF8A08;
     overflow:hidden;
-    
-    background: #EEBB08; 
+
+    background: #EEBB08;
     box-shadow: 0 0 0PX #EF8A08;
 }
 
@@ -358,7 +359,7 @@ h4 {
     padding-bottom:50%;
 	line-height:1em;
 	margin-top:-0.5em;
-    
+
 	text-align:center;
 	color:#e2eaf3;
     font-family:Verdana;

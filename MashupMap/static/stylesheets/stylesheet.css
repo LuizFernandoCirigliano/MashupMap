@@ -1,8 +1,20 @@
+
+/*
+Our colors:
+
+Our dark blue is: #426baa
+
+*/
+
     body {
       background: black;
     }
     div.full-height {
-        min-height:100vh;
+        /*margin-top: 54px;*/
+        height: 100vh;
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: initial;
     }
     div.full-width {
        width: 100vw;
@@ -11,12 +23,12 @@
        max-width: initial;
     }
     div.menu {
-        background-color: transparent;
-        border-color: green;
+        margin-top: 54px;
+        /*background-color: white;*/
     }
     #mynetwork {
       background-color:black;
-      top:0;
+      /*top:0;*/
       width: 100%;
       /*position: absolute;*/
       z-index: -1;
@@ -45,28 +57,49 @@
       border-width: 2px;
       border-color: white;
     }
-    #request_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:200px;
-      bottom: 4%;
+
+    #random_mashup_button {
+        /*background-color: #426baa;*/
+        /*width: 34px;
+        height: 34px;*/
+        width: 3.5vw;
+        height: 3.5vw;
+        /*-moz-border-radius: 20px;
+        border-radius: 20px;*/
+        -moz-border-radius: 2vw;
+        border-radius: 2vw;
+        position: absolute;
+        display: inline-block;
+        /*background-position: 2px 2px;*/
+        background-position: 0.2vw 0.2vw;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #426baa;
+        bottom: 1.5vw;
+        /*right: 32vw;*/
+        right: 50%;
+        margin-right: -26.5vw;
+        text-align: center;
     }
-    #request_label {
-      position: absolute;
-      left:50%;
-      margin-left:195px;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-      text-align: center;
+    #random_mashup_button:hover {
+        box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
     }
-    #random_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:-240px;
-      bottom: 4%;
+    #random_mashup_button:active {
+        box-shadow: 0 0 1px 3px rgba(22, 87, 176, .95);
     }
-    #random_label {
+    #random_mashup_icon {
+        color:#ffffff;
+        position: relative;
+        top: 25%;
+    }
+
+    /*#random_label {
       position: absolute;
       left:50%;
       margin-left:-245px;
@@ -74,7 +107,7 @@
       color: white;
       font-size: 15px;
       text-align: center;
-    }
+    }*/
     .myheader {
       background-color: black;
       color: white;
@@ -115,9 +148,14 @@
       border-radius: 35px;
     }
 
-    .search-bar {
-        width:100%;
+
+    #artist_input {
+      width: 80%;
+      /*position: absolute;
+      right: 1%;
+      top: 12%;*/
     }
+
 
     #submit_artist_div {
       position: absolute;
@@ -128,4 +166,14 @@
     #no_artist_error {
       color: red;
       font-size: 2em;
+      position: absolute;
+      top: 15%;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+
+    }
+    .footer {
+        color: #777;
     }
