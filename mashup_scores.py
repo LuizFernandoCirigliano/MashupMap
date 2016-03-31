@@ -3,6 +3,7 @@ import re
 import os
 from MashupMap import db
 from MashupMap.models import Mashup
+from MashupMap.analytics import *
 
 KEY_LAST_REDDIT = 'last_reddit_mashup'
 
@@ -19,13 +20,46 @@ def get_mashup_id(url):
     id = match.group(0)[len('comments/'):]
     return id
 
-def update_score(submission_id):
+def update_score(mashup, submission_id):
     submission = r.get_submission(submission_id)
+    score = submission.score
+    mashup.score = score
+    # db.session.commit()
+
+
 
 def main():
-    # m_id = get_mashup_id('https://www.reddit.com/r/mashups/comments/4ckylm/totom_adele_loves_someone_like_kanye_k_west_adele/')
-    m_id = get_mashup_id('https://www.reddit.com/r/explainlikeimfive/comments/4clbhm/eli5_what_do_all_of_these_leaked_emails_from_big/')
-    print(m_id)
+    start_index = int(get_score_index())
+    print('Start index: ' + str(start_index))
+    mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
+    # print("Length of mashups: {}".format(len(mashups)))
+    try:
+        for i,m in enumerate(mashups):
+            print('Submission #{}'.format(m.id))
+            submission_id = get_mashup_id(m.permalink)
+            try:
+                submission = r.get_submission(submission_id=submission_id)
+            except Exception as e:
+                print(e)
+            score = submission.score
+            m.score = score
+            print(m.score)
+    except Exception as e:
+        print(e, e.args)
+        db.session.commit()
+        save_score_index(m.id - 1)
+        print('Interruption. Committing...')
+        return
+    except:
+        db.session.commit()
+        save_score_index(m.id - 1)
+        print('User interruption. Committing...')
+        return
+
+    save_score_index(m.id)
+    print('Finished!. Committing...')
+    db.session.commit()
+
 
 
 
