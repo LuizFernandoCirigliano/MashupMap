@@ -150,16 +150,17 @@
 
     // Go to the next player
     $Player.prototype.next = function() {
+        console.log("Move to next song");
         if (this.index === this.players.length - 1) {
             return false;
         }
 
         this.players[this.index].setCurrentTime(0);
         this.players[this.index].pause();
-        //Maybe this should change
-        this.remove_player(this.index);
+        // Maybe this should change
         remove_song_from_playlist(this.index);
-        // this.index++;
+        this.remove_player(this.index);
+        this.index++;
         this.emit('active', this.index);
         this.players[this.index].play();
 
@@ -266,10 +267,12 @@
         });
 
         player.on('ended', function() {
+            console.log("Player Ended");
             this.next();
         }, this);
 
         player.on('error', function() {
+            console.log("Player Error");
             this.next();
         }, this);
     };
