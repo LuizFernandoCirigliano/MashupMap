@@ -160,7 +160,7 @@
         // Maybe this should change
         // remove_song_from_playlist(this.index);
         // this.remove_player(this.index);
-        // this.index++;
+        this.index++;
         this.emit('active', this.index);
         this.players[this.index].play();
 
