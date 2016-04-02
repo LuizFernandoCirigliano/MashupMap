@@ -23,11 +23,11 @@ var player_start = function() {
 
 function configure_panels() {
     // Go to a track by clicking on it.
-    $('track-div').unbind('click').click(function() {
+    $('.track-div').unbind('click').click(function() {
         if (!isReady) {
             return false;
         }
-        var index = $('.track').index(this);
+        var index = $('.track-div').index(this);
         multi.play(index);
         return false;
     });

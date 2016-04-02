@@ -198,9 +198,11 @@
             return true;
         }
 
-        if (index >= 0 && index <= this.players.length) {
-            this.players[this.index].setCurrentTime(0);
-            this.players[this.index].pause();
+        if (index >= 0 && index < this.players.length) {
+            if (this.index >= 0 && this.index < this.players.length){
+                this.players[this.index].setCurrentTime(0);
+                this.players[this.index].pause();
+            }
             this.index = index;
             this.players[this.index].play();
         }
@@ -273,7 +275,8 @@
 
         player.on('error', function() {
             console.log("Player Error");
-            this.next();
+            this.remove_player(this.index);
+            remove_song_from_playlist(this.index);
         }, this);
     };
 
