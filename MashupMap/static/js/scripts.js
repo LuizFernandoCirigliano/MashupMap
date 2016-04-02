@@ -121,8 +121,6 @@ function cv_resize() {
 function move_info_div(x, y) {
 	var infodiv = $("#infocontainer");
 	infodiv.show();
-	// infodiv.css("left", x + "px");
-	// infodiv.css("top", (y - 150) + "px");
 	$('#infocontainer').animateCss('bounceIn');
 	$('#mysubheader').hide();
 }
