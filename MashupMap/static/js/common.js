@@ -158,9 +158,9 @@
         this.players[this.index].setCurrentTime(0);
         this.players[this.index].pause();
         // Maybe this should change
-        remove_song_from_playlist(this.index);
-        this.remove_player(this.index);
-        this.index++;
+        // remove_song_from_playlist(this.index);
+        // this.remove_player(this.index);
+        // this.index++;
         this.emit('active', this.index);
         this.players[this.index].play();
 

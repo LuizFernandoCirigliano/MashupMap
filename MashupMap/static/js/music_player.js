@@ -13,7 +13,7 @@ var player_start = function() {
 
     // Set the callout.
     multi.on('active', function(index) {
-        $('.panel').removeClass('callout').eq(index).addClass('callout');
+        $('.track').removeClass('currentTrack').eq(index).addClass('currentTrack');
     });
 
     configure_panels();
@@ -23,13 +23,20 @@ var player_start = function() {
 
 function configure_panels() {
     // Go to a track by clicking on it.
-    $('.track').on('click', function() {
+    $('track-div').unbind('click').click(function() {
         if (!isReady) {
             return false;
         }
         var index = $('.track').index(this);
         multi.play(index);
         return false;
+    });
+
+    $('.delete-track').unbind('click').click(function() {
+        var index = $('.delete-track').index(this);
+        console.log("delete " + index);
+        multi.remove_player(index);
+        remove_song_from_playlist(index);
     });
 }
 
@@ -42,12 +49,13 @@ var onReady = function() {
 };
 
 function html_for_song(obj) {
-    return ['<li class="track">',
-        '<h4>' + obj.title + '</h4>',
-        '<p>' + obj.author + '</p>',
-        '<div class="iframe">' + obj.embed + '</div>',
-        '</li>'
-    ].join(' ');
+    return '<li class="track">' +
+        '<div class="track-div">' +
+        '<h5>' + obj.title + '</h5>' +
+        '<p>' + obj.author + '</p>' +
+        '<div class="iframe">' + obj.embed + '</div>' +
+        '</div><a class="delete-track"><span class="glyphicon glyphicon-remove"' +
+        '</span></a></li>'
 }
 
 function set_playlist(songs) {
@@ -98,6 +106,7 @@ function add_song_to_playlist(song) {
 }
 
 function remove_song_from_playlist(index) {
-    var tracks = $('.track');
-    tracks[index].remove();
+    console.log(index);
+    var trackitems = $('.track');
+    trackitems[index].remove();
 }

@@ -25,3 +25,14 @@ def get_broken_index():
     key = "strt_index"
     mycnt = get_or_create(db.session, Counters, key=key)
     return mycnt.value
+
+def save_score_index(start_index):
+    key = "scr_index"
+    mycnt = get_or_create(db.session, Counters, key=key)
+    mycnt.value = start_index
+    db.session.commit()
+
+def get_score_index():
+    key = "scr_index"
+    mycnt = get_or_create(db.session, Counters, key=key)
+    return mycnt.value

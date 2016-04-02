@@ -969,18 +969,20 @@ div.vis-network-tooltip {
     pointer-events: none
 }
 
+/* Smartphones ----------- */
+@media only screen and (max-width: 760px) {
+  div.vis-network div.vis-navigation div.vis-button {
+      visibility: hidden;
+  }
+}
+
 div.vis-network div.vis-navigation div.vis-button {
-    /*width: 40px;
-    height: 40px;*/
     width: 3.5vw;
     height: 3.5vw;
-    /*-moz-border-radius: 20px;
-    border-radius: 20px;*/
     -moz-border-radius: 3.5vw;
     border-radius: 3.5vw;
     position: absolute;
     display: inline-block;
-    /*background-position: 2px 2px;*/
     background-position: 0.2vw 0.2vw;
     background-repeat: no-repeat;
     cursor: pointer;
@@ -994,9 +996,7 @@ div.vis-network div.vis-navigation div.vis-button {
 }
 
 div.vis-network div.vis-navigation div.vis-button:hover {
-    /*box-shadow: 0 0 3px 3px rgba(56, 207, 21, .3);*/
     box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
-    /*426baa*/
 }
 
 div.vis-network div.vis-navigation div.vis-button:active {
@@ -1006,15 +1006,11 @@ div.vis-network div.vis-navigation div.vis-button:active {
 div.vis-network div.vis-navigation div.vis-button.vis-up {
     background-image: url(icons/arrow-up.png);
     background-size: 90%;
-
     bottom: 5vw;
     right: 9vw;
-
-
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-down {
-    /*background-image: url(img/network/downArrow.png);*/
     background-image: url(icons/arrow-down.png);
     background-size: 90%;
     bottom: 1vw;
@@ -1022,7 +1018,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-down {
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-left {
-    /*background-image: url(img/network/leftArrow.png);*/
     background-image: url(icons/arrow-left.png);
     background-size: 90%;
     bottom: 1vw;
@@ -1030,7 +1025,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-left {
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-right {
-    /*background-image: url(img/network/rightArrow.png);*/
     background-image: url(icons/arrow-right.png);
     background-size: 90%;
     bottom: 1vw;
@@ -1038,7 +1032,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-right {
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
-    /*background-image: url(img/network/plus.png);*/
     background-image: url(icons/zoomIn.png);
     background-size: 90%;
     bottom: 5vw;
@@ -1046,7 +1039,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
-    /*background-image: url(img/network/minus.png);*/
     background-image: url(icons/zoomOut.png);
     background-size: 90%;
     bottom: 1vw;
@@ -1054,7 +1046,6 @@ div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
-    /*background-image: url(img/network/zoomExtends.png);*/
     background-image: url(icons/zoomExtend.png);
     background-size: 90%;
     bottom: 9vw;

@@ -121,8 +121,8 @@ function cv_resize() {
 function move_info_div(x, y) {
 	var infodiv = $("#infocontainer");
 	infodiv.show();
-	infodiv.css("left", x + "px");
-	infodiv.css("top", (y - 150) + "px");
+	// infodiv.css("left", x + "px");
+	// infodiv.css("top", (y - 150) + "px");
 	$('#infocontainer').animateCss('bounceIn');
 	$('#mysubheader').hide();
 }
@@ -143,11 +143,11 @@ function draw() {
 	network.on("selectEdge", function (params) {
 		current_song = song_for_edge[params.edges[0]];
 		var selectedSong = songs[current_song];
-		// $('#redditlink').attr("href", selectedSong.redditurl);
-		// $('#author').html(selectedSong.author);
-		// move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
-
 		add_song_to_playlist(selectedSong);
+		$('#song_title').html(selectedSong.title);
+		$('#redditlink').attr("href", selectedSong.redditurl);
+		$('#author').html(selectedSong.author);
+		move_info_div();
 	});
 
 	network.on("selectNode", function (params) {
@@ -173,6 +173,7 @@ function draw() {
 			network.setOptions({nodes:nodeOptions});
 		}
 	});
+
 
 	cv_resize();
 	$("#mynetwork").show();

@@ -1,9 +1,7 @@
 
 /*
 Our colors:
-
 Our dark blue is: #426baa
-
 */
 
     body {
@@ -24,90 +22,16 @@ Our dark blue is: #426baa
     }
     div.menu {
         margin-top: 54px;
-        /*background-color: white;*/
     }
     #mynetwork {
       background-color:black;
-      /*top:0;*/
       width: 100%;
-      /*position: absolute;*/
       z-index: -1;
     }
-    #infocontainer {
-      width: 200px;
-      height: 160px;
-      top: 0;
-      position: absolute;
-      background-color: #252525;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-      color: white;
-      border-radius: 5%;
-      overflow: hidden;
-    }
-    #myplayer {
-      position:absolute;
-      width:356px;
-      height:200px;
-      margin-left:-178px;
-      bottom:0px;
-      left:50%;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
+    .song_info {
+        font-size: 0.8em;
     }
 
-    #random_mashup_button {
-        /*background-color: #426baa;*/
-        /*width: 34px;
-        height: 34px;*/
-        width: 3.5vw;
-        height: 3.5vw;
-        /*-moz-border-radius: 20px;
-        border-radius: 20px;*/
-        -moz-border-radius: 2vw;
-        border-radius: 2vw;
-        position: absolute;
-        display: inline-block;
-        /*background-position: 2px 2px;*/
-        background-position: 0.2vw 0.2vw;
-        background-repeat: no-repeat;
-        cursor: pointer;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-color: #426baa;
-        bottom: 1.5vw;
-        /*right: 32vw;*/
-        right: 50%;
-        margin-right: -26.5vw;
-        text-align: center;
-    }
-    #random_mashup_button:hover {
-        box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
-    }
-    #random_mashup_button:active {
-        box-shadow: 0 0 1px 3px rgba(22, 87, 176, .95);
-    }
-    #random_mashup_icon {
-        color:#ffffff;
-        position: relative;
-        top: 25%;
-    }
-
-    /*#random_label {
-      position: absolute;
-      left:50%;
-      margin-left:-245px;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-      text-align: center;
-    }*/
     .myheader {
       background-color: black;
       color: white;
@@ -151,9 +75,6 @@ Our dark blue is: #426baa
 
     #artist_input {
       width: 80%;
-      /*position: absolute;
-      right: 1%;
-      top: 12%;*/
     }
 
 
