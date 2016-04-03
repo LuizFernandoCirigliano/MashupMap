@@ -204,9 +204,6 @@ function draw() {
 	};
 
 	network = new vis.Network(container, data, options);
-	network.on("dragStart", function(params) {
-		$("#infocontainer").hide();
-	});
 
 	network.on("selectEdge", function (params) {
 		current_song = song_for_edge[params.edges[0]];
@@ -216,7 +213,6 @@ function draw() {
 		$('#redditlink').attr("href", selectedSong.redditurl);
 		$('#author').html(selectedSong.author);
 		move_info_div();
-		// move_info_div(params.pointer.DOM.x, params.pointer.DOM.y);
 	});
 
 	network.on("selectNode", function (params) {
