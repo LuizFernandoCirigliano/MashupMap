@@ -263,6 +263,7 @@ $(document).ready(function() {
 		request_graph();
 	});
 	$('#random_mashup_button').click(play_random_song);
+
 	// $('#random_mashup_button').click(function() {
 	// 	console.log($('div.vis-network div.vis-navigation div.vis-button.vis-up'));
 	// 	$('div.vis-network div.vis-navigation div.vis-button.vis-up').trigger("click");
