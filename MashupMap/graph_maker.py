@@ -3,6 +3,7 @@ from MashupMap import cache
 from MashupMap.models import Mashup, Artist
 from sqlalchemy import or_
 
+
 def random_color():
     rc = lambda: random.randint(0, 255)
     return '#%02X%02X%02X' % (rc(), rc(), rc())
@@ -23,19 +24,34 @@ def graph_for_mashup_list(mashups):
             "redditurl": mashup.permalink,
             "title": mashup.title
         })
-        for a1 in mashup.artists:
-            artistset.add(a1)
-            for a2 in mashup.artists:
-                if a1.id < a2.id:
-                    eid = len(edges)
-                    edges.append({
-                        "from": a1.id,
-                        "to": a2.id,
-                        "id": eid,
-                        "color": mashup_color,
-                        "title": mashup.title
-                    })
-                    song_for_edge.append(song_id)
+        artistset |= set(mashup.artists)
+        art_len = len(mashup.artists)
+        if art_len >= 4:
+            for i in range(art_len):
+                a1 = mashup.artists[i]
+                a2 = mashup.artists[(i + 1) % art_len]
+                eid = len(edges)
+                edges.append({
+                    "from": a1.id,
+                    "to": a2.id,
+                    "id": eid,
+                    "color": mashup_color,
+                    "title": mashup.title
+                })
+                song_for_edge.append(song_id)
+        else:
+            for a1 in mashup.artists:
+                for a2 in mashup.artists:
+                    if a1.id < a2.id:
+                        eid = len(edges)
+                        edges.append({
+                            "from": a1.id,
+                            "to": a2.id,
+                            "id": eid,
+                            "color": mashup_color,
+                            "title": mashup.title
+                        })
+                        song_for_edge.append(song_id)
 
     for a in artistset:
         nodes.append({
@@ -46,9 +62,10 @@ def graph_for_mashup_list(mashups):
     return nodes, edges, songs, song_for_edge
 
 
-@cache.cached(timeout=60*2, key_prefix='get_mashup_graph')
+@cache.cached(timeout=60 * 2, key_prefix='get_mashup_graph')
 def get_mashup_graph():
-    mashups = random.sample(list(Mashup.query.filter(or_(Mashup.isBroken==None, Mashup.isBroken==False))), 100)
+    mashups = random.sample(list(Mashup.query.filter(
+        or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
 
     return graph_for_mashup_list(mashups)
 
@@ -63,7 +80,8 @@ def get_artist_mashups(artist_name):
 
     if artist:
         mashups = []
-        #to use filter method on collection object, we would need to configure the lazy attribute to dynamic.
+        # to use filter method on collection object, we would need to configure
+        # the lazy attribute to dynamic.
         for m in artist.artist_mashups:
             if not m.isBroken:
                 mashups.append(m)
