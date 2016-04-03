@@ -66,15 +66,16 @@ def main():
         for i,m in enumerate(mashups):
             # print(m.url)
             print(m.id)
-            if check_link(m.url) :
-                print('Broken link!')
-                m.isBroken = True
-            else:
-                m.isBroken = False
-            if m.id % 30 == 0:
-                db.session.commit()
-                save_broken_index(m.id)
-                print('Committing...')
+            if m.isBroken != True:
+                if check_link(m.url) :
+                    print('Broken link!')
+                    m.isBroken = True
+                else:
+                    m.isBroken = False
+            # if m.id % 30 == 0:
+            #     db.session.commit()
+            #     save_broken_index(m.id)
+            #     print('Committing...')
     except Exception as e:
         print(e, e.args)
         db.session.commit()
@@ -90,7 +91,7 @@ def main():
 
     db.session.commit()
     save_broken_index(m.id)
-    print('Committed!')
+    print('Finished. Committed!')
 
 
 
