@@ -34,7 +34,7 @@ def main():
     mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
     # print("Length of mashups: {}".format(len(mashups)))
     try:
-        for i,m in enumerate(mashups):
+        for m in mashups:
             print('Submission id: {}'.format(m.id))
             submission_id = get_mashup_id(m.permalink)
             try:

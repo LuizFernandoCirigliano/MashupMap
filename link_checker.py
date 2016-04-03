@@ -63,7 +63,7 @@ def main():
     mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
     # print('Mashups', mashups, '\n')
     try:
-        for i,m in enumerate(mashups):
+        for m in mashups:
             # print(m.url)
             print(m.id)
             if m.isBroken != True:
