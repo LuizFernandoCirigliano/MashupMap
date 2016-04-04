@@ -156,7 +156,8 @@ function create_network(data, new_artist) {
 		$(".myheader").css("background-color", "transparent");
 	}
 	if(data.first_song != undefined) {
-		current_song = first_song;
+		console.log('First songs was defined!');
+		current_song = data.first_song;
 		play_selected_song();
 	}
 
@@ -183,6 +184,19 @@ function request_graph(artist_name) {
 		});
 	}
 
+}
+
+function test_play_mashup(mashup_id) {
+	console.log('Mashup id = ' + mashup_id);
+	$.get("/mashup/" + mashup_id).done(function(data) {
+		console.log('Finding mashup...');
+		console.log(data);
+		create_network(data);
+	})
+	.fail(function() { //display error if artist is not found.
+		console.log('Failed to find mashup!!');
+		// $('#no_artist_error').show(0).delay(2000).hide(0);
+	});
 }
 
 function cv_resize() {
