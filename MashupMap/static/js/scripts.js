@@ -150,7 +150,6 @@ function create_network(data, new_artist) {
 	}
 
 	else {
-		// console.log('Preparing to create network');
 		artists_displayed = [];
 		songs = data.songs;
 		song_for_edge = data.song_for_edge;
@@ -169,14 +168,12 @@ function create_network(data, new_artist) {
 
 function request_graph(artist_name) {
 	if(first_song) {
-		console.log('first_song defined by url. Test_play_mashup().')
 		test_play_mashup(first_song);
 	}
 
 	if (artist_name == undefined) {
 		var artist_name = $('#artist_input').val();
 	}
-	console.log(artist_name);
 	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 		$.get("/graph/artist/" + artist_name).done(function(data) {
@@ -199,12 +196,12 @@ function request_graph(artist_name) {
 function test_play_mashup(mashup_id) {
 	console.log('Mashup id = ' + mashup_id);
 	$.get("/mashup/" + mashup_id).done(function(data) {
-		console.log('Finding mashup...');
 		console.log(data);
 		create_network(data);
 	})
 	.fail(function() { //display error if artist is not found.
 		console.log('Failed to find mashup!!');
+		request_graph();
 		// $('#no_artist_error').show(0).delay(2000).hide(0);
 	});
 }
