@@ -18,8 +18,21 @@ def index():
         'index.html'
         )
 
-@app.route("/full")
-def mashup_map():
+@app.route("/full", methods=["GET", "POST"])
+@app.route('/full/<mashup_id>')
+def mashup_map(mashup_id):
+    # if request.method == 'POST':
+    #     try:
+    #         request.form.get('mashup_id')
+    #     except Exception as e:
+    #         print(e, e.args)
+    #         return render_template(
+    #             'mashupmap-full.html'
+    #             )
+    #
+    #     return render_template(
+    #         'mashupmap-full.html'
+    #         , mashup_id=mashup_id)
     return render_template(
         'mashupmap-full.html'
         )

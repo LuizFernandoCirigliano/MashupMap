@@ -5,6 +5,7 @@ var song_for_edge = null;
 var network = null;
 var current_song = null;
 var artists_displayed = [];
+var first_song = null;
 
 
 var showingImages=false;
@@ -61,6 +62,10 @@ var options = {
 };
 
 function start() {
+	if (window.location.pathname.slice(6) !== "") {
+		console.log('Storing first_song!');
+		first_song = window.location.pathname.slice(6);
+	}
 	request_graph();
 	$.fn.extend({
 		animateCss: function (animationName) {
@@ -160,10 +165,14 @@ function create_network(data, new_artist) {
 		current_song = data.first_song;
 		play_selected_song();
 	}
-
 }
 
 function request_graph(artist_name) {
+	if(first_song) {
+		console.log('first_song defined by url. Test_play_mashup().')
+		test_play_mashup(first_song);
+	}
+
 	if (artist_name == undefined) {
 		var artist_name = $('#artist_input').val();
 	}
@@ -178,6 +187,7 @@ function request_graph(artist_name) {
 			$('#no_artist_error').show(0).delay(2000).hide(0);
 		});
 	}
+
 	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
 			create_network(data);
@@ -276,5 +286,6 @@ $(document).ready(function() {
 		request_graph();
 	});
 	$('#random_mashup_button').click(play_random_song);
+
 
 });
