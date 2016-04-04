@@ -93,6 +93,10 @@ function play_random_song() {
 
 function play_selected_song() {
 	var selectedSong = songs[current_song];
+	$('#song_title').html(selectedSong.title);
+	$('#redditlink').attr("href", selectedSong.redditurl);
+	$('#author').html(selectedSong.author);
+	move_info_div();
 	play_song(selectedSong.embed, false);
 }
 
@@ -151,6 +155,10 @@ function create_network(data, new_artist) {
 		$(".myloader").hide();
 		$(".myheader").css("background-color", "transparent");
 	}
+	if(data.first_song != undefined) {
+		current_song = first_song;
+		play_selected_song();
+	}
 
 }
 
@@ -207,12 +215,7 @@ function draw() {
 
 	network.on("selectEdge", function (params) {
 		current_song = song_for_edge[params.edges[0]];
-		var selectedSong = songs[current_song];
 		play_selected_song();
-		$('#song_title').html(selectedSong.title);
-		$('#redditlink').attr("href", selectedSong.redditurl);
-		$('#author').html(selectedSong.author);
-		move_info_div();
 	});
 
 	network.on("selectNode", function (params) {
