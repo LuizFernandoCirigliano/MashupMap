@@ -118,8 +118,8 @@ function request_graph(artist_name) {
 
 function test_play_mashup(mashup_id) {
 	console.log('Mashup id = ' + mashup_id);
-	$.get("/mashup/" + mashup_id).done(function(data) {
-		console.log(data);
+	$.get("/graph/" + mashup_id).done(function(data) {
+		console.log('Data: ', data);
 		create_network(data);
 	})
 	.fail(function() { //display error if artist is not found.
