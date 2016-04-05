@@ -76,6 +76,7 @@ def get_mashup_graph(mashup_id=None):
             print(e, e.args)
         else:
             # if mashup not already in list, add it.
+            print('Mashup with id={} found!'.format(mashup_id))
             if m not in mashups:
                 mashups.append(m)
 
