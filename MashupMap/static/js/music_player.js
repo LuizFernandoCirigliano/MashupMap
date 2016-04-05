@@ -67,7 +67,7 @@ var play_song = function(song_index) {
         player.pause();
     }
     current_index = song_index;
-    song = current_playlist[song_index];
+    var song = current_playlist[song_index];
     $('.track').removeClass('currentTrack').eq(current_index).addClass('currentTrack');
     $('#iframe-div').html(song.embed);
 

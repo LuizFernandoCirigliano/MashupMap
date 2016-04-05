@@ -70,7 +70,6 @@ function create_network(data) {
 	}
 
 	else {
-		// console.log('Preparing to create network');
 		artists_displayed = [];
 		songs = data.songs;
 		song_for_edge = data.song_for_edge;
