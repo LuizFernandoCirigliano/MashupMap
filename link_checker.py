@@ -3,7 +3,7 @@ import re
 from selenium import webdriver
 from MashupMap import db
 from MashupMap.models import Mashup
-from MashupMap.analytics import get_broken_index, save_broken_index
+from MashupMap.analytics import get_index, save_index
 
 #need to update pip requirements
 
@@ -58,39 +58,34 @@ def check_link(url):
 
 
 def main():
-    start_index = int(get_broken_index())
+    start_index = int(get_index("strt_index"))
     print('Start index: ' + str(start_index))
     mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
     # print('Mashups', mashups, '\n')
     try:
-        for i,m in enumerate(mashups):
+        for m in mashups:
             # print(m.url)
             print(m.id)
-            if check_link(m.url) :
-                print('Broken link!')
-                m.isBroken = True
-            else:
-                m.isBroken = False
-            if m.id % 30 == 0:
-                db.session.commit()
-                save_broken_index(m.id)
-                print('Committing...')
+            if m.isBroken != True:
+                if check_link(m.url) :
+                    print('Broken link!')
+                    m.isBroken = True
+                else:
+                    m.isBroken = False
     except Exception as e:
         print(e, e.args)
-        db.session.commit()
-        save_broken_index(m.id - 1)
-        print('Exception. Committing...')
-        return
+        print('Interruption.')
     except:
+        print('User interruption.')
+    else:
+        print('Finished!')
+    finally:
         db.session.commit()
-        save_broken_index(m.id - 1)
-        print('User interruption. Committing...')
-        return
+        save_index("strt_index", m.id - 1)
+        print('Comitting...')
 
 
-    db.session.commit()
-    save_broken_index(m.id)
-    print('Committed!')
+
 
 
 

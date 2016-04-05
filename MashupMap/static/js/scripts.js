@@ -153,8 +153,6 @@ function draw() {
 			network.setOptions({nodes:nodeOptions});
 		}
 	});
-
-
 	cv_resize();
 	$("#mynetwork").show();
 }

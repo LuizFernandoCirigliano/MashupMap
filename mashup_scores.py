@@ -29,13 +29,13 @@ def update_score(mashup, submission_id):
 
 
 def main():
-    start_index = int(get_score_index())
+    start_index = int(get_index("scr_index"))
     print('Start index: ' + str(start_index))
     mashups = Mashup.query.filter(Mashup.id > start_index).order_by(Mashup.id)
     # print("Length of mashups: {}".format(len(mashups)))
     try:
-        for i,m in enumerate(mashups):
-            print('Submission #{}'.format(m.id))
+        for m in mashups:
+            print('Submission id: {}'.format(m.id))
             submission_id = get_mashup_id(m.permalink)
             try:
                 submission = r.get_submission(submission_id=submission_id)
@@ -46,19 +46,16 @@ def main():
             print(m.score)
     except Exception as e:
         print(e, e.args)
-        db.session.commit()
-        save_score_index(m.id - 1)
-        print('Interruption. Committing...')
-        return
+        print('Interruption.')
     except:
+        print('User interruption.')
+    else:
+        print('Finished!')
+    finally:
         db.session.commit()
-        save_score_index(m.id - 1)
-        print('User interruption. Committing...')
-        return
+        save_index("scr_index", m.id - 1)
+        print('Comitting...')
 
-    save_score_index(m.id)
-    print('Finished!. Committing...')
-    db.session.commit()
 
 
 

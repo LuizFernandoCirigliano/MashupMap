@@ -5,6 +5,13 @@
 <script type="text/javascript" src="//cdn.embed.ly/player-0.0.11.min.js"></script>
 {% endblock %}
 {% block body_block %}
+
+<script>
+$(document).ready(function() {
+    $('#full_map_link').attr('href', '#');
+    $('#full_map_link').click(request_graph);
+});
+</script>
 <div id="graph_body" style="background: black;">
     <div>
         <div class="jawn myloader"></div>
