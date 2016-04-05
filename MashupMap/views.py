@@ -19,13 +19,6 @@ def index():
         )
 
 
-@app.route("/playlist")
-def playlist():
-    return render_template(
-        'mashup-playlist.html'
-        )
-
-
 @app.route("/full")
 def mashup_map():
     return render_template(

@@ -6,9 +6,9 @@ var network = null;
 var current_song = null;
 var artists_displayed = [];
 
-var showingImages=true;
+var showingImages=false;
 var nodeOptions = {
-		shape: "circularImage",
+		shape: "icon",
 		borderWidth:4,
 		size:25,
 		mass: 1,
@@ -39,7 +39,7 @@ var options = {
 		stabilization: {
 			enabled:true,
 			iterations:200,
-			fit:false
+			fit:true
 		},
 		repulsion: {
 			nodeDistance: 50,
@@ -153,14 +153,14 @@ function draw() {
 		}
 	});
 
-	var focusPoint = Object.keys(network.getPositions())[0];
-	console.log(focusPoint);
-	setTimeout(function() {
-		network.focus(
-			focusPoint,
-			{scale:1.5, animation:true}
-		);
-	}, 200);
+	// var focusPoint = Object.keys(network.getPositions())[0];
+	// console.log(focusPoint);
+	// setTimeout(function() {
+	// 	network.focus(
+	// 		focusPoint,
+	// 		{scale:1.5, animation:true}
+	// 	);
+	// }, 200);
 
 	cv_resize();
 	$("#mynetwork").show();
