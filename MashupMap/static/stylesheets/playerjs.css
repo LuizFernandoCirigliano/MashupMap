@@ -106,6 +106,8 @@ body.music .controls {
     list-style:none;
     padding-left:0;
     padding-bottom: 5px;
+    overflow: auto;
+    height: 60vh;
 }
 .track {
     background-color: #2d3e50;
@@ -118,7 +120,7 @@ body.music .controls {
     background-color: #426baa;
 }
 
-body .track .iframe {
+#iframe-div {
     height: 0;
     width: 0;
     overflow: hidden;

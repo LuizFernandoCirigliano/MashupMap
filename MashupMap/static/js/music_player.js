@@ -1,56 +1,108 @@
-var my_songs;
+var current_playlist = [];
 
 var $tracks = $('#tracks'),
-    player = [],
+    player,
     current_index = 0;
 
-var play_song = function(song_index) {
-    current_index = song_index;
-    song = my_songs[song_index];
-    $('.track').removeClass('currentTrack').eq(current_index).addClass('currentTrack');
+var $play = $('.controls .play'),
+    $meter = $('.controls .meter'),
+    $progress = $('.controls .progress');
 
-}
-var player_start = function() {
-    var index = 0;
+$progress.unbind('click');
+$play.unbind('click');
 
-    multi = new $Player(players);
+$play.click(function() {
+    if ($play.hasClass('paused')) {
+        if (!player && current_playlist.length > 0) {
+            play_song(0);
+        } else if (player){
+            player.play();
+        }
+    } else {
+        player.pause();
+    }
+});
 
-    // Set the callout.
-    multi.on('active', function(index) {
-        $('.track').removeClass('currentTrack').eq(index).addClass('currentTrack');
+$progress.click(function(e) {
+    var percent = e.offsetX / $progress.width();
+
+    player.getDuration(function(duration) {
+        player.setCurrentTime(percent * duration);
+    }, this);
+});
+
+var configure_player = function(player, song_index) {
+    // Wait for the player to be ready.
+    player.on('ready', function(){
+        player.on('ended', function(){
+            play_song(song_index + 1);
+        });
+
+        player.on('error', function(){
+            console.error("Player Error");
+        });
+
+        // Update meter
+        player.on('timeupdate', function(data) {
+            data.seconds = Math.round(data.seconds);
+            var new_width = (data.seconds / data.duration) * 100 + '%';
+            $meter.width(new_width);
+        });
+
+        // Play events
+        player.on('play', function() {
+            $play.removeClass('paused');
+        }, this);
+
+        player.on('pause', function() {
+            $play.addClass('paused');
+        });
+
+        //autoplay the video.
+        player.play();
     });
+}
+var play_song = function(song_index) {
+    if (player) {
+        player.pause();
+    }
+    current_index = song_index;
+    song = current_playlist[song_index];
+    $('.track').removeClass('currentTrack').eq(current_index).addClass('currentTrack');
+    $('#iframe-div').html(song.embed);
 
-    configure_panels();
+    var iframe = $("#iframe-div iframe").get(0);
+    player = new playerjs.Player(iframe);
+    configure_player(player, song_index);
+}
 
-    isReady = true;
-};
+var play_next = function() {
+    if (current_index < current_playlist.length - 1) {
+        play_song(current_index + 1);
+    }
+}
 
-function configure_panels() {
+var play_previous = function() {
+    if (current_index > 0) {
+        play_song(current_index - 1);
+    } else {
+        play_song(0);
+    }
+}
+
+function configure_all_panels() {
     // Go to a track by clicking on it.
     $('.track-div').unbind('click').click(function() {
-        if (!isReady) {
-            return false;
-        }
         var index = $('.track-div').index(this);
-        multi.play(index);
-        return false;
+        play_song(index);
     });
 
     $('.delete-track').unbind('click').click(function() {
         var index = $('.delete-track').index(this);
-        console.log("delete " + index);
-        multi.remove_player(index);
         remove_song_from_playlist(index);
     });
 }
 
-// We need to wait for all the players to be ready before we go.
-var onReady = function() {
-    count++;
-    if (count === my_songs.length) {
-        player_start();
-    }
-};
 
 function html_for_song(obj) {
     return '<li class="track">' +
@@ -62,54 +114,49 @@ function html_for_song(obj) {
 }
 
 function set_playlist(songs) {
-    console.log($tracks);
-    my_songs = songs;
-    var new_songs = ''
-    for (var i = 0; i < my_songs.length; i++) {
-        var obj = my_songs[i];
-        new_songs += html_for_song(obj);
+    current_playlist = songs;
+    var new_songs_html = ''
+    for (var i = 0; i < current_playlist.length; i++) {
+        var obj = current_playlist[i];
+        new_songs_html += html_for_song(obj);
     }
 
+    $tracks.append(new_songs_html);
+
+    //Hacky force redraw
     var disp = $tracks.css("display");
-
-    $tracks.append(new_songs);
-
     $tracks.css("display", 'none');
-
     setTimeout(function(){
         $tracks.css("display", disp);
-
-        // grab the iframes and create players from them.
-        $('.track iframe').each(function(i, e) {
-            var player = new playerjs.Player(e);
-            players.push(player);
-            player.on('ready', function() {
-                player.unmute();
-                onReady();
-            });
-        });
+        configure_all_panels();
     }, 20);
-
 }
 
 function add_song_to_playlist(song) {
+    current_playlist.push(song);
     $tracks.append(html_for_song(song));
-    var iframe_set = $('.track iframe');
-    var count = iframe_set.length;
-    iframe_set.each(function(i, e) {
-        if (i == count - 1) {
-            var player = new playerjs.Player(e);
-            player.on('ready', function () {
-                console.log("new guy ready");
-                multi.add_player(player);
-                configure_panels();
-            });
-        }
-    });
+    if (current_playlist.length == 1) {
+        play_song(0);
+    }
+    //Make this more efficient later
+    configure_all_panels();
 }
 
 function remove_song_from_playlist(index) {
-    console.log(index);
+    if (index == current_index) {
+        player.pause();
+        player = null;
+    }
+    if (current_index > index) {
+        current_index--;
+    }
+    current_playlist.splice(index, 1);
     var trackitems = $('.track');
     trackitems[index].remove();
 }
+
+var player_start = function(songs) {
+    if (typeof songs != 'undefined') {
+        set_playlist(songs);
+    }
+};

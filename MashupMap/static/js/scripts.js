@@ -102,8 +102,6 @@ function request_graph(artist_name) {
 	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
 			create_network(data);
-			set_playlist([songs[0]]);
-			player_start();
 		});
 	}
 
@@ -117,13 +115,6 @@ function cv_resize() {
 	network.css("height", h + "px");
 }
 
-
-function move_info_div(x, y) {
-	var infodiv = $("#infocontainer");
-	infodiv.show();
-	$('#infocontainer').animateCss('bounceIn');
-	$('#mysubheader').hide();
-}
 // Called when the Visualization API is loaded.
 function draw() {
   // create a network
@@ -134,18 +125,11 @@ function draw() {
 	};
 
 	network = new vis.Network(container, data, options);
-	network.on("dragStart", function(params) {
-		$("#infocontainer").hide();
-	});
 
 	network.on("selectEdge", function (params) {
-		current_song = song_for_edge[params.edges[0]];
-		var selectedSong = songs[current_song];
+		var edgeIndex = params.edges[0];
+		var selectedSong = songs[song_for_edge[edgeIndex]];
 		add_song_to_playlist(selectedSong);
-		$('#song_title').html(selectedSong.title);
-		$('#redditlink').attr("href", selectedSong.redditurl);
-		$('#author').html(selectedSong.author);
-		move_info_div();
 	});
 
 	network.on("selectNode", function (params) {
@@ -156,7 +140,6 @@ function draw() {
 		artist_name = obj.labelModule.lines[0];
 		console.log(artist_name);
 		request_graph(artist_name);
-
 	});
 
 	network.on("zoom", function(params) {
@@ -182,6 +165,7 @@ function search_artist() {
 }
 
 $(document).ready(function() {
+	player_start();
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
 			request_graph();
@@ -204,9 +188,5 @@ $(document).ready(function() {
 	});
 	$(window).bind("resize", function(){
 		cv_resize();
-	});
-
-	$('.play-button').click(function() {
-		add_song_to_playlist(songs[current_song]);
 	});
 });
