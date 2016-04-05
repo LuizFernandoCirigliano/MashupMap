@@ -63,7 +63,7 @@ def graph_for_mashup_list(mashups):
     return nodes, edges, songs, song_for_edge
 
 
-@cache.cached(timeout=60 * 2, key_prefix='get_mashup_graph')
+# @cache.cached(timeout=60 * 2, key_prefix='get_mashup_graph')
 def get_mashup_graph(mashup_id=None):
     mashups = random.sample(list(Mashup.query.filter(
         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
