@@ -53,11 +53,25 @@
   <!-- End Google Analytics -->
 </head>
 <body>
+<<<<<<< HEAD
+    <!-- <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> -->
+
+=======
+>>>>>>> master
     <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
             <a class="pure-menu-heading" href="/">MashupMap</a>
 
             <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                </li>
                 <li class="pure-menu-item pure-menu"><a href="/" class="pure-menu-link">Home</a></li>
                 <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="full_map_link">Full Map</a></li>
                 <li class="pure-menu-item" id="request_mashup_button"><a class="pure-menu-link" href="http://goo.gl/forms/D7OiF0NW4k" target='_blank'>Request Mashup</a></li>
@@ -67,9 +81,11 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </li>
+
             </ul>
         </div>
     </div>
+    <!-- <div class="fb-share-button" data-href="https://mashupmap.me" data-layout="icon_link"></div> -->
 
 
 {% block body_block %}{% endblock %}

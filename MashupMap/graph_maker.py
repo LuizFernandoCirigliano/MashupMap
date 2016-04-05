@@ -22,7 +22,8 @@ def graph_for_mashup_list(mashups):
             "embed": mashup.content,
             "author": mashup.author,
             "redditurl": mashup.permalink,
-            "title": mashup.title
+            "title": mashup.title,
+            "db_id" : mashup.id
         })
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
@@ -63,15 +64,26 @@ def graph_for_mashup_list(mashups):
 
 
 @cache.cached(timeout=60 * 2, key_prefix='get_mashup_graph')
-def get_mashup_graph():
+def get_mashup_graph(mashup_id=None):
     mashups = random.sample(list(Mashup.query.filter(
         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
+
+        #if a specific mashup was requested (from sharing maybe)
+    if mashup_id:
+        try: #get mashup from DB
+            m = Mashup.query.filter_by(id=mashup_id).first()
+        except Exception as e:
+            print(e, e.args)
+        else:
+            # if mashup not already in list, add it.
+            if m not in mashups:
+                mashups.append(m)
+
 
     return graph_for_mashup_list(mashups)
 
 
 def get_artist_mashups(artist_name):
-    # mashups = random.sample(Mashup.query.all(), 300)
     try:
         # later on, I'll implement the query using ID.
         artist = Artist.query.filter_by(name=artist_name).first()
@@ -85,7 +97,7 @@ def get_artist_mashups(artist_name):
         for m in artist.artist_mashups:
             if not m.isBroken:
                 mashups.append(m)
-        print(mashups)
+        # print(mashups)
 
     else:
         return get_mashup_graph()

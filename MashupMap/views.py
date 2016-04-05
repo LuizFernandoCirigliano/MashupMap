@@ -18,23 +18,45 @@ def index():
         'index.html'
         )
 
+@app.route("/playlist")
+def playlist():
+    return render_template(
+        'mashup-playlist.html'
+        )
 
-@app.route("/full")
-def mashup_map():
+@app.route("/full", methods=["GET", "POST"])
+@app.route('/full/<mashup_id>')
+def mashup_map(mashup_id=None):
     return render_template(
         'mashupmap-full.html'
         )
 
-
 @app.route("/graph")
-def get_graph():
-    nodes, edges, songs, song_for_edge = get_mashup_graph()
-    return jsonify({
+@app.route('/graph/mashup/<mashup_id>')
+def get_graph(mashup_id=None):
+    # print('get_graph: ' + str(mashup_id))
+    nodes, edges, songs, song_for_edge = get_mashup_graph(mashup_id)
+    response = {
         "nodes": nodes,
         "edges": edges,
         "songs": songs,
         "song_for_edge": song_for_edge
-    })
+    }
+
+    #if a specific mashup was requested, get the index of this mashup in the songs array.
+    if mashup_id:
+        try:
+            first_song = [x for x, y in enumerate(songs) if y['db_id'] == mashup_id][0]
+        except IndexError as e:
+            print('Mashup with id={} not found.'.format(mashup_id))
+            # may happend because link is broken
+        except Exception as e:
+            print('Unknown exception.')
+            print(e, e.args)
+        else:
+            response["first_song_index"] = first_song
+
+    return jsonify(response)
 
 
 @app.route("/graph/artist/<artist_name>")
@@ -51,9 +73,8 @@ def get_artist_graph(artist_name):
         })
     else:
         print('No artist found!')
-        # return get_graph()
         return 'No artist found', 404
-        # raise InvalidUsage('No artist found', status_code=404)
+
 
 
 @app.route("/count/<key>", methods=["POST"])
@@ -61,5 +82,8 @@ def count_route(key):
     count_stuff(key)
     return ""
 
+@app.route("/mashup/<mashup_id>")
+def play_mashup(mashup_id):
+    return get_graph(mashup_id=int(mashup_id))
 
 app.register_blueprint(user_api, url_prefix='/user')
