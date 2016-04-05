@@ -73,7 +73,7 @@ def main():
                 else:
                     m.isBroken = False
     except Exception as e:
-        print(e, e.args)
+        print(e, e.args, type(e))
         print('Interruption.')
     except:
         print('User interruption.')
