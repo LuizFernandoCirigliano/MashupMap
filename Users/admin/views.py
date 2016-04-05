@@ -7,6 +7,7 @@ from flask_admin.form import SecureForm
 
 
 class ModelView(OriginalModelView):
+    column_display_pk = True
     form_base_class = SecureForm
     column_display_all_relations = True
 
