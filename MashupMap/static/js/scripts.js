@@ -96,7 +96,7 @@ function request_graph(args) {
 	artist_name = args['artist_name'];
 	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
-		get_artist_graph(artist_name);
+		request_artist_graph(artist_name);
 	}
 	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
