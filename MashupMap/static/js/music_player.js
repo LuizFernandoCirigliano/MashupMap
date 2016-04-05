@@ -1,11 +1,15 @@
 var my_songs;
 
 var $tracks = $('#tracks'),
-    players = [],
-    count = 0,
-    isReady = false,
-    multi;
+    player = [],
+    current_index = 0;
 
+var play_song = function(song_index) {
+    current_index = song_index;
+    song = my_songs[song_index];
+    $('.track').removeClass('currentTrack').eq(current_index).addClass('currentTrack');
+
+}
 var player_start = function() {
     var index = 0;
 
@@ -53,7 +57,6 @@ function html_for_song(obj) {
         '<div class="track-div">' +
         '<h5>' + obj.title + '</h5>' +
         '<p>' + obj.author + '</p>' +
-        '<div class="iframe">' + obj.embed + '</div>' +
         '</div><a class="delete-track"><span class="glyphicon glyphicon-remove"' +
         '</span></a></li>'
 }

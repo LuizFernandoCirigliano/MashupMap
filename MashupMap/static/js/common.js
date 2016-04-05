@@ -1,10 +1,18 @@
 /*global jQuery:true, playerjs:true */
 
 (function($, document, window) {
-
-
     //Wraps the player with jQuery and a playerjs player to create controls.
     var $Player = function(players) {
+        // Object.defineProperty(this, "index", {
+        //     get: function () {
+        //         console.log("Index - GET: " + this.value);
+        //         return this.value;
+        //     },
+        //     set: function (x) {
+        //         console.log("Index - SET: " + x);
+        //         this.value = x;
+        //     }
+        // });
         this.init(players);
     };
 
@@ -12,7 +20,6 @@
 
     $Player.prototype.init = function(players) {
         this.index = 0;
-
         // We always process as there are multiple players.
         this.players = $.isArray(players) ? players : [players];
 
@@ -28,7 +35,6 @@
             $play = $('.controls .play'),
             $volume = $('.controls .volume'),
             $bars = $volume.find('span'),
-            $loop = $('.controls .loop'),
             $mute = $('.controls .mute'),
             $progress = $('.controls .progress'),
             $meter = $('.controls .meter'),
@@ -38,7 +44,6 @@
         // Reset. just in case.
         $progress.off('click');
         $play.off('click');
-        $loop.off('click');
         $mute.off('click');
         $bars.off('mouseenter').off('click');
         $volume.off('mouseleave');
@@ -82,16 +87,6 @@
                 this.player().play();
             } else {
                 this.player().pause();
-            }
-        }, this));
-
-        $loop.on('click', $.proxy(function() {
-            if ($loop.hasClass('looped')) {
-                this.player().setLoop(false);
-                $loop.removeClass('looped');
-            } else {
-                this.player().setLoop(true);
-                $loop.addClass('looped');
             }
         }, this));
 
@@ -145,7 +140,8 @@
 
     // Get the current player.
     $Player.prototype.player = function() {
-        return this.players[this.index];
+        // return this.players[this.index];
+        return this.players[0];
     };
 
     // Go to the next player
@@ -155,20 +151,18 @@
             return false;
         }
 
-        this.players[this.index].setCurrentTime(0);
-        this.players[this.index].pause();
+        // this.player().setCurrentTime(0);
+        this.player().pause();
         // Maybe this should change
-        // remove_song_from_playlist(this.index);
-        // this.remove_player(this.index);
         this.index++;
         this.emit('active', this.index);
-        this.players[this.index].play();
+        // this.player().play();
 
-        this.$previous.removeClass('disable');
-
-        if (this.index === this.players.length - 1) {
-            this.$next.addClass('disable');
-        }
+        // this.$previous.removeClass('disable');
+        //
+        // if (this.index === this.players.length - 1) {
+        //     this.$next.addClass('disable');
+        // }
     };
 
     // Go to the previous player
@@ -176,35 +170,35 @@
         if (this.index === 0) {
             return false;
         }
-        this.players[this.index].setCurrentTime(0);
-        this.players[this.index].pause();
+        // this.player().setCurrentTime(0);
+        this.player().pause();
         this.index--;
         this.emit('active', this.index);
-        this.players[this.index].play();
+        // this.player().play();
 
-        this.$next.removeClass('disable');
-        if (this.index === 0) {
-            this.$prev.addClass('disable');
-        }
+        // this.$next.removeClass('disable');
+        // if (this.index === 0) {
+        //     this.$prev.addClass('disable');
+        // }
 
         return true;
     };
 
     // Play.
     $Player.prototype.play = function(index) {
-
-        if (index !== 0 && !index) {
-            this.players[this.index].play();
-            return true;
-        }
+        //
+        // if (index !== 0 && !index) {
+        //     this.player().play();
+        //     return true;
+        // }
 
         if (index >= 0 && index < this.players.length) {
             if (this.index >= 0 && this.index < this.players.length){
-                this.players[this.index].setCurrentTime(0);
-                this.players[this.index].pause();
+                this.player().setCurrentTime(0);
+                this.player().pause();
             }
             this.index = index;
-            this.players[this.index].play();
+            this.player().play();
         }
     };
 
@@ -235,16 +229,16 @@
     };
 
     $Player.prototype.add_player = function(player) {
-        var i = this.players.length;
-        this.players.push(player);
-        this.configure_player(i, player);
+        // var i = this.players.length;
+        // this.players.push(player);
+        // this.configure_player(i, player);
     };
 
     $Player.prototype.remove_player = function(index) {
-        var i = this.players.length;
-        if (index < i) {
-            this.players.splice(index, 1);
-        }
+        // var i = this.players.length;
+        // if (index < i) {
+        //     this.players.splice(index, 1);
+        // }
     };
 
     $Player.prototype.configure_player = function(i, player) {
@@ -279,6 +273,32 @@
             remove_song_from_playlist(this.index);
         }, this);
     };
+
+    $Player.prototype.play_iframe = function(iframe) {
+        $('#div-track-iframe').html(iframe);
+
+        setTimeout(function(){
+            $tracks.css("display", disp);
+
+            var iframe = $('#div-track-iframe iframe').get(0);
+
+            console.log(iframe);
+            var player = new playerjs.Player(iframe);
+            // console.log(player);
+            this.players[0] = player;
+
+            player.on('ready', function() {
+                player.play();
+            });
+
+        }, 20);
+
+        // var player = new playerjs.Player(iframe);
+        // this.players[0] = player;
+        // player.on('ready', function() {
+        //     player.play();
+        // });
+    }
 
     window.$Player = $Player;
 
