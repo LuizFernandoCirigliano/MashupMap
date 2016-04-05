@@ -79,25 +79,21 @@ def get_mashup_graph(mashup_id=None):
             if m not in mashups:
                 mashups.append(m)
 
-
     return graph_for_mashup_list(mashups)
 
 
 def get_artist_mashups(artist_name):
     try:
-        # later on, I'll implement the query using ID.
         artist = Artist.query.filter_by(name=artist_name).first()
     except:
         return get_mashup_graph()
 
     if artist:
         mashups = []
-        # to use filter method on collection object, we would need to configure
-        # the lazy attribute to dynamic.
+        # to use filter method on collection object, we would need to configure the lazy attribute to dynamic.
         for m in artist.artist_mashups:
             if not m.isBroken:
                 mashups.append(m)
-        # print(mashups)
 
     else:
         return get_mashup_graph()
