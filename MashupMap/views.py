@@ -32,8 +32,8 @@ def mashup_map(mashup_id=None):
         )
 
 @app.route("/graph")
-@app.route('/graph/<mashup_id>')
-def get_graph(mashup_id=None, artist_name=None):
+@app.route('/graph/mashup/<mashup_id>')
+def get_graph(mashup_id=None):
     # print('get_graph: ' + str(mashup_id))
     nodes, edges, songs, song_for_edge = get_mashup_graph(mashup_id)
     response = {
@@ -44,24 +44,25 @@ def get_graph(mashup_id=None, artist_name=None):
     }
 
     #if a specific mashup was requested, get the index of this mashup in the songs array.
-    try:
-        first_song = [x for x, y in enumerate(songs) if y['db_id'] == mashup_id][0]
-    except IndexError as e:
-        print('Mashup with id={} not found.'.format(mashup_id))
-        # may happend because link is broken
-    except Exception as e:
-        print('Unknown exception.')
-        print(e, e.args)
-    else:
-        response["first_song_index"] = first_song
-    finally:
-        return jsonify(response)
+    if mashup_id:
+        try:
+            first_song = [x for x, y in enumerate(songs) if y['db_id'] == mashup_id][0]
+        except IndexError as e:
+            print('Mashup with id={} not found.'.format(mashup_id))
+            # may happend because link is broken
+        except Exception as e:
+            print('Unknown exception.')
+            print(e, e.args)
+        else:
+            response["first_song_index"] = first_song
+
+    return jsonify(response)
 
 
 @app.route("/graph/artist/<artist_name>")
 def get_artist_graph(artist_name):
     artist = get_artist(artist_name)
-    print(artist, artist.id)
+    print(artist)
     if artist:
         nodes, edges, songs, song_for_edge = get_artist_mashups(artist.name)
         return jsonify({

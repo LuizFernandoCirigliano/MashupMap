@@ -97,7 +97,7 @@ def get_artist_mashups(artist_name):
         for m in artist.artist_mashups:
             if not m.isBroken:
                 mashups.append(m)
-        print(mashups)
+        # print(mashups)
 
     else:
         return get_mashup_graph()
