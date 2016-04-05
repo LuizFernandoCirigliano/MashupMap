@@ -155,10 +155,10 @@ function draw() {
 	});
 
 	network.on("selectNode", function (params) {
+		//shows mashups from one artist.
 		var node_id = params.nodes[0];
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
-		console.log(artist_name);
 		args = {'artist_name' : artist_name};
 		request_graph(args);
 	});
@@ -209,7 +209,7 @@ $(document).ready(function() {
 		args = {'artist_name' : artist_name};
 		request_graph(args);
 	});
-	request_graph({});
+	request_graph({'first_song_id' : first_song_id});
 	$.fn.extend({
 		animateCss: function (animationName) {
 		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
