@@ -20,24 +20,13 @@ def index():
 
 @app.route("/full", methods=["GET", "POST"])
 @app.route('/full/<mashup_id>')
-def mashup_map(mashup_id):
-    # if request.method == 'POST':
-    #     try:
-    #         request.form.get('mashup_id')
-    #     except Exception as e:
-    #         print(e, e.args)
-    #         return render_template(
-    #             'mashupmap-full.html'
-    #             )
-    #
-    #     return render_template(
-    #         'mashupmap-full.html'
-    #         , mashup_id=mashup_id)
+def mashup_map(mashup_id=None):
     return render_template(
         'mashupmap-full.html'
         )
+
 @app.route("/graph")
-def get_graph(mashup_id=None):
+def get_graph(mashup_id=None, artist_name=None):
     # print('get_graph: ' + str(mashup_id))
     nodes, edges, songs, song_for_edge = get_mashup_graph(mashup_id)
 
@@ -75,7 +64,7 @@ def get_graph(mashup_id=None):
 @app.route("/graph/artist/<artist_name>")
 def get_artist_graph(artist_name):
     artist = get_artist(artist_name)
-    print(artist)
+    print(artist, artist.id)
     if artist:
         nodes, edges, songs, song_for_edge = get_artist_mashups(artist.name)
         return jsonify({

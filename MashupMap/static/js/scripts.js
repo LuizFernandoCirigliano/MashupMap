@@ -66,7 +66,7 @@ function start() {
 		console.log('Storing first_song!');
 		first_song = window.location.pathname.slice(6);
 	}
-	request_graph();
+	request_full_graph();
 	$.fn.extend({
 		animateCss: function (animationName) {
 		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -166,7 +166,7 @@ function create_network(data, new_artist) {
 	}
 }
 
-function request_graph(artist_name) {
+function request_full_graph(artist_name) {
 	if(first_song) {
 		test_play_mashup(first_song);
 	}
@@ -193,6 +193,10 @@ function request_graph(artist_name) {
 
 }
 
+// function request_artist_graph() {
+//
+// }
+
 function test_play_mashup(mashup_id) {
 	console.log('Mashup id = ' + mashup_id);
 	$.get("/mashup/" + mashup_id).done(function(data) {
@@ -201,7 +205,7 @@ function test_play_mashup(mashup_id) {
 	})
 	.fail(function() { //display error if artist is not found.
 		console.log('Failed to find mashup!!');
-		request_graph();
+		request_full_graph();
 		// $('#no_artist_error').show(0).delay(2000).hide(0);
 	});
 }
@@ -246,7 +250,7 @@ function draw() {
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
 		console.log(artist_name);
-		request_graph(artist_name);
+		request_full_graph(artist_name);
 
 	});
 
@@ -269,18 +273,18 @@ function draw() {
 }
 
 function search_artist() {
-	request_graph();
+	request_full_graph();
 }
 
 $(document).ready(function() {
 	start();
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
-			request_graph();
+			request_full_graph();
 		}
 	});
 	$('#search_artist_button').click(function() {
-		request_graph();
+		request_full_graph();
 	});
 	$('#random_mashup_button').click(play_random_song);
 

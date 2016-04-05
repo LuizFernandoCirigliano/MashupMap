@@ -79,12 +79,11 @@ def get_mashup_graph(mashup_id=None):
             if m not in mashups:
                 mashups.append(m)
 
-    
+
     return graph_for_mashup_list(mashups)
 
 
 def get_artist_mashups(artist_name):
-    # mashups = random.sample(Mashup.query.all(), 300)
     try:
         # later on, I'll implement the query using ID.
         artist = Artist.query.filter_by(name=artist_name).first()
@@ -104,14 +103,3 @@ def get_artist_mashups(artist_name):
         return get_mashup_graph()
 
     return graph_for_mashup_list(mashups)
-
-#
-# def get_mashup_with_graph(mashup_id):
-#     try:
-#         m = Mashup.query.filter(Mashup.id=kwargs["mashup_id"])
-#     except:
-#         return None
-#     mashups = random.sample(list(Mashup.query.filter(
-#         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
-#     mashups.append(m)
-#     return graph_for_mashup_list(mashups)
