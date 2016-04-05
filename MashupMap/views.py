@@ -32,7 +32,7 @@ def mashup_map(mashup_id=None):
         )
 
 @app.route("/graph")
-@app.route('/graph/mashup/<mashup_id>')
+@app.route('/graph/mashup/<int:mashup_id>')
 def get_graph(mashup_id=None):
     # print('get_graph: ' + str(mashup_id))
     nodes, edges, songs, song_for_edge = get_mashup_graph(mashup_id)
@@ -46,6 +46,7 @@ def get_graph(mashup_id=None):
     #if a specific mashup was requested, get the index of this mashup in the songs array.
     if mashup_id:
         try:
+            print(songs)
             first_song = [x for x, y in enumerate(songs) if y['db_id'] == mashup_id][0]
         except IndexError as e:
             print('Mashup with id={} not found.'.format(mashup_id))
