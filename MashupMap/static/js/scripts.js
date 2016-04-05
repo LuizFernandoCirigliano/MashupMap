@@ -5,7 +5,7 @@ var song_for_edge = null;
 var network = null;
 var current_song = null;
 var artists_displayed = [];
-var first_song = null;
+var first_song_id = null;
 
 var showingImages=false;
 var nodeOptions = {
@@ -80,16 +80,17 @@ function create_network(data) {
 		$(".myloader").hide();
 		$(".myheader").css("background-color", "transparent");
 	}
-	if(data.first_song != undefined) {
+	if(data.first_song_index != undefined) {
+		console.log('Data: ', data);
 		console.log('First songs was defined!');
-		current_song = data.first_song;
-		play_selected_song();
+		add_song_to_playlist(songs[data.first_song_index]);
+		play_song(0);
 	}
 }
 
-function request_full_graph(artist_name) {
-	if(first_song) {
-		test_play_mashup(first_song);
+function request_graph(artist_name) {
+	if(first_song_id) {
+		test_play_mashup(first_song_id);
 	}
 
 	if (artist_name == undefined) {
@@ -114,6 +115,20 @@ function request_full_graph(artist_name) {
 
 }
 
+
+function test_play_mashup(mashup_id) {
+	console.log('Mashup id = ' + mashup_id);
+	$.get("/mashup/" + mashup_id).done(function(data) {
+		console.log(data);
+		create_network(data);
+	})
+	.fail(function() { //display error if artist is not found.
+		console.log('Failed to find mashup!!');
+		request_full_graph();
+		// $('#no_artist_error').show(0).delay(2000).hide(0);
+	});
+}
+
 // function request_artist_graph() {
 //
 // }
@@ -126,7 +141,7 @@ function test_play_mashup(mashup_id) {
 	})
 	.fail(function() { //display error if artist is not found.
 		console.log('Failed to find mashup!!');
-		request_full_graph();
+		request_graph();
 		// $('#no_artist_error').show(0).delay(2000).hide(0);
 	});
 }
@@ -187,12 +202,12 @@ function draw() {
 $(document).ready(function() {
 	if (window.location.pathname.slice(6) !== "") { //get mashup_id, if specified in URL
 		console.log('Storing first_song!');
-		first_song = window.location.pathname.slice(6);
+		first_song_id = window.location.pathname.slice(6);
 	}
 	player_start();
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
-			request_full_graph();
+			request_graph();
 		}
 	});
 	$('#search_artist_button').click(request_graph);

@@ -23,7 +23,7 @@ def playlist():
     return render_template(
         'mashup-playlist.html'
         )
-        
+
 @app.route("/full", methods=["GET", "POST"])
 @app.route('/full/<mashup_id>')
 def mashup_map(mashup_id=None):
@@ -63,7 +63,7 @@ def get_graph(mashup_id=None, artist_name=None):
             "edges": edges,
             "songs": songs,
             "song_for_edge": song_for_edge,
-            "first_song": first_song
+            "first_song_index": first_song
         })
 
 
