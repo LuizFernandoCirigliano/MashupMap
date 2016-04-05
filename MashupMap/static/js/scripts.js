@@ -62,7 +62,6 @@ function create_network(data) {
 	songs = data.songs;
 	song_for_edge = data.song_for_edge;
 	if(network != null) {
-		console.log('network != null');
 		var newData = {
 			nodes: data.nodes,
 			edges: data.edges
