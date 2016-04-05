@@ -7,83 +7,29 @@ Our dark blue is: #426baa
     body {
       background: black;
     }
-
-    #graph_body {
-        background: black;
+    div.full-height {
+        /*margin-top: 54px;*/
+        height: 100vh;
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: initial;
     }
-
+    div.full-width {
+       width: 100vw;
+       margin-left: auto;
+       margin-right: auto;
+       max-width: initial;
+    }
+    div.menu {
+        margin-top: 54px;
+    }
     #mynetwork {
       background-color:black;
-      top:0;
-      position: absolute;
+      width: 100%;
       z-index: -1;
-    }
-    #infocontainer {
-      width: 250px;
-      height: auto;
-      position: absolute;
-      top: 55px;
-      right:0;
-      background-color: #2d3e50;
-      color: white;
-      border-radius: 5%;
-      overflow: hidden;
-      font-size: 0.9em;
     }
     .song_info {
         font-size: 0.8em;
-    }
-    #myplayer {
-      position:absolute;
-      width:356px;
-      height:200px;
-      margin-left:-178px;
-      bottom:0px;
-      left:50%;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-    }
-
-    #random_mashup_button {
-        /*background-color: #426baa;*/
-        /*width: 34px;
-        height: 34px;*/
-        width: 3.5vw;
-        height: 3.5vw;
-        /*-moz-border-radius: 20px;
-        border-radius: 20px;*/
-        -moz-border-radius: 2vw;
-        border-radius: 2vw;
-        position: absolute;
-        display: inline-block;
-        /*background-position: 2px 2px;*/
-        background-position: 0.2vw 0.2vw;
-        background-repeat: no-repeat;
-        cursor: pointer;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-color: #426baa;
-        bottom: 1.5vw;
-        /*right: 32vw;*/
-        right: 50%;
-        margin-right: -26.5vw;
-        text-align: center;
-    }
-    #random_mashup_button:hover {
-        box-shadow: 0 0 3px 3px rgba(22, 87, 176, .3);
-    }
-    #random_mashup_button:active {
-        box-shadow: 0 0 1px 3px rgba(22, 87, 176, .95);
-    }
-    #random_mashup_icon {
-        color:#ffffff;
-        position: relative;
-        top: 25%;
     }
 
     .myheader {

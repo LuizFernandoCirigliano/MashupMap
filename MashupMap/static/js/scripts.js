@@ -7,7 +7,6 @@ var current_song = null;
 var artists_displayed = [];
 var first_song = null;
 
-
 var showingImages=false;
 var nodeOptions = {
 		shape: "icon",
@@ -39,15 +38,14 @@ var options = {
 	  // enabled: false,
 		stabilization: {
 			enabled:true,
-			iterations:100
+			iterations:400
 		},
 		repulsion: {
-			nodeDistance: 100,
+			nodeDistance: 50,
 			springLength: 1000,
 			springConstant: 0.01,
 			damping : 0.01
 		}
-	  // stabilization.iterations: 200,
 	},
 	interaction: {
 		hover:true,
@@ -61,91 +59,14 @@ var options = {
 	}
 };
 
-function start() {
-	if (window.location.pathname.slice(6) !== "") {
-		console.log('Storing first_song!');
-		first_song = window.location.pathname.slice(6);
-	}
-	request_full_graph();
-	$.fn.extend({
-		animateCss: function (animationName) {
-		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-		$(this).addClass('animated ' + animationName).one(animationEnd, function() {
-		$(this).removeClass('animated ' + animationName);
-		});
-		}
-	});
-	var icon = $('.play');
-	icon.click(function() {
-		icon.toggleClass('active');
-		return false;
-	});
-	$(window).bind("resize", function(){
-		cv_resize();
-	});
-}
-
-
-function play_random_song() {
-	var random = Math.floor(Math.random()*songs.length);
-	while (random == current_song) {
-		random = Math.floor(Math.random()*songs.length);
-	}
-	current_song = random;
-	var selectedSong = songs[current_song];
-	play_song(selectedSong.embed, true);
-}
-
-function play_selected_song() {
-	var selectedSong = songs[current_song];
-	$('#song_title').html(selectedSong.title);
-	$('#redditlink').attr("href", selectedSong.redditurl);
-	$('#author').html(selectedSong.author);
-	move_info_div();
-	play_song(selectedSong.embed, false);
-}
-
-function play_song(song_embed, continuous) {
-	$.post("/count/playcount");
-	$("#playsong").html(song_embed);
-	var iframe = $("#playsong iframe").get(0);
-	// initialize the player.
-	var player = new playerjs.Player(iframe);
-
-  	// Wait for the player to be ready.
-	player.on('ready', function(){
-		if (continuous) {
-	  // Listen to the play event.
-			player.on('ended', function(){
-		// Tell Google analytics that a video was played.
-				play_random_song();
-			});
-
-	  // Listen to the play event.
-			player.on('error', function(){
-			// Tell Google analytics that a video was played.
-				console.log("Iframe Error");
-				play_random_song();
-			});
-		}
-	//autoplay the video.
-		player.play();
-	});
-	$("#infocontainer").hide();
-}
-
-function create_network(data, new_artist) {
-	if(network != null && new_artist != undefined) {
-			songs = data.songs;
-			song_for_edge = data.song_for_edge;
-			console.log('Artist selected!');
-			var newData = {
-				nodes: data.nodes,
-				edges: data.edges
-			}
-			console.log(newData);
-
-		artists_displayed.push(new_artist);
+function create_network(data) {
+	songs = data.songs;
+	song_for_edge = data.song_for_edge;
+	if(network != null) {
+		var newData = {
+			nodes: data.nodes,
+			edges: data.edges
+		};
 		network.setData(newData);
 	}
 
@@ -218,15 +139,6 @@ function cv_resize() {
 	network.css("height", h + "px");
 }
 
-
-function move_info_div(x, y) {
-	var infodiv = $("#infocontainer");
-	infodiv.show();
-	// infodiv.css("left", x + "px");
-	// infodiv.css("top", (y - 150) + "px");
-	$('#infocontainer').animateCss('bounceIn');
-	$('#mysubheader').hide();
-}
 // Called when the Visualization API is loaded.
 function draw() {
   // create a network
@@ -239,8 +151,9 @@ function draw() {
 	network = new vis.Network(container, data, options);
 
 	network.on("selectEdge", function (params) {
-		current_song = song_for_edge[params.edges[0]];
-		play_selected_song();
+		var edgeIndex = params.edges[0];
+		var selectedSong = songs[song_for_edge[edgeIndex]];
+		add_song_to_playlist(selectedSong);
 	});
 
 	network.on("selectNode", function (params) {
@@ -250,8 +163,7 @@ function draw() {
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
 		console.log(artist_name);
-		request_full_graph(artist_name);
-
+		request_graph(artist_name);
 	});
 
 	network.on("zoom", function(params) {
@@ -266,27 +178,39 @@ function draw() {
 			network.setOptions({nodes:nodeOptions});
 		}
 	});
-
-
 	cv_resize();
 	$("#mynetwork").show();
 }
 
-function search_artist() {
-	request_full_graph();
-}
+
 
 $(document).ready(function() {
-	start();
+	if (window.location.pathname.slice(6) !== "") { //get mashup_id, if specified in URL
+		console.log('Storing first_song!');
+		first_song = window.location.pathname.slice(6);
+	}
+	player_start();
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
 			request_full_graph();
 		}
 	});
-	$('#search_artist_button').click(function() {
-		request_full_graph();
+	$('#search_artist_button').click(request_graph);
+	request_graph();
+	$.fn.extend({
+		animateCss: function (animationName) {
+		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+		$(this).addClass('animated ' + animationName).one(animationEnd, function() {
+		$(this).removeClass('animated ' + animationName);
+		});
+		}
 	});
-	$('#random_mashup_button').click(play_random_song);
-
-
+	var icon = $('.play');
+	icon.click(function() {
+		icon.toggleClass('active');
+		return false;
+	});
+	$(window).bind("resize", function(){
+		cv_resize();
+	});
 });

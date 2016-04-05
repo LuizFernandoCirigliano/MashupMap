@@ -1,5 +1,9 @@
 {% extends "base/header.html" %}
-
+{% block header_block %}
+<link href="/static/stylesheets/playerjs.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<script type="text/javascript" src="//cdn.embed.ly/player-0.0.11.min.js"></script>
+{% endblock %}
 {% block body_block %}
 
 <script>
@@ -10,36 +14,76 @@ $(document).ready(function() {
 </script>
 
 <div id="graph_body" style="background: black;">
+    <div>
+        <div class="jawn myloader"></div>
+        <h3 style="color:black; text-align: center" class="myloader">Loading...</h3>
+    </div>
+
+    <div class="row full-height full-width">
+        <div class="col-sm-10">
+            <div id="mynetwork" hidden></div>
+
+            <div>
+                <p id="no_artist_error" hidden>Sorry, no mashups from this artist.</p>
+            </div>
+        </div>
+        <div class="col-sm-2 menu">
+            <div class="content controls">
+                <div class="row">
+                    <div id="iframe-div">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="progress">
+                        <div class="meter"></div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <h4>
+                            <a class="previous" onclick="play_previous()">
+                                <i class="fa fa-step-backward"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>
+                            <a class="play paused">
+                                <i class="fa fa-play"></i>
+                                <i class="fa fa-pause"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>
+                            <a class="next" onclick="play_next()">
+                                <i class="fa fa-step-forward"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <!-- <a class="volume">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </a> -->
+                    <!-- <a class="loop">
+                        <i class="fa fa-repeat"></i>
+                    </a> -->
 
 
-  <div>
-    <div class="jawn myloader"></div>
-    <h3 class="myloader">Loading...</h3>
-  </div>
+                </div>
+                <div class="row">
+                    <ul id="tracks"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-  <div id="mynetwork" hidden></div>,
-
-
-  <div>
-    <p id="no_artist_error" hidden>Sorry, no mashups from this artist.</p>
-  </div>
-
-  <div id="infocontainer" hidden>
-      {# <a href="#" title="Play video" class="play"></a> #}
-      <center>
-    <b>Title: </b><div id="song_title" class="song_info"></div>
-     <b>Author: </b><div id="author" class="song_info"></div>
-      <a id="redditlink" href="" target="_blank">View on Reddit</a>
-      </center>
-  </div>
-
-  <div id="myplayer">
-    <div id="playsong" class="embed-responsive embed-responsive-16by9"></div>
-  </div>
-
-  </div>
-</body>
-</html>
+<script type="text/javascript" src="/static/js/music_player.js"></script>
+<script type="text/javascript" src="/static/js/scripts.js"></script>
 
 {% endblock %}
