@@ -6,6 +6,11 @@ var network = null;
 var current_song = null;
 var first_song_id = null;
 
+var errors = {
+	'artist_not_found' : 'Sorry, no mashups from this artist.',
+	'mashup_not_found' : 'Sorry, mashup not found.',
+}
+
 var showingImages=false;
 var nodeOptions = {
 		shape: "icon",
@@ -94,7 +99,8 @@ function request_graph(artist_name) {
 		})
 		.fail(function() { //display error if artist is not found.
 			console.log('Failed to find artist!');
-			$('#no_artist_error').show(0).delay(2000).hide(0);
+			$('#error_display').html(errors['artist_not_found']);
+			$('#error_display').show(0).delay(2000).hide(0);
 		});
 	}
 	else {//if there is no artist name input, request full graph.
@@ -110,12 +116,17 @@ function request_with_one_mashup(mashup_id) {
 	console.log('Mashup id = ' + mashup_id);
 	$.get("/graph/mashup/" + mashup_id).done(function(data) {
 		console.log('Data: ', data);
+		if(data.first_song_index == undefined) {
+			$('#error_display').html(errors['mashup_not_found']);
+			$('#error_display').show(0).delay(2000).hide(0);
+		}
 		create_network(data);
 	})
 	.fail(function() { //display error if artist is not found.
 		console.log('Failed to find mashup!!');
 		request_full_graph();
-		// $('#no_artist_error').show(0).delay(2000).hide(0);
+		$('#error_display').html(errors['mashup_not_found']);
+		$('#error_display').show(0).delay(2000).hide(0);
 	});
 }
 
