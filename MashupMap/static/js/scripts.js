@@ -28,7 +28,8 @@ var nodeOptions = {
 
 var options = {
 	layout: {
-		improvedLayout:false
+		improvedLayout:false,
+		randomSeed: 1,
 	},
 	width: '100%',
 	nodes: nodeOptions,
@@ -42,7 +43,8 @@ var options = {
 	  // enabled: false,
 		stabilization: {
 			enabled:true,
-			iterations:400
+			iterations:200,
+			fit:true
 		},
 		repulsion: {
 			nodeDistance: 50,
@@ -153,9 +155,7 @@ function draw() {
 	});
 
 	network.on("selectNode", function (params) {
-		// console.log(params);
 		var node_id = params.nodes[0];
-		// console.log(node_id);
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
 		console.log(artist_name);
@@ -175,6 +175,16 @@ function draw() {
 			network.setOptions({nodes:nodeOptions});
 		}
 	});
+
+	// var focusPoint = Object.keys(network.getPositions())[0];
+	// console.log(focusPoint);
+	// setTimeout(function() {
+	// 	network.focus(
+	// 		focusPoint,
+	// 		{scale:1.5, animation:true}
+	// 	);
+	// }, 200);
+
 	cv_resize();
 	$("#mynetwork").show();
 }
