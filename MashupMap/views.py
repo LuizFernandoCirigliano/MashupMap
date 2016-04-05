@@ -46,7 +46,6 @@ def get_graph(mashup_id=None):
     #if a specific mashup was requested, get the index of this mashup in the songs array.
     if mashup_id:
         try:
-            print(songs)
             first_song = [x for x, y in enumerate(songs) if y['db_id'] == mashup_id][0]
         except IndexError as e:
             print('Mashup with id={} not found.'.format(mashup_id))

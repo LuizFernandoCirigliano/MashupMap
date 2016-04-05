@@ -73,11 +73,10 @@ def get_mashup_graph(mashup_id=None):
         try: #get mashup from DB
             m = Mashup.query.filter_by(id=mashup_id).first()
         except Exception as e:
-            print('Error searching for mashup with id={}'.format(mashup_id))
             print(e, e.args)
         else:
             # if mashup not already in list, add it.
-            print('Mashup with id={} FOUND!'.format(mashup_id))
+            print('Mashup with id={} found!'.format(mashup_id))
             if m not in mashups:
                 mashups.append(m)
 
