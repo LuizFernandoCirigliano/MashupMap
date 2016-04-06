@@ -110,9 +110,10 @@ function configure_all_panels() {
         console.log(final_link);
         $('#share_window input').val(final_link);
         $('#share_window').show();
-        $('#share_window').focusout(function() {
+        $('#close_share_window').click(function() {
             $('#share_window').hide();
         });
+
     });
 
 }

@@ -31,10 +31,12 @@ $(document).ready(function() {
                 <div>
                     <p id="error_display" hidden></p>
                 </div>
-                <div id="share_window" class="col-md-4" hidden>
-                    <b>Share this mashup!</b><br>
-                    <span><b></b></span>
-                    <input class="form-control" readonly="readonly" title="Share link">
+                <div id="share_window" class="alert alert-dismissible" hidden>
+                    <label for="share_link_input">Share this mashup!</label>
+                    <div class="input-group">
+                        <input class="form-control" readonly="readonly" title="Share link" id="share_link_input">
+                    </div>
+                    <a id="close_share_window"><span class="glyphicon glyphicon-remove" </span></a>
                 </div>
             </div>
         </div>
