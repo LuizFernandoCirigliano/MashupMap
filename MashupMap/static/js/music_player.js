@@ -105,13 +105,14 @@ function configure_all_panels() {
     $('.share_link').unbind('click').click(function() {
         console.log('Clicked a share_link!');
         var index = $('.share_link').index(this);
-        console.log(this, index);
-        share_song = current_playlist[index];
-        console.log(share_song);
-        share_id = share_song.db_id;
+        share_id = current_playlist[index].db_id;
         final_link = 'mashupmap.me/full/' + share_id;
         console.log(final_link);
-        $('#share_window span b').text(final_link);
+        $('#share_window input').val(final_link);
+        $('#share_window').show();
+        $('#share_window').focusout(function() {
+            $('#share_window').hide();
+        });
     });
 
 }
