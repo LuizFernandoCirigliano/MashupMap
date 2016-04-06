@@ -138,9 +138,9 @@ body.music .controls {
     /*height: 10vh;
     border-radius: 5%;*/
     font-size: 0.9em;
-    position:absolute;
+    /*position:absolute;
     top: 50%;
-    right: 50%;
+    right: 50%;*/
 }
 
 #share_window label {

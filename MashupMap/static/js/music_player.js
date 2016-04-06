@@ -108,12 +108,32 @@ function configure_all_panels() {
         share_id = current_playlist[index].db_id;
         final_link = 'mashupmap.me/full/' + share_id;
         console.log(final_link);
+        var share_window = $("#share_window");
         $('#share_window input').val(final_link);
-        $('#share_window').show();
-        $('#close_share_window').click(function() {
-            $('#share_window').hide();
-        });
+        // $('#share_window').show();
+        // $('#close_share_window').click(function() {
+        //     $('#share_window').hide();
+        // });
+        console.log('Parent: ', $(this).parent());
+        var position = $(this).parent().offset();
+        var width = $('#share_window').width();
+        console.log(width);
+        share_window.css({top: (position.top), right: (0) , position:'absolute'});
+        share_window.show( "slow" );
 
+        // $( "#login_cancel" ).click(function() {
+        // 	var position = $( "#Login" ).offset();
+        // 	$("#loginform").css({top: (position.top+54), left: position.left, position:'absolute'});
+        // 	$( "#loginform" ).hide( "slow" );
+        // });
+
+    });
+    $( "#close_share_window" ).click(function() {
+        console.log('Hide share window!');
+        var share_window = $("#share_window");
+        var position = $(this).parent().offset();
+        share_window.css({top: (position.top), right: (0) , position:'absolute'});
+        share_window.hide( "slow" );
     });
 
 }
