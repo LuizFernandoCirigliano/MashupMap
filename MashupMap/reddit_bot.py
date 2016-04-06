@@ -14,6 +14,18 @@ KEY_LAST_REDDIT = 'last_reddit_mashup'
 user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
+def get_clean_title(full_title):
+    text_in_par = re.findall('\(([^\)]+)\) | \[([^\]]+)\]', full_title)
+    if len(text_in_par) == 0 or len(text_in_par[0]) == 0:
+        return full_title
+
+    text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
+    index = full_title.find(text_from_match)
+    # print(index)
+    title = full_title[:index-1]
+    # print(title)
+    return title
+
 
 def artist_list_from_title(title):
     # text_in_par is an array of tuples. Each tuple contains a match for at
