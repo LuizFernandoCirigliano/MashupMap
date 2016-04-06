@@ -110,7 +110,7 @@ function html_for_song(obj) {
         '<h5>' + obj.title + '</h5>' +
         '<p>' + obj.author + '</p>' +
         '</div><a class="delete-track"><span class="glyphicon glyphicon-remove"' +
-        '</span></a></li>'
+        '</span></a>' + '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
 }
 
 function set_playlist(songs) {
