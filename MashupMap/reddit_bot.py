@@ -76,7 +76,9 @@ def insert_submission_in_db(submission):
     )
     # print(content)
     url = get_url_from_embed(content)
-    print(url)
+    # print(url)
+    clean_title = get_clean_title(submission.title)
+    print(clean_title)
     # isBroken = link_checker.check_link(url)
     #checking for broken links takes longer and new links are rarely broken.
     isBroken = False
@@ -93,7 +95,8 @@ def insert_submission_in_db(submission):
         date=date,
         content=content,
         url=url,
-        isBroken = isBroken
+        isBroken = isBroken,
+        clean_title = clean_title
     )
 
     for name in artists_names:
