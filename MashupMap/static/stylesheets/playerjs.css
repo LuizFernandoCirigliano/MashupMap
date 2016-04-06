@@ -152,6 +152,8 @@ body.music .controls {
 }
 
 #close_share_window {
+    padding-left:0;
+    padding-bottom: 5px;
     position: absolute;
     top: 5px;
     right: 5px;
