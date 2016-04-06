@@ -130,12 +130,19 @@ function configure_all_panels() {
 
 
 function html_for_song(obj) {
-    return '<li class="track">' +
-        '<div class="track-div">' +
-        '<h5>' + obj.title + '</h5>' +
-        '<p>' + obj.author + '</p>' +
-        '</div><a class="delete-track"><span class="glyphicon glyphicon-remove"' +
-        '</span></a>' + '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
+    var output = '<li class="track">' + '<div class="track-div">';
+    output += '<h5>' + obj.title + '</h5>';
+    output += '<marquee scrollamount="3">';
+    for (i in obj.artists) {
+        output += ' ' + obj.artists[i] + ',';
+    };
+    output = output.substring(0, output.length - 1);
+    output += '</marquee>';;
+    output += '<p>' + obj.author + '</p></div>';
+    output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"' + '</span></a></li>';
+
+    return output;
+
 }
 
 function set_playlist(songs) {
