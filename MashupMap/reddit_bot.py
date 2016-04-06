@@ -78,7 +78,7 @@ def insert_submission_in_db(submission):
     url = get_url_from_embed(content)
     # print(url)
     clean_title = get_clean_title(submission.title)
-    print(clean_title)
+
     # isBroken = link_checker.check_link(url)
     #checking for broken links takes longer and new links are rarely broken.
     isBroken = False
@@ -87,7 +87,8 @@ def insert_submission_in_db(submission):
     ).first()
     if check_mash is not None:
         return check_mash
-
+        
+    print(clean_title)
     mashup = Mashup(
         title=submission.title,
         author=author,

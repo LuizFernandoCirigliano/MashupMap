@@ -22,8 +22,9 @@ def graph_for_mashup_list(mashups):
             "embed": mashup.content,
             "author": mashup.author,
             "redditurl": mashup.permalink,
-            "title": mashup.title,
-            "db_id" : mashup.id
+            "title": mashup.clean_title,
+            "db_id" : mashup.id,
+            "artists" : [a.name for a in mashup.artists]
         })
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
@@ -37,7 +38,7 @@ def graph_for_mashup_list(mashups):
                     "to": a2.id,
                     "id": eid,
                     "color": mashup_color,
-                    "title": mashup.title
+                    "title": mashup.clean_title
                 })
                 song_for_edge.append(song_id)
         else:
@@ -50,7 +51,7 @@ def graph_for_mashup_list(mashups):
                             "to": a2.id,
                             "id": eid,
                             "color": mashup_color,
-                            "title": mashup.title
+                            "title": mashup.clean_title
                         })
                         song_for_edge.append(song_id)
 
