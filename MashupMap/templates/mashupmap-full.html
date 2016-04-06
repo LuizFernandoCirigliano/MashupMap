@@ -27,7 +27,8 @@ $(document).ready(function() {
                 <p id="error_display" hidden></p>
             </div>
         </div>
-        <div class="small_form">
+        <div id="loginform" class="small_form">
+          <div class="arrow-up"></div>
               <p class="text-center">Log in</>
                 <div class="login-form">
                   <form action="/users/login" method="post" >
@@ -38,12 +39,13 @@ $(document).ready(function() {
                     </br>
                     <p>
                         <input type=submit class="btn btn-primary  col-sm-6" value="log in">
-                        <input type=button class="btn btn-primary  col-sm-6" value="cancel">
+                        <input type=button id="login_cancel" class="btn btn-primary col-sm-6" value="cancel">
                     </p>
                   </form>
                 </div>
         </div>
-        <!-- <div class="small_form">
+        <div id="signupform" class="small_form" >
+          <div class="arrow-up"></div>
               <p class="text-center">Sign up</>
                 <div class="login-form">
                   <form action="/users/login" method="post" >
@@ -58,11 +60,11 @@ $(document).ready(function() {
                     </br>
                     <p>
                         <input type=submit class="btn btn-primary  col-sm-6" value="log in">
-                        <input type=button class="btn btn-primary  col-sm-6" value="cancel">
+                        <input type=button id="singup_cancel" class="btn btn-primary  col-sm-6" value="cancel">
                     </p>
                   </form>
                 </div>
-        </div> -->
+        </div>
         <div class="col-sm-2 menu">
             <div class="content controls">
                 <div class="row">

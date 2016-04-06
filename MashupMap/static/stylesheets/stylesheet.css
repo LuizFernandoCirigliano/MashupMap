@@ -104,7 +104,18 @@ Our dark blue is: #426baa
       border: 5px solid white;
       border-radius: 15px;
       position:fixed;
-      top: 100px;
+      z-index: 1000;
       line-height: 20px;
       padding: 15px
+    }
+
+    .arrow-up {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 15px solid white;
+      left: 5%;
+      position: absolute;
+      top: -10px;
     }
