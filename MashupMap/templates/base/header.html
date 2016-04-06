@@ -6,11 +6,13 @@
   <!-- Landing page files  -->
 
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" href="../favicon.ico">
   <link rel="stylesheet" href="/static/stylesheets/Pure/marketing.css">
   <link rel="stylesheet" href="/static/stylesheets/Pure/pure-min.css">
   <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<<<<<<< HEAD
 
   <link rel="stylesheet" type="text/css" href="/static/stylesheets/slick-1.5.9/slick/slick.css"/>
   <link rel="stylesheet" type="text/css" href="/static/stylesheets/slick-1.5.9/slick/slick-theme.css"/>
@@ -18,23 +20,34 @@
   <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
   <!-- <script type="text/javascript" src="/static/js/index.js"></script> -->
 
+=======
+>>>>>>> 924272d3f19a42ab29f7c5eef9be2ffaf0a31060
 <!-- Ends landing page files  -->
 
 <!-- MashhupMap files (for the graph) -->
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" />
+  <!-- <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" /> -->
+  <link href="/static/stylesheets/vis.min.css" rel="stylesheet" type="text/css" />
+
   <link href="/static/stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
   <link href="/static/stylesheets/playbutton.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript" src="/static/js/scripts.js"></script>
-  <script type="text/javascript" src="//cdn.embed.ly/player-0.0.11.min.js"></script>
+  <!-- <script type="text/javascript" src="/static/js/scripts.js"></script> -->
   <!-- Ends here -->
 
-
+  {% block header_block %}{% endblock %}
 
 
     <!-- Google Analytics -->
@@ -49,24 +62,43 @@
   </script>
   <!-- End Google Analytics -->
 </head>
-<body >
+<body>
+<<<<<<< HEAD
+    <!-- <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> -->
+
+=======
+>>>>>>> master
     <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
             <a class="pure-menu-heading" href="/">MashupMap</a>
 
             <ul class="pure-menu-list">
+                <li class="pure-menu-item">
+                </li>
                 <li class="pure-menu-item pure-menu"><a href="/" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="/full" class="pure-menu-link">Full Map</a></li>
-                <!-- <li class="pure-menu-item"><a href="#" class="pure-menu-link">Sign Up</a></li> -->
+                <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="full_map_link">Full Map</a></li>
+                <li class="pure-menu-item" id="request_mashup_button"><a class="pure-menu-link" href="http://goo.gl/forms/D7OiF0NW4k" target='_blank'>Request Mashup</a></li>
                 <li class="pure-menu-item input-group" id="artist_form">
                     <input type="text" class="form-control" id="artist_input" placeholder="Search artist"></input>
                     <button type="submit" class="btn btn-primary" id="search_artist_button">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </li>
+
             </ul>
         </div>
     </div>
+    <!-- <div class="fb-share-button" data-href="https://mashupmap.me" data-layout="icon_link"></div> -->
 
 
 {% block body_block %}{% endblock %}
+</body>
+
+</html>

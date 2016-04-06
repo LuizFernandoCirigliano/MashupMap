@@ -1,71 +1,37 @@
+
+/*
+Our colors:
+Our dark blue is: #426baa
+*/
+
     body {
       background: black;
     }
-
-    #graph_body {
-        background: black;
+    div.full-height {
+        /*margin-top: 54px;*/
+        height: 100vh;
+        margin-top: auto;
+        margin-bottom: auto;
+        max-height: initial;
     }
-
+    div.full-width {
+       width: 100vw;
+       margin-left: auto;
+       margin-right: auto;
+       max-width: initial;
+    }
+    div.menu {
+        margin-top: 54px;
+    }
     #mynetwork {
       background-color:black;
-      top:0;
-      position: absolute;
+      width: 100%;
       z-index: -1;
     }
-    #infocontainer {
-      width: 200px;
-      height: 160px;
-      top: 0;
-      position: absolute;
-      background-color: #252525;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-      color: white;
-      border-radius: 5%;
-      overflow: hidden;
+    .song_info {
+        font-size: 0.8em;
     }
-    #myplayer {
-      position:absolute;
-      width:356px;
-      height:200px;
-      margin-left:-178px;
-      bottom:0px;
-      left:50%;
-      border-style: solid;
-      border-width: 2px;
-      border-color: white;
-    }
-    #request_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:200px;
-      bottom: 4%;
-    }
-    #request_label {
-      position: absolute;
-      left:50%;
-      margin-left:195px;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-      text-align: center;
-    }
-    #random_mashup {
-      position: absolute;
-      left:50%;
-      margin-left:-240px;
-      bottom: 4%;
-    }
-    #random_label {
-      position: absolute;
-      left:50%;
-      margin-left:-245px;
-      bottom: 0.3%;
-      color: white;
-      font-size: 15px;
-      text-align: center;
-    }
+
     .myheader {
       background-color: black;
       color: white;
@@ -109,9 +75,6 @@
 
     #artist_input {
       width: 80%;
-      /*position: absolute;
-      right: 1%;
-      top: 12%;*/
     }
 
 
@@ -121,17 +84,27 @@
       top: 18%;
     }
 
-    #no_artist_error {
+    #error_display {
       color: red;
       font-size: 2em;
       position: absolute;
       top: 15%;
-      margin-left: auto;
-      margin-right: auto;
-      left: 0;
-      right: 0;
+      /*text-align: center;*/
+      right: 50%;
+      margin-right: -25vw;
+
 
     }
     .footer {
         color: #777;
+    }
+
+    .small_form {
+      background-color: white;
+      border: 5px solid white;
+      border-radius: 15px;
+      position:fixed;
+      top: 100px;
+      line-height: 20px;
+      padding: 15px
     }

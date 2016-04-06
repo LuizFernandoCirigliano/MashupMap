@@ -1,0 +1,127 @@
+a {
+    color: #4cc6e6;
+}
+a:hover {
+    color: #36bfe3;
+}
+.button {
+    background-color: #4cc6e6;
+    border-color: #36bfe3;
+}
+.button:focus, .button:hover {
+    background-color: #1993b3;
+}
+.controls {
+    margin: 10px 0;
+    padding: 10px 5px;
+}
+.controls .columns {
+    padding: 0;
+}
+.controls .play {
+    display: block;
+    text-align: center;
+}
+.controls .play .fa-play {
+    display: none;
+}
+.controls .play .fa-pause {
+    display: block;
+}
+.controls .play.paused .fa-play {
+    display: block;
+}
+.controls .play.paused .fa-pause {
+    display: none;
+}
+.controls .progress {
+    border: none;
+    padding: 2px;
+    background: #fff;
+    height: 15px;
+    margin: 0;
+}
+.controls .progress .meter {
+    background-color: #426baa;
+    width: 0%;
+    height: 100%;
+}
+.controls .mute {
+    float: left;
+    margin-left: 5px;
+    width: 15px;
+}
+.controls .mute .fa-volume-off {
+    display: none;
+}
+.controls .mute .fa-volume-up {
+    display: block;
+}
+.controls .mute.muted {
+    color: #fff;
+}
+.controls .mute.muted .fa-volume-off {
+    display: block;
+}
+.controls .mute.muted .fa-volume-up {
+    display: none;
+}
+.controls .volume {
+    float: left;
+    height: 15px;
+    margin-left: 5px;
+}
+.controls .volume span {
+    background: #fff;
+    height: 15px;
+    width: 3px;
+    margin-right: 2px;
+    display: block;
+    float: left;
+}
+.controls .volume span.active, .controls .volume span.set {
+    background: #426baa;
+}
+.controls .volume span.inactive {
+    background: #fff;
+}
+.controls .loop {
+    color: #fff;
+    margin-left: 5px;
+    float: left;
+}
+.controls .loop.looped {
+    color: #426baa;
+}
+.controls .next, .controls .previous {
+    margin-left: 5px;
+}
+.controls .next.disable, .controls .previous.disable {
+    color: #fff;
+}
+body.music .controls {
+    background: #333;
+}
+#tracks {
+    list-style:none;
+    padding-left:0;
+    padding-bottom: 5px;
+    overflow: auto;
+    height: 60vh;
+}
+.track {
+    background-color: #2d3e50;
+    color: white;
+    border-radius: 5%;
+    overflow: hidden;
+    font-size: 0.9em;
+}
+.currentTrack {
+    background-color: #426baa;
+}
+
+#iframe-div {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}

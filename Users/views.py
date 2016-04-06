@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, url_for, request, abort, render_template
 from flask.ext.login import login_user, logout_user
 from Users.forms import SignupForm, LoginForm
-from Users.models import User
+from Users.models import User, Role
 from MashupMap import lm, db
 
 user_api = Blueprint('user_api', __name__)
@@ -19,6 +19,8 @@ def register():
         user = User(email=form.email.data,
                     login=form.username.data,
                     password=form.password.data)
+        role = Role.query.filter_by(name='user').first()
+        user.roles.append(role)
         db.session.add(user)
         db.session.commit()
         login_user(user)

@@ -56,7 +56,6 @@ docs/_build/
 target/
 *.sublime-project
 *.sublime-workspace
-db_repository
 .DS_Store
 *.db
 venv3

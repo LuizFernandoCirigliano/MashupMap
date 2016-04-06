@@ -23,10 +23,12 @@ class LoginForm(FormWithFlash):
         label="Username",
         validators=[validators.DataRequired(),
                     validators.length(max=254, message="Username too long")],
+                    render_kw={"placeholder": "Username"}
     )
     password = PasswordField(
         label="Password",
-        validators=[validators.DataRequired()]
+        validators=[validators.DataRequired()],
+        render_kw={"placeholder": "Password"}
     )
 
     def validate(self):
@@ -56,20 +58,23 @@ class SignupForm(FormWithFlash):
         label="Username",
         validators=[validators.DataRequired(),
                     validators.length(max=40, message="Username too long")],
+                    render_kw={"placeholder": "Username"}
     )
     email = EmailField(
         label="Email",
         validators=[validators.DataRequired(),
                     validators.Email(),
-                    validators.length(max=254, message="Email too long")
-                    ])
+                    validators.length(max=254, message="Email too long")],
+                    render_kw={"placeholder": "Email"})
     password = PasswordField(
         label="Password",
-        validators=[validators.DataRequired()]
+        validators=[validators.DataRequired()],
+        render_kw={"placeholder": "Password"}
     )
     password_confirmation = PasswordField(
         label="Password Confirmation",
-        validators=[validators.DataRequired()]
+        validators=[validators.DataRequired()],
+        render_kw={"placeholder": "Password Confirmation"}
     )
 
     def validate(self):
