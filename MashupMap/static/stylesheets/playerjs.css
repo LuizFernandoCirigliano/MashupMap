@@ -138,7 +138,7 @@ body.music .controls {
     /*height: 10vh;*/
     border-radius: 5%;
     font-size: 0.9em;
-    z-index: auto;
+    z-index: 1000;
 
 }
 
