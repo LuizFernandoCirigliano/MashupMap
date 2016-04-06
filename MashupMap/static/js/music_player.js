@@ -101,7 +101,21 @@ function configure_all_panels() {
         var index = $('.delete-track').index(this);
         remove_song_from_playlist(index);
     });
+
+    $('.share_link').unbind('click').click(function() {
+        console.log('Clicked a share_link!');
+        var index = $('.share_link').index(this);
+        console.log(this, index);
+        share_song = current_playlist[index];
+        console.log(share_song);
+        share_id = share_song.db_id;
+        final_link = 'mashupmap.me/full/' + share_id;
+        console.log(final_link);
+    });
+
 }
+
+
 
 
 function html_for_song(obj) {
