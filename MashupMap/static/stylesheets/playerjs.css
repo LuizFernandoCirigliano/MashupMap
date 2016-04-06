@@ -135,12 +135,11 @@ body.music .controls {
 #share_window {
     background-color: #426baa;
     color: white;
-    /*height: 10vh;
-    border-radius: 5%;*/
+    /*height: 10vh;*/
+    border-radius: 5%;
     font-size: 0.9em;
-    /*position:absolute;
-    top: 50%;
-    right: 50%;*/
+    z-index: auto;
+
 }
 
 #share_window label {
