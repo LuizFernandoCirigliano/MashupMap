@@ -131,3 +131,15 @@ body.music .controls {
     position: relative;
     left: 13vw;
 }
+
+#share_window {
+    background-color: #426baa;
+    color: white;
+    height: 50px;
+    border-radius: 5%;
+    overflow: hidden;
+    font-size: 0.9em;
+    position:absolute;
+    top: 50%;
+    right: 50%;
+}

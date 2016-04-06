@@ -111,6 +111,7 @@ function configure_all_panels() {
         share_id = share_song.db_id;
         final_link = 'mashupmap.me/full/' + share_id;
         console.log(final_link);
+        $('#share_window span b').text(final_link);
     });
 
 }

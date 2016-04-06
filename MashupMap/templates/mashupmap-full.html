@@ -13,18 +13,28 @@ $(document).ready(function() {
 });
 </script>
 
+
+
 <div id="graph_body" style="background: black;">
     <div>
         <div class="jawn myloader"></div>
         <h3 style="color:black; text-align: center" class="myloader">Loading...</h3>
     </div>
 
+
+
     <div class="row full-height full-width">
         <div class="col-sm-10">
-            <div id="mynetwork" hidden></div>
+            <div class="container">
+                <div id="mynetwork" hidden></div>
 
-            <div>
-                <p id="error_display" hidden></p>
+                <div>
+                    <p id="error_display" hidden></p>
+                </div>
+                <div id="share_window" class="col-md-4  ">
+                    Share this mashup!<br>
+                    <span><b></b></span>
+                </div>
             </div>
         </div>
         <div class="col-sm-2 menu">
