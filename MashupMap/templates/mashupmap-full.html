@@ -3,6 +3,10 @@
 <link href="/static/stylesheets/playerjs.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script type="text/javascript" src="//cdn.embed.ly/player-0.0.11.min.js"></script>
+
+
+
+
 {% endblock %}
 {% block body_block %}
 
@@ -23,7 +27,14 @@ $(document).ready(function() {
 
 
 
-    <div class="row full-height full-width">
+
+
+
+    <div id="#scrollable_div" class="row full-height full-width">
+        <div id="top-hover" class="navigation-arrow"><img src="/static/img/navigation-icons/up.png" height="50px" width="50px"></div>
+        <div id="bottom-hover" class="navigation-arrow" ><img src="/static/img/navigation-icons/down.png" height="50px" width="50px"></div>
+        <div id="right-hover" class="navigation-arrow"><img src="/static/img/navigation-icons/right.png" height="50px" width="50px"></div>
+        <div id="left-hover" class="navigation-arrow" ><img src="/static/img/navigation-icons/left.png" height="50px" width="50px"></div>
         <div class="col-sm-10">
             <div class="container">
                 <div id="share_window" class="alert alert-dismissible" hidden>

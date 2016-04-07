@@ -98,3 +98,33 @@ Our dark blue is: #426baa
     .footer {
         color: #777;
     }
+
+    #top-hover {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        margin-left: -30px;
+        z-index: 10000;
+    }
+    #bottom-hover {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        margin-left: -30px;
+        z-index: 10000;
+        /*height: 20vh;*/
+    }
+    #right-hover {
+        position: absolute;
+        bottom: 50%;
+        right: 10px;
+        margin-bottom: -30px;
+        z-index: 10000;
+    }
+    #left-hover {
+        position: absolute;
+        bottom: 50%;
+        left: 10px;
+        margin-bottom: -30px;
+        z-index: 10000;
+    }

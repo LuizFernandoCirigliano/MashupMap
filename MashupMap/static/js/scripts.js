@@ -57,7 +57,7 @@ var options = {
 		hover:true,
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
-		navigationButtons: true,
+		navigationButtons: false,
 		selectConnectedEdges: false, //false, otherwise selecting a node will select adjacent edges.
 		keyboard: {
 			enabled: true
@@ -226,4 +226,67 @@ $(document).ready(function() {
 	$(window).bind("resize", function(){
 		cv_resize();
 	});
+	var nav_offset = 50;
+	var animation = {
+		duration : 200,
+		easingFunction : 'linear'
+	}
+	$('#left-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
+			offset : {
+				x : nav_offset,
+				y : 0
+			},
+			animation
+			});
+		}
+
+		interval = setInterval(move, 100);
+	}, function() {
+    clearInterval(interval);
+});
+	$('#right-hover').hover(function() {
+		network.moveTo({
+			offset : {
+				x : -nav_offset,
+				y : 0
+			},
+			animation
+		});
+	});
+	$('#top-hover').hover(function() {
+		network.moveTo({
+			offset : {
+				x : 0,
+				y : nav_offset
+			},
+			animation
+		});
+	});
+	$('#bottom-hover').hover(function() {
+		network.moveTo({
+			offset : {
+				x : 0,
+				y : -nav_offset
+			},
+			animation
+		});
+	});
+
+	$('input').keydown(function(e){
+   		console.log('Yes keydown triggered. ' + e.which)
+	});
+
+	$(document).on('keypress', function(e) {
+	    // var tag = e.target.tagName.toLowerCase();
+	    // if ( e.which === 119 && tag != 'input' && tag != 'textarea')
+	    //     console.log();
+		console.log('Key pressed!');
+	});
+
+
+
+
 });
