@@ -99,11 +99,20 @@ Our dark blue is: #426baa
         color: #777;
     }
 
+    @media only screen and (max-width: 760px) {
+      .navigation-arrow {
+          visibility: hidden;
+      }
+
+    }
+
     .navigation-arrow {
         position: absolute;
         z-index: 10000;
         opacity: 0.5;
     }
+
+
 
     #top-hover {
         top: 50px;
@@ -114,7 +123,6 @@ Our dark blue is: #426baa
         bottom: 10px;
         left: 50%;
         margin-left: -30px;
-        /*height: 20vh;*/
     }
     #right-hover {
         bottom: 50%;
