@@ -113,8 +113,6 @@ Our dark blue is: #426baa
     }
 
     .navigation-arrow:hover {
-        position: absolute;
-        z-index: 10000;
         opacity: 0.9;
     }
 
