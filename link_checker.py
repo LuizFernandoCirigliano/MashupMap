@@ -81,7 +81,10 @@ def main():
         print('Finished!')
     finally:
         db.session.commit()
-        save_index("strt_index", m.id - 1)
+        if m.id == mashups[-1]:
+            save_index("strt_index", 0)
+        else:
+            save_index("strt_index", m.id - 1)
         print('Comitting...')
 
 
