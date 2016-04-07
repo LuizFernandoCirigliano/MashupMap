@@ -39,6 +39,25 @@ def save_clean_titles():
     finally:
         db.session.commit()
 
+#define regex for all cases.
+
+
+def strip_artist_name(match):
+    print(match)
+    # ft_pat = '\s+[fF](ea)?[tT]\.?\s+'
+    names_pat = '[\w\s]+'
+    comma_pat = '\s*,\s*'
+    vs_pat = '\s+[vV][sS]?\.?\s+'
+    x_pat = '\s+[xX]\s+'
+
+    divider = re.findall(comma_pat + '|' + vs_pat + '|' + x_pat, match)
+    print(divider)
+    strip_string = divider[0]
+
+    artist_list = match.split(strip_string)
+    print(artist_list)
+    pass
+
 
 def artist_list_from_title(title):
     # text_in_par is an array of tuples. Each tuple contains a match for at
@@ -50,7 +69,7 @@ def artist_list_from_title(title):
         return None
 
     text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
-
+    print(text_from_match)
     artists_names = [x.strip() for x in text_from_match.split(',')]
     return artists_names
 
@@ -87,7 +106,7 @@ def insert_submission_in_db(submission):
     ).first()
     if check_mash is not None:
         return check_mash
-        
+
     print(clean_title)
     mashup = Mashup(
         title=submission.title,
