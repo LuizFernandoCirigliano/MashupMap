@@ -57,7 +57,7 @@ var options = {
 		hover:true,
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
-		navigationButtons: false,
+		navigationButtons: true,
 		selectConnectedEdges: false, //false, otherwise selecting a node will select adjacent edges.
 		keyboard: {
 			enabled: true

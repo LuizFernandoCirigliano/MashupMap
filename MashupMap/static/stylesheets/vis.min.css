@@ -977,10 +977,10 @@ div.vis-network-tooltip {
 }
 
 div.vis-network div.vis-navigation div.vis-button {
-    width: 3.5vw;
-    height: 3.5vw;
-    -moz-border-radius: 3.5vw;
-    border-radius: 3.5vw;
+    width: 3vw;
+    height: 3vw;
+    -moz-border-radius: 3vw;
+    border-radius: 3vw;
     position: absolute;
     display: inline-block;
     background-position: 0.2vw 0.2vw;
@@ -1008,6 +1008,7 @@ div.vis-network div.vis-navigation div.vis-button.vis-up {
     background-size: 90%;
     bottom: 5vw;
     right: 9vw;
+    visibility: hidden;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-down {
@@ -1015,20 +1016,23 @@ div.vis-network div.vis-navigation div.vis-button.vis-down {
     background-size: 90%;
     bottom: 1vw;
     right: 9vw;
+    visibility: hidden;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-left {
     background-image: url(icons/arrow-left.png);
     background-size: 90%;
     bottom: 1vw;
-    right: 13vw
+    right: 13vw;
+    visibility: hidden;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-right {
     background-image: url(icons/arrow-right.png);
     background-size: 90%;
     bottom: 1vw;
-    right: 5vw
+    right: 5vw;
+    visibility: hidden;
 }
 
 div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
