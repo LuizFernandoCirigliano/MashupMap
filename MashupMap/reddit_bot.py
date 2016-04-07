@@ -51,12 +51,17 @@ def strip_artist_name(match):
     x_pat = '\s+[xX]\s+'
 
     divider = re.findall(comma_pat + '|' + vs_pat + '|' + x_pat, match)
-    print(divider)
-    strip_string = divider[0]
+    # print(divider)
+    try:
+        strip_string = divider[0]
+    except IndexError as e:
+        print('Index error!!')
+        print(e, e.args)
+        return None
 
     artist_list = match.split(strip_string)
-    print(artist_list)
-    pass
+    # print(artist_list)
+    return artist_list
 
 
 def artist_list_from_title(title):
@@ -69,9 +74,10 @@ def artist_list_from_title(title):
         return None
 
     text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
-    print(text_from_match)
-    artists_names = [x.strip() for x in text_from_match.split(',')]
-    return artists_names
+    # print(text_from_match)
+    # artists_names = [x.strip() for x in text_from_match.split(',')]
+    # return artists_names
+    return strip_artist_name(text_from_match)
 
 
 def insert_submission_in_db(submission):
