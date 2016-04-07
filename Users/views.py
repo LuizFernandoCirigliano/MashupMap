@@ -17,14 +17,14 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
         user = User(email=form.email.data,
-                    login=form.username.data,
+                    login=form.login.data,
                     password=form.password.data)
         role = Role.query.filter_by(name='user').first()
         user.roles.append(role)
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('index'))
     else:
         form.flash_errors()
         return render_template('signup.html', form=form)

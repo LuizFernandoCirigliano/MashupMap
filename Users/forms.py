@@ -84,10 +84,10 @@ class SignupForm(FormWithFlash):
         if self.password_confirmation.data != self.password.data:
             self.password_confirmation.errors.append("Passwords don't match")
             return False
-        if db.User.filter_by(login=self.login.data).count() > 0:
+        if User.query.filter_by(login=self.login.data).count() > 0:
             self.login.errors.append('Duplicate username')
             return False
-        if db.User.filter_by(email=self.email.data).count() > 0:
+        if User.query.filter_by(email=self.email.data).count() > 0:
             self.login.errors.append('Duplicate email')
             return False
         return True
