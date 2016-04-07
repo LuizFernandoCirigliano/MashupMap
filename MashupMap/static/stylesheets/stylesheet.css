@@ -112,6 +112,12 @@ Our dark blue is: #426baa
         opacity: 0.5;
     }
 
+    .navigation-arrow:hover {
+        position: absolute;
+        z-index: 10000;
+        opacity: 0.9;
+    }
+
 
 
     #top-hover {
