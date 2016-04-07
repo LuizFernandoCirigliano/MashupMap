@@ -115,6 +115,7 @@ body.music .controls {
     border-radius: 5%;
     overflow: hidden;
     font-size: 0.9em;
+    padding: 3px 5px;
 }
 .currentTrack {
     background-color: #426baa;

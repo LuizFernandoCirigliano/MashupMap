@@ -131,14 +131,14 @@ function configure_all_panels() {
 
 function html_for_song(obj) {
     var output = '<li class="track">' + '<div class="track-div">';
-    output += '<h5>' + obj.title + '</h5>';
+    output += '<h5><b> ' + obj.title + '</b></h5>';
     output += '<marquee scrollamount="3">';
     for (i in obj.artists) {
         output += ' ' + obj.artists[i] + ',';
     };
     output = output.substring(0, output.length - 1);
     output += '</marquee>';;
-    output += '<p>' + obj.author + '</p></div>';
+    output += '<p><b>Reddit author: </b>' + obj.author + '</p></div>';
     output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"' + '</span></a>';
     output += '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
 
