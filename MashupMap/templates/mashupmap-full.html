@@ -31,7 +31,7 @@ $(document).ready(function() {
           <div class="arrow-up"></div>
               <p class="text-center">Log in</>
                 <div class="login-form">
-                  <form action="/users/login" method="post" >
+                  <form action="/user/login" method="post" >
                         {{ login_form.login(class="form-control") }}
                     </br>
                         {{ login_form.password(class="form-control") }}
@@ -48,7 +48,7 @@ $(document).ready(function() {
           <div class="arrow-up"></div>
               <p class="text-center">Sign up</>
                 <div class="login-form">
-                  <form action="/users/register" method="post" >
+                  <form action="/user/register" method="post" >
                         {{ signup_form.login(class="form-control") }}
                     </br>
                         {{ signup_form.email(class="form-control") }}
