@@ -48,7 +48,7 @@ $(document).ready(function() {
           <div class="arrow-up"></div>
               <p class="text-center">Sign up</>
                 <div class="login-form">
-                  <form action="/users/login" method="post" >
+                  <form action="/users/register" method="post" >
                         {{ signup_form.login(class="form-control") }}
                     </br>
                         {{ signup_form.email(class="form-control") }}
@@ -59,7 +59,7 @@ $(document).ready(function() {
                         {{ login_form.csrf_token }}
                     </br>
                     <p>
-                        <input type=submit class="btn btn-primary  col-sm-6" value="log in">
+                        <input type=submit class="btn btn-primary  col-sm-6" value="Register">
                         <input type=button id="singup_cancel" class="btn btn-primary  col-sm-6" value="cancel">
                     </p>
                   </form>
