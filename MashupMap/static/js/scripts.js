@@ -227,52 +227,69 @@ $(document).ready(function() {
 		cv_resize();
 	});
 	var nav_offset = 50;
+	var interval_duration = 100;
 	var animation = {
 		duration : 200,
 		easingFunction : 'linear'
 	}
+
 	$('#left-hover').hover(function() {
 		console.log('Hover left!!!');
 		function move() {
 			network.moveTo({
 			offset : {
-				x : nav_offset,
-				y : 0
+				x : nav_offset
 			},
 			animation
 			});
 		}
 
-		interval = setInterval(move, 100);
+		interval = setInterval(move, interval_duration);
 	}, function() {
-    clearInterval(interval);
-});
+    	clearInterval(interval);
+	});
 	$('#right-hover').hover(function() {
-		network.moveTo({
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
 			offset : {
 				x : -nav_offset,
-				y : 0
 			},
 			animation
-		});
-	});
-	$('#top-hover').hover(function() {
-		network.moveTo({
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});$('#top-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
 			offset : {
-				x : 0,
 				y : nav_offset
 			},
 			animation
-		});
-	});
-	$('#bottom-hover').hover(function() {
-		network.moveTo({
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});$('#bottom-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
 			offset : {
-				x : 0,
 				y : -nav_offset
 			},
 			animation
-		});
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
 	});
 
 	$('input').keydown(function(e){
