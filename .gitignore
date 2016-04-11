@@ -60,3 +60,4 @@ target/
 *.db
 venv3
 output
+test.py

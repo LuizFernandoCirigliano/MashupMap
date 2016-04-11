@@ -31,7 +31,7 @@ def mashup_map(mashup_id=None):
     return render_template('mashupmap-full.html', login_form=form, signup_form=signup)
 
 @app.route("/graph")
-@app.route('/graph/mashup/<mashup_id>')
+@app.route('/graph/mashup/<int:mashup_id>')
 def get_graph(mashup_id=None):
     # print('get_graph: ' + str(mashup_id))
     nodes, edges, songs, song_for_edge = get_mashup_graph(mashup_id)

@@ -89,52 +89,45 @@ function create_network(data) {
 	}
 }
 
-function request_graph(artist_name) {
-	if(first_song_id) {
-		request_with_one_mashup(first_song_id);
+function request_graph(args) {
+	if(args['first_song_id']) {
+		request_with_one_mashup(args['first_song_id']);
 	}
-
+	artist_name = args['artist_name'];
 	//if the user inputs an artist name, create graph for this artist.
 	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
-		$.get("/graph/artist/" + artist_name).done(function(data) {
-			create_network(data, artist_name);
-		})
-		.fail(function() { //display error if artist is not found.
-			console.log('Failed to find artist!');
-			$('#error_display').html(errors['artist_not_found']);
-			$('#error_display').show(0).delay(2000).hide(0);
-		});
+		request_artist_graph(artist_name);
 	}
 	else {//if there is no artist name input, request full graph.
 		$.get("/graph").done(function(data) {
 			create_network(data);
 		});
 	}
-
 }
 
-
-function request_with_one_mashup(mashup_id) {
-	console.log('Mashup id = ' + mashup_id);
-	$.get("/graph/mashup/" + mashup_id).done(function(data) {
-		console.log('Data: ', data);
-		if(data.first_song_index == undefined) {
-			$('#error_display').html(errors['mashup_not_found']);
-			$('#error_display').show(0).delay(2000).hide(0);
-		}
-		create_network(data);
+function request_artist_graph(artist_name) {
+	$.get("/graph/artist/" + artist_name).done(function(data) {
+		create_network(data, artist_name);
 	})
 	.fail(function() { //display error if artist is not found.
-		console.log('Failed to find mashup!!');
-		request_full_graph();
-		$('#error_display').html(errors['mashup_not_found']);
+		console.log('Failed to find artist!');
+		$('#error_display').html(errors['artist_not_found']);
 		$('#error_display').show(0).delay(2000).hide(0);
 	});
 }
 
-// function request_artist_graph() {
-//
-// }
+
+function request_with_one_mashup(mashup_id) {
+	$.get("/graph/mashup/" + mashup_id).done(function(data) {
+		console.log('Data: ', data);
+		create_network(data);
+		if(data.first_song_index == undefined) {
+			$('#error_display').html(errors['mashup_not_found']);
+			$('#error_display').show(0).delay(2000).hide(0);
+		}
+	});
+}
+
 
 function cv_resize() {
 	var w = $(window).width();
@@ -162,11 +155,12 @@ function draw() {
 	});
 
 	network.on("selectNode", function (params) {
+		//shows mashups from one artist.
 		var node_id = params.nodes[0];
 		var obj = network.body.nodes[node_id];
 		artist_name = obj.labelModule.lines[0];
-		console.log(artist_name);
-		request_graph(artist_name);
+		args = {'artist_name' : artist_name};
+		request_graph(args);
 	});
 
 	network.on("zoom", function(params) {
@@ -206,14 +200,16 @@ $(document).ready(function() {
 	$("#artist_input").keydown(function (e) {
 		if (e.keyCode == 13) {
 			var artist_name = $('#artist_input').val();
-			request_graph(artist_name);
+			args = {'artist_name' : artist_name};
+			request_graph(args);
 		}
 	});
 	$('#search_artist_button').click(function() {
 		var artist_name = $('#artist_input').val();
-		request_graph(artist_name);
+		args = {'artist_name' : artist_name};
+		request_graph(args);
 	});
-	request_graph();
+	request_graph({'first_song_id' : first_song_id});
 	$.fn.extend({
 		animateCss: function (animationName) {
 		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -230,6 +226,86 @@ $(document).ready(function() {
 	$(window).bind("resize", function(){
 		cv_resize();
 	});
+	var nav_offset = 50;
+	var interval_duration = 100;
+	var animation = {
+		duration : 200,
+		easingFunction : 'linear'
+	}
+
+	$('#left-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
+			offset : {
+				x : nav_offset
+			},
+			animation
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});
+	$('#right-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
+			offset : {
+				x : -nav_offset,
+			},
+			animation
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});$('#top-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
+			offset : {
+				y : nav_offset
+			},
+			animation
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});$('#bottom-hover').hover(function() {
+		console.log('Hover left!!!');
+		function move() {
+			network.moveTo({
+			offset : {
+				y : -nav_offset
+			},
+			animation
+			});
+		}
+
+		interval = setInterval(move, interval_duration);
+	}, function() {
+    	clearInterval(interval);
+	});
+
+	$('input').keydown(function(e){
+   		console.log('Yes keydown triggered. ' + e.which)
+	});
+
+	$(document).on('keypress', function(e) {
+	    // var tag = e.target.tagName.toLowerCase();
+	    // if ( e.which === 119 && tag != 'input' && tag != 'textarea')
+	    //     console.log();
+		console.log('Key pressed!');
+	});
+
+
+
+
 });
 
  // ---------------------------------SmallForms------------------------------

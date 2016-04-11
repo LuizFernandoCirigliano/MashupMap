@@ -101,16 +101,49 @@ function configure_all_panels() {
         var index = $('.delete-track').index(this);
         remove_song_from_playlist(index);
     });
+
+    $('.share_link').unbind('click').click(function() {
+        console.log('Clicked a share_link!');
+        var index = $('.share_link').index(this);
+        share_id = current_playlist[index].db_id;
+        final_link = 'mashupmap.me/full/' + share_id;
+        console.log(final_link);
+        var share_window = $("#share_window");
+        $('#share_window input').val(final_link);
+
+        var position = $(this).parent().offset();
+        share_window.css({top: (position.top), right: (0) , position:'absolute'});
+        share_window.show( "slow" );
+
+    });
+    $( "#close_share_window" ).click(function() {
+        console.log('Hide share window!');
+        var share_window = $("#share_window");
+        var position = $(this).parent().offset();
+        share_window.css({top: (position.top), right: (0) , position:'absolute'});
+        share_window.hide( "slow" );
+    });
+
 }
 
 
+
+
 function html_for_song(obj) {
-    return '<li class="track">' +
-        '<div class="track-div">' +
-        '<h5>' + obj.title + '</h5>' +
-        '<p>' + obj.author + '</p>' +
-        '</div><a class="delete-track"><span class="glyphicon glyphicon-remove"' +
-        '</span></a></li>'
+    var output = '<li class="track">' + '<div class="track-div">';
+    output += '<h5><b> ' + obj.title + '</b></h5>';
+    output += '<marquee scrollamount="3">';
+    for (i in obj.artists) {
+        output += ' ' + obj.artists[i] + ',';
+    };
+    output = output.substring(0, output.length - 1);
+    output += '</marquee>';;
+    output += '<p><b>Reddit author: </b>' + obj.author + '</p></div>';
+    output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"' + '</span></a>';
+    output += '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
+
+    return output;
+
 }
 
 function set_playlist(songs) {

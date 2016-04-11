@@ -34,6 +34,7 @@ class Mashup(db.Model):
     isBroken = db.Column(db.Boolean, default=False)
     url = db.Column(db.String(1000))
     score = db.Column(db.Integer)
+    clean_title = db.Column(db.String(300))
 
     def __repr__(self):
         return '<Mashup %r>' % (self.title)

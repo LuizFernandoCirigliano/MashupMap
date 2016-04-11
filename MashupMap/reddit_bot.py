@@ -14,6 +14,31 @@ KEY_LAST_REDDIT = 'last_reddit_mashup'
 user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
+# gets clean title (without artists and duration of the mashup)
+def get_clean_title(full_title):
+    text_in_par = re.findall('\(([^\)]+)\) | \[([^\]]+)\]', full_title)
+    if len(text_in_par) == 0 or len(text_in_par[0]) == 0:
+        return full_title
+
+    text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
+    index = full_title.find(text_from_match)
+    title = full_title[:index-1]
+    return title
+
+def save_clean_titles():
+    mashups = Mashup.query.all()
+
+    try:
+        for m in mashups:
+            m.clean_title = get_clean_title(m.title)
+    except Exception as e:
+        print('Unknown error')
+        print(e, e.args)
+    except:
+        print('User interruption.')
+    finally:
+        db.session.commit()
+
 
 def artist_list_from_title(title):
     # text_in_par is an array of tuples. Each tuple contains a match for at
@@ -51,7 +76,9 @@ def insert_submission_in_db(submission):
     )
     # print(content)
     url = get_url_from_embed(content)
-    print(url)
+    # print(url)
+    clean_title = get_clean_title(submission.title)
+
     # isBroken = link_checker.check_link(url)
     #checking for broken links takes longer and new links are rarely broken.
     isBroken = False
@@ -60,7 +87,8 @@ def insert_submission_in_db(submission):
     ).first()
     if check_mash is not None:
         return check_mash
-
+        
+    print(clean_title)
     mashup = Mashup(
         title=submission.title,
         author=author,
@@ -68,7 +96,8 @@ def insert_submission_in_db(submission):
         date=date,
         content=content,
         url=url,
-        isBroken = isBroken
+        isBroken = isBroken,
+        clean_title = clean_title
     )
 
     for name in artists_names:

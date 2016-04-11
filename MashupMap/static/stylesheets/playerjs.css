@@ -115,6 +115,7 @@ body.music .controls {
     border-radius: 5%;
     overflow: hidden;
     font-size: 0.9em;
+    padding: 3px 5px;
 }
 .currentTrack {
     background-color: #426baa;
@@ -124,4 +125,36 @@ body.music .controls {
     height: 0;
     width: 0;
     overflow: hidden;
+}
+
+.share_link {
+    font-size: 2em;
+    position: relative;
+    left: 13vw;
+}
+
+#share_window {
+    background-color: #426baa;
+    color: white;
+    /*height: 10vh;*/
+    border-radius: 5%;
+    font-size: 0.9em;
+    z-index: 1000;
+
+}
+
+#share_window label {
+    color:white;
+}
+
+.share_input {
+    color: #000000;
+}
+
+#close_share_window {
+    padding-left:0;
+    padding-bottom: 5px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
