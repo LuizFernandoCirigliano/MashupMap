@@ -1,0 +1,25 @@
+{% extends "base/header.html" %}
+
+{% block nav %}
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="/">MashupMap</a>
+
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+            </li>
+            <li class="pure-menu-item pure-menu"><a href="/" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="full_map_link">Full Map</a></li>
+            <li class="pure-menu-item" id="request_mashup_button"><a class="pure-menu-link" href="http://goo.gl/forms/D7OiF0NW4k" target='_blank'>Request Mashup</a></li>
+            <li class="pure-menu-item input-group" id="artist_form">
+                <input type="text" class="form-control" id="artist_input" placeholder="Search artist"></input>
+                <button type="submit" class="btn btn-primary" id="search_artist_button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </li>
+
+        </ul>
+    </div>
+</div>
+
+{%endblock%}
