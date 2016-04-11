@@ -1,9 +1,6 @@
-<html>
-<head>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+{% extends "base/header.html" %}
+
+{% block body_block %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
@@ -13,19 +10,24 @@
     {% endfor %}
     {% endif %}
 {% endwith %}
-<form action="/user/login?next={{next_url}}" method="post" class="form-horizontal" role="form">
-  {{ form.hidden_tag() }}
-  {% for field in form if field.widget.input_type != 'hidden' %}
-  <div class="form-group">
-      <div class="col-sm-2">{{ field.label(class_="control-label")}}</div>
-      <div class="col-sm-10">{{ field(class_="form-control") | safe}}</div>
-  </div>
-  {% endfor %}
-  <div class="form-group text-center">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default log-in-submit">Log in</button>
-    </div>
-  </div>
-</form>
-</body>
-</html>
+
+
+<div id="loginform" class="small_form">
+  <div class="arrow-up"></div>
+      <p class="text-center">Log in</>
+        <div class="login-form">
+          <form action="/user/login?next={{next_url}}" method="post" >
+                {{ form.login(class="form-control") }}
+            </br>
+                {{ form.password(class="form-control") }}
+                {{ form.csrf_token }}
+            </br>
+            <p>
+                <input type=submit class="btn btn-primary  col-sm-6" value="log in">
+                <input type=button id="login_cancel" class="btn btn-primary col-sm-6" value="cancel">
+            </p>
+          </form>
+        </div>
+</div>
+
+{% endblock %}
