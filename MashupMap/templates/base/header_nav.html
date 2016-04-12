@@ -22,6 +22,17 @@
         </ul>
     </div>
 </div>
+{%endblock%}
+
+{%block logins%}
+<div id="loginform" class="small_form">
+    <div class="arrow-up"></div>
+    <iframe src="/user/login" frameborder="0" scrolling="no" onload="resizeIframe(this)" ></iframe>
+</div>
+<div id="signupform" class="small_form" >
+    <div class="arrow-up"></div>
+    <iframe src="/user/register" frameborder="0" scrolling="no" onload="resizeIframe(this)" ></iframe>
+</div>
 
 
 {%endblock%}
