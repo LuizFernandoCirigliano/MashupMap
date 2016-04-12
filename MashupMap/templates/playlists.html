@@ -9,7 +9,15 @@
         <h3> {{playlist.name}} </h3>
         <ol>
         {% for song in playlist.songs %}
-            <li> {{song.title}} </li>
+            <li>
+            <p>{{song.title}}</p>
+            <form id="{{playlist.id}}-{{song.id}}"
+            action="{{ url_for('playlist_api.edit_playlist', pid=playlist.id, sid=song.id) }}"
+            method="POST">
+                <input type="hidden" name="_operation" value="DELETE" />
+                <button class="glyphicon glyphicon-remove" type="submit" form="{{playlist.id}}-{{song.id}}">
+            </form>
+            </li>
         {% endfor %}
         </ol>
     </li>

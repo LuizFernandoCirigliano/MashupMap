@@ -23,8 +23,8 @@ def graph_for_mashup_list(mashups):
             "author": mashup.author,
             "redditurl": mashup.permalink,
             "title": mashup.clean_title,
-            "db_id" : mashup.id,
-            "artists" : [a.name for a in mashup.artists]
+            "db_id": mashup.id,
+            "artists": [a.name for a in mashup.artists]
         })
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
@@ -69,9 +69,10 @@ def get_mashup_graph(mashup_id=None):
     mashups = random.sample(list(Mashup.query.filter(
         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
 
-        #if a specific mashup was requested (from sharing maybe)
+    # if a specific mashup was requested (from sharing maybe)
     if mashup_id:
-        try: #get mashup from DB
+        try:
+            # get mashup from DB
             m = Mashup.query.filter_by(id=mashup_id).first()
         except Exception as e:
             print(e, e.args)
@@ -92,7 +93,8 @@ def get_artist_mashups(artist_name):
 
     if artist:
         mashups = []
-        # to use filter method on collection object, we would need to configure the lazy attribute to dynamic.
+        # to use filter method on collection object, we would need to configure
+        # the lazy attribute to dynamic.
         for m in artist.artist_mashups:
             if not m.isBroken:
                 mashups.append(m)

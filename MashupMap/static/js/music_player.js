@@ -126,9 +126,6 @@ function configure_all_panels() {
 
 }
 
-
-
-
 function html_for_song(obj) {
     var output = '<li class="track">' + '<div class="track-div">';
     output += '<h5><b> ' + obj.title + '</b></h5>';

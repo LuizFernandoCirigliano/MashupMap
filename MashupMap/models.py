@@ -73,7 +73,7 @@ class UserProfile(db.Model):
         uselist=False,
         backref=db.backref('profile', uselist=False)
     )
-    playlists = db.relationship('Playlist', backref='owner',
+    playlists = db.relationship('Playlist', backref='ownerprof',
                                 lazy='dynamic')
 
     def __repr__(self):
@@ -93,7 +93,7 @@ class UserProfile(db.Model):
 class Playlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
-    owner_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'))
+    ownerprof_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'))
     songs = db.relationship(
         'Mashup',
         secondary=playlist_songs,
