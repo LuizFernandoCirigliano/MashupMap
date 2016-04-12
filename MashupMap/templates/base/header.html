@@ -25,16 +25,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
-  <!-- <link href="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.css" rel="stylesheet" type="text/css" /> -->
-  <link href="/static/stylesheets/vis.min.css" rel="stylesheet" type="text/css" />
-
-  <link href="/static/stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
-  <link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
-  <link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
-  <link href="/static/stylesheets/playbutton.css" rel="stylesheet" type="text/css">
-  <!-- <script type="text/javascript" src="/static/js/scripts.js"></script> -->
+<link href="/static/stylesheets/stylesheet.css" rel="stylesheet" type="text/css">
+<link href="/static/stylesheets/animate.css" rel="stylesheet" type="text/css">
+<link href="/static/stylesheets/loading-animation.css" rel="stylesheet" type="text/css">
   <!-- Ends here -->
 
   {% block header_block %}{% endblock %}
@@ -53,28 +46,7 @@
   <!-- End Google Analytics -->
 </head>
 <body>
-    <div class="header">
-        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-            <a class="pure-menu-heading" href="/">MashupMap</a>
-
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                </li>
-                <li class="pure-menu-item pure-menu"><a href="/" class="pure-menu-link">Home</a></li>
-                <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="full_map_link">Full Map</a></li>
-                <li class="pure-menu-item" id="request_mashup_button"><a class="pure-menu-link" href="http://goo.gl/forms/D7OiF0NW4k" target='_blank'>Request Mashup</a></li>
-                <li class="pure-menu-item input-group" id="artist_form">
-                    <input type="text" class="form-control" id="artist_input" placeholder="Search artist"></input>
-                    <button type="submit" class="btn btn-primary" id="search_artist_button">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-
-
+{% block nav %}{% endblock %}
 {% block body_block %}{% endblock %}
 </body>
 
