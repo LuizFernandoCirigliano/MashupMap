@@ -1,4 +1,5 @@
 from MashupMap import db
+from MashupMap.models import UserProfile
 from werkzeug.security import generate_password_hash, \
     check_password_hash
 
@@ -33,6 +34,8 @@ class User(db.Model):
         self.login = login
         self.email = email
         self.password = generate_password_hash(password)
+        self.profile = UserProfile()
+        db.session.add(self.profile)
 
     # Flask-Login integration
     def is_authenticated(self):

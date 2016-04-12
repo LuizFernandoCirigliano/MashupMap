@@ -3,6 +3,7 @@ from flask.ext.login import login_user, logout_user
 from Users.forms import SignupForm, LoginForm
 from Users.models import User, Role
 from MashupMap import lm, db
+from MashupMap.models import UserProfile
 
 user_api = Blueprint('user_api', __name__)
 
@@ -16,6 +17,7 @@ def load_user(id):
 def register():
     form = SignupForm()
     if form.validate_on_submit():
+
         user = User(email=form.email.data,
                     login=form.login.data,
                     password=form.password.data)

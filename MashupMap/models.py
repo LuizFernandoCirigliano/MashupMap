@@ -7,6 +7,13 @@ artists = db.Table(
 )
 
 
+playlist_songs = db.Table(
+    'playlist_songs',
+    db.Column('playlist_id', db.Integer, db.ForeignKey('playlist.id')),
+    db.Column('mashup_id', db.Integer, db.ForeignKey('mashup.id')),
+)
+
+
 class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), index=True, unique=True)
@@ -56,11 +63,45 @@ class Counters(db.Model):
         self.value = value
 
 
+# Note: Flask-SQLAlchemy converts CamelCase classes to camel_case
 class UserProfile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship(
         'User',
-        backref=db.backref('profile', lazy='dynamic')
+        uselist=False,
+        backref=db.backref('profile', uselist=False)
     )
+    playlists = db.relationship('Playlist', backref='owner',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return '<UserProfile %r>' % (self.id)
+
+    def __str__(self):
+        return str(self.id)
+
+    def __init__(self, name=""):
+        self.name = name
+        favorites = Playlist(name="Favorites")
+        db.session.add(favorites)
+        self.playlists.append(favorites)
+        print(self.playlists)
+
+
+class Playlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'))
+    songs = db.relationship(
+        'Mashup',
+        secondary=playlist_songs,
+        backref=db.backref('playlists')
+    )
+
+    def __repr__(self):
+        return '<Playlist %r>' % (self.name)
+
+    def __str__(self):
+        return self.name
