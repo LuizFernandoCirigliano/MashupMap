@@ -59,15 +59,14 @@ def check_vimeo(url):
 
 
 def check_link(url):
-    if re.search('youtube', url):
-        # print('youtube')
+    if 'youtube' in url:
         return check_youtube(url)
-    elif re.search('soundcloud', url):
-        # print('soundcloud')
+    elif 'soundcloud' in url:
         return check_soundcloud(url)
-    elif re.search('vimeo', url):
+    elif 'vimeo' in url:
         return check_vimeo(url)
     else:
+        print('Website not identified!', url)
         return False
 # print(check_youtube('https://www.youtube.com/watch?v=78dcPS9xRcc'))
 # print(check_soundcloud('https://soundcloud.com/tesher/shake-it-off'))
@@ -80,18 +79,13 @@ def main():
     # print('Mashups', mashups, '\n')
     try:
         for m in mashups:
-            # print(m.url)
-            print(m.id)
+            # print(m.id)
             if m.isBroken != True:
-                if check_link(m.url) :
-                    print('Broken link!')
+                if check_link(m.url) : #deal with error where there is no url
+                    print(m.id, 'Broken link!')
                     m.isBroken = True
                 else:
                     m.isBroken = False
-            # else:
-            #     print(m.url, check_link(m.url))
-
-
     except Exception as e:
         print(e, e.args, type(e))
         print('Interruption.')
