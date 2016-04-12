@@ -27,7 +27,7 @@ def register():
         return redirect(url_for('index'))
     else:
         form.flash_errors()
-        return render_template('signup.html', form=form)
+        return redirect(url_for('index'))
 
 
 @user_api.route('/login', methods=['POST', 'GET'])
@@ -42,7 +42,8 @@ def login():
         return redirect(next_url or url_for('index'))
     else:
         form.flash_errors()
-        return render_template('login.html', form=form, next_url=next_url)
+        # return render_template('login.html', form=form, next_url=next_url)
+        return redirect(url_for('index'))
 
 
 @user_api.route('/logout')

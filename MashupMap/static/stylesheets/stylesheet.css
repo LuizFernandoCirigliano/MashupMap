@@ -113,7 +113,7 @@ Our dark blue is: #426baa
       border-left: 20px solid transparent;
       border-right: 20px solid transparent;
       border-bottom: 15px solid white;
-      left: 5%;
+      right: 5%;
       position: absolute;
       top: -10px;
     }

@@ -5,27 +5,30 @@ $(document).ready(function() {
 
     $( "#login_cancel" ).click(function() {
        var position = $( "#Login" ).offset();
-       $("#loginform").css({top: (position.top+54), left: position.left, position:'absolute'});
+       var docWidth = $( document ).width();
+       $("#loginform").css({top: (position.top+54), right: (docWidth - position.left - 70), position:'absolute'});
        $( "#loginform" ).hide( "slow" );
     });
     $( "#Login" ).click(function() {
        $( "#signupform" ).hide();
        var position = $( "#Login" ).offset();
+       console.log(position);
        var docWidth = $( document ).width();
-       $("#loginform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'absolute'});
+       $("#loginform").css({top: (position.top+54), right: (docWidth - position.left - 70), position:'absolute'});
        $( "#loginform" ).show( "slow" );
     });
 
     $( "#singup_cancel" ).click(function() {
        var position = $( "#Signup" ).offset();
-       $("#signupform").css({top: (position.top+54), left: position.left, position:'absolute'});
+       var docWidth = $( document ).width();
+       $("#signupform").css({top: (position.top+54), right:(docWidth - position.left - 120), position:'absolute'});
        $( "#signupform" ).hide( "slow" );
     });
     $( "#Signup" ).click(function() {
        $( "#loginform" ).hide();
        var position = $( "#Signup" ).offset();
        var docWidth = $( document ).width();
-       $("#signupform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'absolute'});
+       $("#signupform").css({top: (position.top+54), right:(docWidth - position.left - 120), position:'absolute'});
        $( "#signupform" ).show( "slow" );
     });
 
