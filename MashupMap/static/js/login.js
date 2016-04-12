@@ -12,7 +12,7 @@ $(document).ready(function() {
        $( "#signupform" ).hide();
        var position = $( "#Login" ).offset();
        var docWidth = $( document ).width();
-       $("#loginform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'fixed'});
+       $("#loginform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'absolute'});
        $( "#loginform" ).show( "slow" );
     });
 
@@ -25,7 +25,7 @@ $(document).ready(function() {
        $( "#loginform" ).hide();
        var position = $( "#Signup" ).offset();
        var docWidth = $( document ).width();
-       $("#signupform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'fixed'});
+       $("#signupform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'absolute'});
        $( "#signupform" ).show( "slow" );
     });
 
