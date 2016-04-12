@@ -11,8 +11,8 @@ $(document).ready(function() {
     $( "#Login" ).click(function() {
        $( "#signupform" ).hide();
        var position = $( "#Login" ).offset();
-       console.log(position.left);
-       $("#loginform").css({top: (position.top+54), left: position.left, position:'absolute'});
+       var docWidth = $( document ).width();
+       $("#loginform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'fixed'});
        $( "#loginform" ).show( "slow" );
     });
 
@@ -24,8 +24,14 @@ $(document).ready(function() {
     $( "#Signup" ).click(function() {
        $( "#loginform" ).hide();
        var position = $( "#Signup" ).offset();
-       $("#signupform").css({top: (position.top+54), left: position.left, position:'absolute'});
+       var docWidth = $( document ).width();
+       $("#signupform").css({top: (position.top+54), left: Math.min(position.left, docWidth - 200), position:'fixed'});
        $( "#signupform" ).show( "slow" );
+    });
+
+    $(document).scroll(function() {
+        $( "#loginform" ).hide();
+        $( "#signupform" ).hide();
     });
 });
 
