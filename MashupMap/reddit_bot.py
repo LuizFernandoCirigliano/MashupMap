@@ -26,21 +26,41 @@ def get_clean_title(full_title):
     return title
 
 def save_clean_titles():
+	mashups = Mashup.query.all()
+	try:
+	    for m in mashups:
+	        m.clean_title = get_clean_title(m.title)
+	except Exception as e:
+	    print('Unknown error')
+	    print(e, e.args)
+	except:
+	    print('User interruption.')
+	finally:
+	    db.session.commit()
+
+
+
+def save_new_artist_list():
     mashups = Mashup.query.all()
-
     try:
-        for m in mashups:
-            m.clean_title = get_clean_title(m.title)
+    	for i, mashup in enumerate(mashups):
+            artist_list = artist_list_from_title(mashup.title)
+            if not artist_list:
+                continue
+            print(i)
+            # print(str(i), mashup.title, str(artist_list))
+            mashup.artists = []
+            for name in artist_list:
+                new_artist = m.get_artist(name) # Check Music API to normalize name
+                if new_artist is not None:
+                    mashup.artists.append(new_artist) # Add artist to the current mashup
     except Exception as e:
-        print('Unknown error')
-        print(e, e.args)
+    	print('Unknown error')
+    	print(e, e.args)
     except:
-        print('User interruption.')
+    	print('User interruption.')
     finally:
-        db.session.commit()
-
-#define regex for all cases.
-
+    	db.session.commit()
 
 def strip_artist_name(match):
     print(match)
