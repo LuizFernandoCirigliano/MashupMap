@@ -1,6 +1,7 @@
 import requests
 import MashupMap.models as models
 from MashupMap import db
+from MashupMap.helpers import get_or_create_by_id
 
 
 def get_artist(artist_name):
@@ -29,7 +30,7 @@ def get_artist(artist_name):
     if artist_id is None or artist_name is None:
         return None
 
-    artist = models.get_or_create_by_id(
+    artist = get_or_create_by_id(
         db.session,
         models.Artist,
         artist_id,
