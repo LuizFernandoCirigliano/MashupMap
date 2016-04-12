@@ -20,6 +20,7 @@ def get_url_from_embed(embed_code):
         except:
             return None
 
+
 def main():
     mashups = Mashup.query.all()
     for m in mashups:
