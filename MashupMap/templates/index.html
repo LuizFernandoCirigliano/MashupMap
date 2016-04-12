@@ -1,97 +1,96 @@
-{% extends "base/header_nav.html" %}
-
-{% block body_block %}
+{% extends "base/header_nav.html" %} {% block body_block %}
 
 <script>
-$(document).ready(function() {
-    $('#artist_form').hide();
-    $('#request_mashup_button').hide();
-});
+    $(document).ready(function() {
+        $('#artist_form').hide();
+        $('#request_mashup_button').hide();
+    });
 </script>
-      <div class="splash-container">
-          <div class="splash">
-              <h1 class="splash-head">MashupMap</h1>
-              <p class="splash-subhead">
-                  Rediscover music.
-              </p>
-              <p>
-                  <a href="/full" class="pure-button pure-button-primary">Get Started</a>
-              </p>
-          </div>
-      </div>
+<div class="splash-container">
+    <div class="splash">
+        <h1 class="splash-head">MashupMap</h1>
+        <p class="splash-subhead">
+            Rediscover music.
+        </p>
+        <p>
+            <a href="/full" class="pure-button pure-button-primary">Get Started</a>
+        </p>
+    </div>
+</div>
 
-      <div class="content-wrapper">
-          <div class="content">
-              <h2 class="content-head is-center">We offer you a different musical experience </h2>
-              <div class="l-box pure-u-1 is-center">
-                  <p>
-                      Imagine how great it would be to see a combination of your favorite artists.
-                  </p>
-                  <p>
-                      Imagine how great it would be to discover new artists, new musical genres, new music being part of the process.
-                  </p>
-                  <p>
-                      Imagine the MashupMap.
-                  </p>
-              </div>
-              <div class="pure-g">
-                  <div class="l-box pure-u-1 pure-u-md-1-2">
+<div class="content-wrapper">
+    <div class="content">
+        <h2 class="content-head is-center">We offer you a different musical experience </h2>
+        <div class="l-box pure-u-1 is-center">
+            <p>
+                Imagine how great it would be to see a combination of your favorite artists.
+            </p>
+            <p>
+                Imagine how great it would be to discover new artists, new musical genres, new music being part of the process.
+            </p>
+            <p>
+                Imagine the MashupMap.
+            </p>
+        </div>
+        <div class="pure-g">
+            <div class="l-box pure-u-1 pure-u-md-1-2">
 
-                      <h3 class="content-subhead">
+                <h3 class="content-subhead">
                           <i class="fa fa-rocket"></i>
                           Mashup Database
                       </h3>
-                      <p>
-                          The first organized and searchable mashup database, containing combinations of songs made by different artists!
-                      </p>
-                  </div>
-                  <div class="l-box pure-u-1 pure-u-md-1-2">
-                      <h3 class="content-subhead">
+                <p>
+                    The first organized and searchable mashup database, containing combinations of songs made by different artists!
+                </p>
+            </div>
+            <div class="l-box pure-u-1 pure-u-md-1-2">
+                <h3 class="content-subhead">
                           <i class="fa fa-mobile"></i>
                           Visualization
                       </h3>
-                      <p>
-                          With the MashupMap you will have a unique visualization of music, being able to discover the most unexpected combinations of artists through an intuitive and pleasant way.
-                      </p>
-                  </div>
-              </div>
-          </div>
+                <p>
+                    With the MashupMap you will have a unique visualization of music, being able to discover the most unexpected combinations of artists through an intuitive and pleasant way.
+                </p>
+            </div>
+        </div>
+    </div>
 
-          <div class="ribbon l-box-lrg pure-g">
-              <div class="is-center">
-                  <h2 class="content-head is-center">Tutorial</h2>
-              </div>
-              <div class="carousel">
-                  <div><img class="horse is-center" src="/static/img/tutorial/intro.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/artist-page.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/full-map.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/nodes-and-lines.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/play-box.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/player.png"></div>
-                  <div><img class="horse is-center" src="/static/img/tutorial/random-request.png"></div>
-              </div>
-              <!-- <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5 is-center">
+    <div class="ribbon l-box-lrg pure-g">
+        <div class="is-center">
+            <h2 class="content-head is-center">Tutorial</h2>
+        </div>
+        <div class="carousel">
+            <div><img class="horse is-center" src="/static/img/tutorial/intro.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/artist-page.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/full-map.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/nodes-and-lines.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/play-box.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/player.png"></div>
+            <div><img class="horse is-center" src="/static/img/tutorial/random-request.png"></div>
+        </div>
+        <!-- <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5 is-center">
                   <div class="round-button is-center" >
                       <div class="round-button-circle is-center" id="start_map_button">
                           <a href="/full" class="round-button">Have fun</a>
                       </div>
                   </div>
               </div> -->
-          </div>
-          <div class="footer l-box is-center">
-             <a href="mailto:luiz.cirigliano@yale.edu">Contact Us</a>
-          </div>
+    </div>
+    <div class="footer l-box is-center">
+        <a href="mailto:luiz.cirigliano@yale.edu">Contact Us</a>
+    </div>
 
-      </div>
-  </div>
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script type="text/javascript" src="/static/stylesheets/slick-1.5.9/slick/slick.min.js"></script>
-  <script type="text/javascript">
-      $('.carousel').slick();
-  </script>
+</div>
+</div>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/static/stylesheets/slick-1.5.9/slick/slick.min.js"></script>
+<script type="text/javascript">
+    $('.carousel').slick();
+</script>
 
-    </body>
+</body>
+
 </html>
 
 {% endblock %}

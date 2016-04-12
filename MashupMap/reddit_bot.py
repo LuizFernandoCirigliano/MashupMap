@@ -14,6 +14,7 @@ KEY_LAST_REDDIT = 'last_reddit_mashup'
 user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
+
 # gets clean title (without artists and duration of the mashup)
 def get_clean_title(full_title):
     text_in_par = re.findall('\(([^\)]+)\) | \[([^\]]+)\]', full_title)
@@ -24,6 +25,7 @@ def get_clean_title(full_title):
     index = full_title.find(text_from_match)
     title = full_title[:index-1]
     return title
+
 
 def save_clean_titles():
     mashups = Mashup.query.all()
@@ -80,14 +82,14 @@ def insert_submission_in_db(submission):
     clean_title = get_clean_title(submission.title)
 
     # isBroken = link_checker.check_link(url)
-    #checking for broken links takes longer and new links are rarely broken.
+    # checking for broken links takes longer and new links are rarely broken.
     isBroken = False
     check_mash = Mashup.query.filter_by(
         permalink=reddit_url
     ).first()
     if check_mash is not None:
         return check_mash
-        
+
     print(clean_title)
     mashup = Mashup(
         title=submission.title,
@@ -96,8 +98,8 @@ def insert_submission_in_db(submission):
         date=date,
         content=content,
         url=url,
-        isBroken = isBroken,
-        clean_title = clean_title
+        isBroken=isBroken,
+        clean_title=clean_title
     )
 
     for name in artists_names:
