@@ -1,5 +1,8 @@
 {% extends "base/header_nav.html" %}
 
+{% block header_block %}
+<link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+{% endblock %}
 {% block body_block %}
 
 <script>
@@ -8,8 +11,6 @@ $(document).ready(function() {
     $('#request_mashup_button').hide();
 });
 </script>
-
-
       <div class="splash-container">
           <div class="splash">
               <h1 class="splash-head">MashupMap</h1>
@@ -24,6 +25,18 @@ $(document).ready(function() {
 
       <div class="content-wrapper">
           <div class="content">
+
+              <div class="is-center">
+                  <form action="//mashupmap.us13.list-manage.com/subscribe/post?u=27d526802e371bd62936f4b68&amp;id=1b7088f30d" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                  <div class="splash-subhead">
+                  	<label for="mce-EMAIL">Subscribe to our mailing list</label>
+                  	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                      <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                      <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_27d526802e371bd62936f4b68_1b7088f30d" tabindex="-1" value=""></div>
+                      <div class="clear"><input type="submit" value="Subscribe" name="subscribe" class="pure-button pure-button-primary"></div>
+                      </div>
+                  </form>
+              </div>
               <h2 class="content-head is-center">We offer you a different musical experience </h2>
               <div class="l-box pure-u-1 is-center">
                   <p>
@@ -70,7 +83,7 @@ $(document).ready(function() {
               </div>
           </div>
           <div class="footer l-box is-center">
-             <a href="mailto:luiz.cirigliano@yale.edu">Contact Us</a>
+             <a href="mailto:info@mashupmap.me">Contact Us</a>
           </div>
 
       </div>
