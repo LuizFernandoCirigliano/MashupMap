@@ -1,0 +1,23 @@
+{% extends "base/header_nav.html" %}
+
+{% block header_block %}
+<link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+<link href="/static/stylesheets/emailform.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block body_block %}
+
+<script>
+$(document).ready(function() {
+    $('#artist_form').hide();
+    $('#request_mashup_button').hide();
+});
+</script>
+
+
+<div class="footer l-box is-center">
+ <a href="mailto:info@mashupmap.me">Contact Us</a>
+</div>
+
+
+
+{% endblock %}
