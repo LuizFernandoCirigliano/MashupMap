@@ -11,3 +11,5 @@ SQLALCHEMY_DATABASE_URI = os.getenv(
 
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+PRODUCTION = os.getenv('PRODUCTION', False)

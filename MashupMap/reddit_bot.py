@@ -28,18 +28,62 @@ def get_clean_title(full_title):
 
 
 def save_clean_titles():
-    mashups = Mashup.query.all()
+	mashups = Mashup.query.all()
+	try:
+	    for m in mashups:
+	        m.clean_title = get_clean_title(m.title)
+	except Exception as e:
+	    print('Unknown error')
+	    print(e, e.args)
+	except:
+	    print('User interruption.')
+	finally:
+	    db.session.commit()
 
+
+
+def save_new_artist_list():
+    mashups = Mashup.query.all()
     try:
-        for m in mashups:
-            m.clean_title = get_clean_title(m.title)
+    	for i, mashup in enumerate(mashups):
+            artist_list = artist_list_from_title(mashup.title)
+            if not artist_list:
+                continue
+            print(i)
+            # print(str(i), mashup.title, str(artist_list))
+            mashup.artists = []
+            for name in artist_list:
+                new_artist = m.get_artist(name) # Check Music API to normalize name
+                if new_artist is not None:
+                    mashup.artists.append(new_artist) # Add artist to the current mashup
     except Exception as e:
-        print('Unknown error')
-        print(e, e.args)
+    	print('Unknown error')
+    	print(e, e.args)
     except:
-        print('User interruption.')
+    	print('User interruption.')
     finally:
-        db.session.commit()
+    	db.session.commit()
+
+def strip_artist_name(match):
+    print(match)
+    # ft_pat = '\s+[fF](ea)?[tT]\.?\s+'
+    names_pat = '[\w\s]+'
+    comma_pat = '\s*,\s*'
+    vs_pat = '\s+[vV][sS]?\.?\s+'
+    x_pat = '\s+[xX]\s+'
+
+    divider = re.findall(comma_pat + '|' + vs_pat + '|' + x_pat, match)
+    # print(divider)
+    try:
+        strip_string = divider[0]
+    except IndexError as e:
+        print('Index error!!')
+        print(e, e.args)
+        return None
+
+    artist_list = match.split(strip_string)
+    # print(artist_list)
+    return artist_list
 
 
 def artist_list_from_title(title):
@@ -52,9 +96,10 @@ def artist_list_from_title(title):
         return None
 
     text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
-
-    artists_names = [x.strip() for x in text_from_match.split(',')]
-    return artists_names
+    # print(text_from_match)
+    # artists_names = [x.strip() for x in text_from_match.split(',')]
+    # return artists_names
+    return strip_artist_name(text_from_match)
 
 
 def insert_submission_in_db(submission):

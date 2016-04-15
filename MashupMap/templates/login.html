@@ -11,23 +11,19 @@
     {% endif %}
 {% endwith %}
 
-
-<div id="loginform" class="small_form">
-  <div class="arrow-up"></div>
-      <p class="text-center">Log in</>
-        <div class="login-form">
-          <form action="/user/login?next={{next_url}}" method="post" >
-                {{ form.login(class="form-control") }}
-            </br>
-                {{ form.password(class="form-control") }}
-                {{ form.csrf_token }}
-            </br>
-            <p>
-                <input type=submit class="btn btn-primary  col-sm-6" value="log in">
-                <input type=button id="login_cancel" class="btn btn-primary col-sm-6" value="cancel">
-            </p>
-          </form>
-        </div>
+<p class="text-center">Log in</p>
+<div class="login-form">
+  <form action="/user/login?next={{next_url}}" method="post" >
+        {{ form.login(class="form-control") }}
+    </br>
+        {{ form.password(class="form-control") }}
+        {{ form.csrf_token }}
+    </br>
+    <p>
+        <input type=submit class="btn btn-primary  col-sm-6" value="log in">
+        <input type=button id="login_cancel" class="btn btn-primary col-sm-6" value="cancel">
+    </p>
+  </form>
 </div>
 
 {% endblock %}

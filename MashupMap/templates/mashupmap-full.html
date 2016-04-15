@@ -46,44 +46,6 @@ $(document).ready(function() {
 
             </div>
         </div>
-        <div id="loginform" class="small_form">
-          <div class="arrow-up"></div>
-              <p class="text-center">Log in</>
-                <div class="login-form">
-                  <form action="/user/login" method="post" >
-                        {{ login_form.login(class="form-control") }}
-                    </br>
-                        {{ login_form.password(class="form-control") }}
-                        {{ login_form.csrf_token }}
-                    </br>
-                    <p>
-                        <input type=submit class="btn btn-primary  col-sm-6" value="log in">
-                        <input type=button id="login_cancel" class="btn btn-primary col-sm-6" value="cancel">
-                    </p>
-                  </form>
-                </div>
-        </div>
-        <div id="signupform" class="small_form" >
-          <div class="arrow-up"></div>
-              <p class="text-center">Sign up</>
-                <div class="login-form">
-                  <form action="/user/register" method="post" >
-                        {{ signup_form.login(class="form-control") }}
-                    </br>
-                        {{ signup_form.email(class="form-control") }}
-                    </br>
-                        {{ signup_form.password(class="form-control") }}
-                    </br>
-                        {{ signup_form.password_confirmation(class="form-control") }}
-                        {{ signup_form.csrf_token }}
-                    </br>
-                    <p>
-                        <input type=submit class="btn btn-primary  col-sm-6" value="Register">
-                        <input type=button id="singup_cancel" class="btn btn-primary  col-sm-6" value="cancel">
-                    </p>
-                  </form>
-                </div>
-        </div>
         <div class="col-sm-2 menu">
             <div class="content controls">
                 <div class="row">
