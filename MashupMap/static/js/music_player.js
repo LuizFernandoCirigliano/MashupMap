@@ -136,9 +136,9 @@ function html_for_song(obj) {
     output = output.substring(0, output.length - 1);
     output += '</marquee>';;
     output += '<p><b>Reddit author: </b>' + obj.author + '</p></div>';
-    output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"' + '</span></a>';
+    output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"></span></a>';
     output += '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
-
+    output += '<a class'
     return output;
 
 }

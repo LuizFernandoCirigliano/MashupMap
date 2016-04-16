@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, url_for, request
+from flask import Blueprint, flash, redirect, url_for
 from flask.ext.login import current_user, login_required
 from flask import render_template
 from MashupMap.models import Playlist, Mashup
@@ -36,20 +36,18 @@ def playlist_index(pid):
         return redirect(url_for("index"))
 
 
-@playlist_api.route("/<pid>/<int:sid>", methods=["POST"])
+@playlist_api.route("/<pid>/<int:sid>/<operation>", methods=["GET", "POST"])
 @login_required
-def edit_playlist(pid, sid):
+def edit_playlist(pid, sid, operation):
     playlist = playlist_for_pid(pid)
     mashup = Mashup.query.get(sid)
 
-    operation = request.form['_operation']
-
     if playlist.ownerprof.user_id == current_user.id:
-        if operation == "DELETE":
+        if operation == "delete":
             playlist.songs.remove(mashup)
-        elif operation == "ADD":
+        elif operation == "add":
             playlist.songs.append(mashup)
         db.session.commit()
     else:
         flash("You are not the owner of this playlist")
-    return redirect(url_for('playlist_api.playlist_index'))
+    return redirect(url_for('playlist_api.playlist_index', pid=pid))
