@@ -8,21 +8,27 @@ from werkzeug.exceptions import abort
 playlist_api = Blueprint('playlist_api', __name__)
 
 
-@playlist_api.route("/favorites", methods=["GET"])
-@login_required
-def favorites_playlist():
+def favorites_for_user():
     u_playlists = current_user.profile.playlists
     favorite = next(filter(lambda x: x.favorites, u_playlists))
-    if favorite is not None:
-        return render_template("playlist.html", playlist=favorite)
+    return favorite
+
+
+def playlist_for_pid(pid):
+    playlist = favorites_for_user() if pid == "favorites" \
+        else Playlist.query.get(int(pid))
+
+    if playlist is not None:
+        return playlist
     else:
         abort(404)
 
 
-@playlist_api.route("/<int:pid>", methods=["GET"])
+@playlist_api.route("/<pid>", methods=["GET"])
 @login_required
 def playlist_index(pid):
-    playlist = Playlist.query.get(pid)
+    playlist = playlist_for_pid(pid)
+    print(playlist)
     if playlist is not None and playlist.ownerprof.user_id == current_user.id:
         return render_template("playlist.html", playlist=playlist)
     else:
@@ -30,10 +36,10 @@ def playlist_index(pid):
         return redirect(url_for("index"))
 
 
-@playlist_api.route("/<int:pid>/<int:sid>", methods=["POST"])
+@playlist_api.route("/<pid>/<int:sid>", methods=["POST"])
 @login_required
 def edit_playlist(pid, sid):
-    playlist = Playlist.query.get(pid)
+    playlist = playlist_for_pid(pid)
     mashup = Mashup.query.get(sid)
 
     operation = request.form['_operation']
