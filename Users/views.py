@@ -44,8 +44,8 @@ def login():
         return redirect(next_url or url_for('index'))
     else:
         form.flash_errors()
-        # return render_template('login.html', form=form, next_url=next_url)
-        return redirect(url_for('index'))
+        return render_template('login.html', form=form, next_url=next_url)
+        # return redirect(url_for('index'))
 
 
 @user_api.route('/logout')

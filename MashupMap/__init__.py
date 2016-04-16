@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = "user_api.login"
 
 import Users.views
 import Users.models

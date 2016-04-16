@@ -24,15 +24,26 @@
                 <ul class="media-list">
                     {% for song in playlist.songs %}
                     <li class="media">
-                        <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                        <a class="pull-left" href="#"><img class="media-object" src="{{song.artists[0].imageURL}}" height="64" width="64"></a>
                         <div class="media-body">
                             <h4 class="media-heading">{{song.clean_title}}</h4>
                             <p> {% for artist in song.artists %} {{artist.name}}, {%endfor%}</p>
                             <p><a href="{{song.permalink}}">View on Reddit.</a></p>
-                            <form id="{{playlist.id}}-{{song.id}}" action="{{ url_for('playlist_api.edit_playlist', pid=playlist.id, sid=song.id) }}" method="POST">
-                                <input type="hidden" name="_operation" value="DELETE" />
-                                <button class="glyphicon glyphicon-remove" type="submit" form="{{playlist.id}}-{{song.id}}">
-                            </form>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <button class="btn btn-sm btn-success" type="submit" form="{{playlist.id}}-{{song.id}}">
+                                        <i class="glyphicon glyphicon-play"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <form id="{{playlist.id}}-{{song.id}}" action="{{ url_for('playlist_api.edit_playlist', pid=playlist.id, sid=song.id) }}" method="POST">
+                                        <input type="hidden" name="_operation" value="DELETE" />
+                                        <button class="btn btn-sm btn-danger" type="submit" form="{{playlist.id}}-{{song.id}}">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </li>
                     {% endfor %}

@@ -3,8 +3,20 @@ from flask.ext.login import current_user, login_required
 from flask import render_template
 from MashupMap.models import Playlist, Mashup
 from MashupMap import db
+from werkzeug.exceptions import abort
 
 playlist_api = Blueprint('playlist_api', __name__)
+
+
+@playlist_api.route("/favorites", methods=["GET"])
+@login_required
+def favorites_playlist():
+    u_playlists = current_user.profile.playlists
+    favorite = next(filter(lambda x: x.favorites, u_playlists))
+    if favorite is not None:
+        return render_template("playlist.html", playlist=favorite)
+    else:
+        abort(404)
 
 
 @playlist_api.route("/<int:pid>", methods=["GET"])

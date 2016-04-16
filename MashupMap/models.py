@@ -84,7 +84,7 @@ class UserProfile(db.Model):
 
     def __init__(self, name=""):
         self.name = name
-        favorites = Playlist(name="Favorites")
+        favorites = Playlist(name="Favorites", favorites=True)
         db.session.add(favorites)
         self.playlists.append(favorites)
         print(self.playlists)
@@ -99,6 +99,7 @@ class Playlist(db.Model):
         secondary=playlist_songs,
         backref=db.backref('playlists')
     )
+    favorites = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Playlist %r>' % (self.name)
