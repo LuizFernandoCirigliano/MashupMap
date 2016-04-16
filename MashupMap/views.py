@@ -28,13 +28,6 @@ def index():
         )
 
 
-@app.route("/playlist")
-def playlist():
-    return render_template(
-        'mashup-playlist.html'
-        )
-
-
 @app.route("/full", methods=["GET", "POST"])
 @app.route('/full/<mashup_id>')
 def mashup_map(mashup_id=None):

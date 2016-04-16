@@ -7,11 +7,15 @@ from MashupMap import db
 playlist_api = Blueprint('playlist_api', __name__)
 
 
-@playlist_api.route("/", methods=["GET"])
+@playlist_api.route("/<int:pid>", methods=["GET"])
 @login_required
-def playlist_index():
-    playlists = current_user.profile.playlists
-    return render_template("playlists.html", playlists=playlists)
+def playlist_index(pid):
+    playlist = Playlist.query.get(pid)
+    if playlist is not None and playlist.ownerprof.user_id == current_user.id:
+        return render_template("playlist.html", playlist=playlist)
+    else:
+        flash("You don't have access to this playlist")
+        return redirect(url_for("index"))
 
 
 @playlist_api.route("/<int:pid>/<int:sid>", methods=["POST"])

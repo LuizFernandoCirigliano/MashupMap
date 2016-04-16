@@ -1,0 +1,45 @@
+{% extends "base/header.html" %}
+{% block header_block %}
+<link href="/static/stylesheets/playlist.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block body_block %}
+
+<div class="mm-playlist">
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{playlist.name}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">Created By - {{playlist.ownerprof.user.login}}</div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="media-list">
+                    {% for song in playlist.songs %}
+                    <li class="media">
+                        <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="64" width="64"></a>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{song.clean_title}}</h4>
+                            <p> {% for artist in song.artists %} {{artist.name}}, {%endfor%}</p>
+                            <p><a href="{{song.permalink}}">View on Reddit.</a></p>
+                            <form id="{{playlist.id}}-{{song.id}}" action="{{ url_for('playlist_api.edit_playlist', pid=playlist.id, sid=song.id) }}" method="POST">
+                                <input type="hidden" name="_operation" value="DELETE" />
+                                <button class="glyphicon glyphicon-remove" type="submit" form="{{playlist.id}}-{{song.id}}">
+                            </form>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
