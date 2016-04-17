@@ -23,7 +23,7 @@ Our dark blue is: #426baa
     div.menu {
         margin-top: 54px;
     }
-    #mynetwork {
+    .fullscreen-display {
       width: 100%;
       z-index: -1;
     }

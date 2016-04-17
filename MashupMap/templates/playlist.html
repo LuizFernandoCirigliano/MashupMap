@@ -1,6 +1,3 @@
-{% extends "base/header.html" %} {% block header_block %}
-<link href="/static/stylesheets/playlist.css" rel="stylesheet" type="text/css"> {% endblock %} {% block body_block %}
-
 <div class="mm-playlist">
     <div class="section">
         <div class="container">
@@ -25,7 +22,7 @@
                             <div class="media-body">
                                 <h4 class="media-heading">{{song.clean_title}}</h4>
                                 <p> {% for artist in song.artists %} {{artist.name}}, {%endfor%}</p>
-                                <p><a href="{{song.permalink}}">View on Reddit.</a></p>
+                                <p><a href="{{song.url}}" target="_blank">View Source.</a></p>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <button class="btn btn-sm btn-success" type="submit" form="{{playlist.id}}-{{song.id}}">
@@ -49,4 +46,3 @@
         </div>
     </div>
 </div>
-{% endblock %}

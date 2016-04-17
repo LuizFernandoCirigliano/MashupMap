@@ -6,6 +6,8 @@
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
 <link href="/static/stylesheets/vis.min.css" rel="stylesheet" type="text/css" />
+<link href="/static/stylesheets/playlist.css" rel="stylesheet" type="text/css">
+<script src="/static/js/favorites.js" type="text/javascript"></script>
 {% endblock %}
 {% block body_block %}
 
@@ -13,6 +15,8 @@
 $(document).ready(function() {
     $('#full_map_link').attr('href', '#');
     $('#full_map_link').click(request_graph);
+    $('#favorites_link').attr('href', '#');
+    $('#favorites_link').click(get_favorites);
 });
 </script>
 
@@ -38,8 +42,11 @@ $(document).ready(function() {
                     </div>
                     <a id="close_share_window"><span class="glyphicon glyphicon-remove" </span></a>
                 </div>
-                <div id="mynetwork" hidden></div>
 
+                <div id="mynetwork" class="fullscreen-display" hidden></div>
+                <div id="favorites" class="fullscreen-display">
+                {%block favorites%}{%endblock%}
+                </div>
                 <div>
                     <p id="error_display" hidden></p>
                 </div>

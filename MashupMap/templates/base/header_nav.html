@@ -9,6 +9,7 @@
             </li>
             <li class="pure-menu-item pure-menu"><a href="/" class="pure-menu-link">Home</a></li>
             <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="full_map_link">Full Map</a></li>
+            <li class="pure-menu-item"><a href="/full" class="pure-menu-link" id="favorites_link">Favorites</a></li>
             {% if current_user.is_authenticated %}
                 <li class="pure-menu-item" ><a href="/user/logout" class="pure-menu-link">Logout ({{ current_user.login }})</a></li>
             {% else %}

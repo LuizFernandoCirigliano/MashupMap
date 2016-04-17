@@ -138,11 +138,11 @@ function html_for_song(obj) {
     output += '<p><b>Reddit author: </b>' + obj.author + '</p></div>';
     output += '<div class="row">'
     output += '<div class="col-md-4">'
-    output += '<a class="delete-track"><span class="glyphicon glyphicon-remove"></span></a>';
+    output += '<a class="delete-track" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
     output += '</div><div class="col-md-4">'
-    output += '<a title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a>'
+    output += '<a title="share this mashup!" href="#"><span class="glyphicon glyphicon-share"></span></a>'
     output += '</div><div class="col-md-4">'
-    output += '<a href="/playlist/favorites/'+ obj.db_id +'/add"><span class="glyphicon glyphicon-heart"></span></a>'
+    output += '<a href="#" class="favorite-button" id="'+obj.db_id+'"><span class="glyphicon glyphicon-heart"></span></a>'
     output += '</div></div></li>'
     return output;
 
