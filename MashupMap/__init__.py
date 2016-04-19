@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask.ext.login import LoginManager
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='public')
 app.config.from_object('config')
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
