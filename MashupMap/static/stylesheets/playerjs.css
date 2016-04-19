@@ -127,12 +127,6 @@ body.music .controls {
     overflow: hidden;
 }
 
-.share_link {
-    font-size: 2em;
-    position: relative;
-    left: 13vw;
-}
-
 #share_window {
     background-color: #426baa;
     color: white;
