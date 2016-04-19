@@ -1,5 +1,5 @@
 function get_favorites() {
-    $.get("/playlist/favorites").done( function (data) {
+    $.get("/playlist/favorites/").done( function (data) {
         $("#favorites").html(data);
         $("#favorites").show();
         $("#favorites_link").unbind('click');
@@ -18,7 +18,7 @@ function clear_favorites() {
 
 function delete_favorite(e) {
     var arr = e.id.split("-");
-    $.get("/playlist/" + arr[1] + "/"+ arr[2] + "/delete").done( function() {
+    $.get("/playlist/" + arr[1] + "/"+ arr[2] + "/delete/").done( function() {
         get_favorites();
     });
 }
@@ -26,7 +26,7 @@ function delete_favorite(e) {
 $(document).ready(function() {
     $("#tracks").on('click', '.favorite-button', function() {
         var arr = this.id.split("-");
-        $.get("/playlist/favorites/" + arr[1] + "/add").done( function() {
+        $.get("/playlist/favorites/" + arr[1] + "/add/").done( function() {
             get_favorites();
         });
     });
