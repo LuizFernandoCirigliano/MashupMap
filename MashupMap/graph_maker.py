@@ -18,14 +18,7 @@ def graph_for_mashup_list(mashups):
     for mashup in mashups:
         mashup_color = random_color()
         song_id = len(songs)
-        songs.append({
-            "embed": mashup.content,
-            "author": mashup.author,
-            "redditurl": mashup.permalink,
-            "title": mashup.clean_title,
-            "db_id": mashup.id,
-            "artists": [a.name for a in mashup.artists]
-        })
+        songs.append(mashup.to_JSON())
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
         if art_len >= 4:

@@ -49,6 +49,16 @@ class Mashup(db.Model):
     def __str__(self):
         return self.title
 
+    def to_JSON(self):
+        return {
+            "embed": self.content,
+            "author": self.author,
+            "redditurl": self.permalink,
+            "title": self.clean_title,
+            "db_id": self.id,
+            "artists": [a.name for a in self.artists]
+        }
+
 
 class Counters(db.Model):
     id = db.Column(db.Integer, primary_key=True)
