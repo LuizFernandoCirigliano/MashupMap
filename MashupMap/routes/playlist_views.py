@@ -50,4 +50,4 @@ def edit_playlist(pid, sid, operation):
         db.session.commit()
     else:
         flash("You are not the owner of this playlist")
-    return redirect(url_for('playlist_api.playlist_index', pid=pid))
+    return 'OK'
