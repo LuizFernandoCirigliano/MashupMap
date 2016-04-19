@@ -176,7 +176,7 @@ function add_song_to_playlist(song) {
 }
 
 function remove_song_from_playlist(index) {
-    if (index == current_index) {
+    if (index == current_index && player && typeof player != 'undefined') {
         player.pause();
         player = null;
     }
