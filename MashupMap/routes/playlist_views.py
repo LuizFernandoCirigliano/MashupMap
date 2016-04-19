@@ -24,7 +24,7 @@ def playlist_for_pid(pid):
         abort(404)
 
 
-@playlist_api.route("/<pid>", methods=["GET"])
+@playlist_api.route("/<pid>/", methods=["GET"])
 @login_required
 def playlist_index(pid):
     playlist = playlist_for_pid(pid)
@@ -36,7 +36,7 @@ def playlist_index(pid):
         return redirect(url_for("index"))
 
 
-@playlist_api.route("/<pid>/<int:sid>/<operation>", methods=["GET", "POST"])
+@playlist_api.route("/<pid>/<int:sid>/<operation>/", methods=["GET", "POST"])
 @login_required
 def edit_playlist(pid, sid, operation):
     playlist = playlist_for_pid(pid)
