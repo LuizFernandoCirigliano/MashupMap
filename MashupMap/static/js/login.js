@@ -1,7 +1,25 @@
 // ---------------------------------SmallForms------------------------------
 $(document).ready(function() {
-    $( "#loginform" ).hide();
-    $( "#signupform" ).hide();
+    error_login = document.getElementById("login_error");
+    error_register = document.getElementById("register_error");
+
+    if(error_login){
+       var position = $( "#Login" ).offset();
+       var docWidth = $( document ).width();
+       $("#loginform").css({top: (position.top+54), right: (docWidth - position.left - 70), position:'absolute'});
+       $( "#loginform" ).show( "slow" );
+    }else{
+       $( "#loginform" ).hide();
+    }
+
+    if(error_register){
+       var position = $( "#Signup" ).offset();
+       var docWidth = $( document ).width();
+       $("#signupform").css({top: (position.top+54), right:(docWidth - position.left - 120), position:'absolute'});
+       $( "#signupform" ).show( "slow" );
+    }else{
+       $( "#signupform" ).hide();
+    }
 
     $( "#login_cancel" ).click(function() {
        var position = $( "#Login" ).offset();
@@ -12,7 +30,6 @@ $(document).ready(function() {
     $( "#Login" ).click(function() {
        $( "#signupform" ).hide();
        var position = $( "#Login" ).offset();
-       console.log(position);
        var docWidth = $( document ).width();
        $("#loginform").css({top: (position.top+54), right: (docWidth - position.left - 70), position:'absolute'});
        $( "#loginform" ).show( "slow" );
@@ -41,3 +58,10 @@ $(document).ready(function() {
 function resizeIframe(obj) {
     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
 }
+
+$(document).ready(function() {
+  error = document.getElementById("login_error");
+  if(error){
+    $('#loginform').trigger('click');
+  }
+});
