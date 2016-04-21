@@ -3,10 +3,6 @@
 Our colors:
 Our dark blue is: #426baa
 */
-
-    body {
-      background: black;
-    }
     div.full-height {
         /*margin-top: 54px;*/
         height: 100vh;
@@ -22,11 +18,19 @@ Our dark blue is: #426baa
     }
     div.menu {
         margin-top: 54px;
+        pointer-events: none;
+    }
+    .ignore-clicks {
+        pointer-events: none;
+    }
+    .respond-clicks {
+        pointer-events: auto;
     }
     #mynetwork {
       background-color:black;
       width: 100%;
-      z-index: -1;
+      z-index: 0;
+      position: absolute;
     }
     .song_info {
         font-size: 0.8em;
@@ -115,9 +119,6 @@ Our dark blue is: #426baa
     .navigation-arrow:hover {
         opacity: 0.9;
     }
-
-
-
     #top-hover {
         top: 50px;
         left: 50%;
@@ -137,4 +138,8 @@ Our dark blue is: #426baa
         bottom: 50%;
         left: 10px;
         margin-bottom: -30px;
+    }
+    .info-message {
+        margin-top: 30px;
+        z-index: 1000;
     }
