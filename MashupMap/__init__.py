@@ -3,9 +3,11 @@ from flask.ext.cache import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask.ext.login import LoginManager
+from flask_sslify import SSLify
 
 app = Flask(__name__, static_url_path='', static_folder='public')
 app.config.from_object('config')
+sslifiy = SSLify(app)
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 db = SQLAlchemy(app)
