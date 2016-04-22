@@ -171,6 +171,9 @@ function add_song_to_playlist(song) {
     if (current_playlist.length == 1) {
         play_song(0);
     }
+    if (current_playlist.length > 1) {
+        $("#howtoaddq").hide();
+    }
     //Make this more efficient later
     configure_all_panels();
 }
