@@ -95,6 +95,7 @@ function request_graph(args) {
 	is_searching_artist = false;
 	if(typeof args != 'undefined' && args['first_song_id']) {
 		request_with_one_mashup(args['first_song_id']);
+		set_view_mode(false);
 	}
 	else {
 		if (typeof args != 'undefined' && args['artist_name']) {
@@ -104,11 +105,13 @@ function request_graph(args) {
 		if (typeof artist_name != 'undefined' && artist_name.length > 0) {
 			is_searching_artist = true;
 			request_artist_graph(artist_name);
+			set_view_mode(true);
 		}
 		else {//if there is no artist name input, request full graph.
 			$.get("/graph").done(function(data) {
 				$mapinfo.html("Displaying a random selection of mashups. <br> Click a line to play a mashup.");
 				create_network(data);
+				set_view_mode(false);
 			});
 		}
 	}
@@ -147,6 +150,18 @@ function cv_resize() {
 	network.css("height", h + "px");
 }
 
+function set_view_mode(display_artist_covers) {
+	if (!display_artist_covers) {
+		showingImages = false;
+		nodeOptions.shape = "icon";
+		network.setOptions({nodes:nodeOptions});
+	} else {
+		showingImages = true;
+		nodeOptions.shape = "circularImage";
+		network.setOptions({nodes:nodeOptions});
+	}
+}
+
 // Called when the Visualization API is loaded.
 function draw() {
   // create a network
@@ -175,14 +190,10 @@ function draw() {
 
 	network.on("zoom", function(params) {
 		if (showingImages == true && params.scale < 0.7) {
-			showingImages = false;
-			nodeOptions.shape = "icon";
-			network.setOptions({nodes:nodeOptions});
+			set_view_mode(false);
 		}
 		else if (showingImages == false && params.scale > 0.7) {
-			showingImages = true;
-			nodeOptions.shape = "circularImage";
-			network.setOptions({nodes:nodeOptions});
+			set_view_mode(true);
 		}
 	});
 
@@ -195,6 +206,9 @@ function draw() {
 				focusPoint,
 				{scale:1.5, animation:true}
 			);
+			setTimeout(function () {
+				set_view_mode(true);
+			}, 1000);
 		}
 	});
 	cv_resize();
