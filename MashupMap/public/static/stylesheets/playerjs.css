@@ -108,7 +108,7 @@ body.music .controls {
     padding-left:0;
     padding-bottom: 5px;
     overflow: auto;
-    height: 60vh;
+    max-height: 60vh;
 }
 .track {
     background-color: #2d3e50;
@@ -147,6 +147,18 @@ body.music .controls {
 
 #share_window label {
     color:white;
+}
+
+.text-white {
+    color: white;
+}
+
+.dashed-box {
+    margin: 3px;
+    border-style: dashed;
+    border-radius: 5%;
+    border-width: thin;
+    border-color: white;
 }
 
 .share_input {
