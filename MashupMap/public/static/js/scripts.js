@@ -5,6 +5,7 @@ var song_for_edge = null;
 var network = null;
 var current_song = null;
 var first_song_id = null;
+var is_searching_artist = false;
 var $mapinfo = $("#mapinfo");
 var go_back_html = '<br> Click <a href="#" onclick=request_graph()>here</a> to return'
 var errors = {
@@ -91,7 +92,7 @@ function create_network(data) {
 }
 
 function request_graph(args) {
-
+	is_searching_artist = false;
 	if(typeof args != 'undefined' && args['first_song_id']) {
 		request_with_one_mashup(args['first_song_id']);
 	}
@@ -101,6 +102,7 @@ function request_graph(args) {
 		}
 			//if the user inputs an artist name, create graph for this artist.
 		if (typeof artist_name != 'undefined' && artist_name.length > 0) {
+			is_searching_artist = true;
 			request_artist_graph(artist_name);
 		}
 		else {//if there is no artist name input, request full graph.
@@ -184,15 +186,17 @@ function draw() {
 		}
 	});
 
-	// var focusPoint = Object.keys(network.getPositions())[0];
-	// console.log(focusPoint);
-	// setTimeout(function() {
-	// 	network.focus(
-	// 		focusPoint,
-	// 		{scale:1.5, animation:true}
-	// 	);
-	// }, 200);
-
+	network.on("stabilizationIterationsDone", function() {
+		if (is_searching_artist == true) {
+			network.fit();
+		} else {
+			var focusPoint = Object.keys(network.getPositions())[0];
+			network.focus(
+				focusPoint,
+				{scale:1.5, animation:true}
+			);
+		}
+	});
 	cv_resize();
 	$("#mynetwork").show();
 }
