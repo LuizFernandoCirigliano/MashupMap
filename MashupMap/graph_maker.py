@@ -40,6 +40,7 @@ def graph_for_mashup_list(mashups):
                 "title": mashup.clean_title
             })
             song_for_edge.append(song_id)
+            # Prevent making a loop when there's only 2 artists
             if art_len == 2:
                 break
     for a in artistset:
