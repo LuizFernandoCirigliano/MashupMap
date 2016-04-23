@@ -51,7 +51,7 @@ def graph_for_mashup_list(mashups):
 def get_default_mashup(default_id=None):
     if default_id is None:
         default_counter = Counters.query.filter_by(key='defmashup').first()
-        default_id = default_counter.value
+        default_id = default_counter.value if default_counter else None
     if default_id is not None:
         default_mashup = Mashup.query.get(default_id)
         return None if default_mashup.isBroken else default_mashup
