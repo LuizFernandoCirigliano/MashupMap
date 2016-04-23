@@ -2,7 +2,7 @@ import random
 from MashupMap import cache
 from MashupMap.models import Mashup, Artist, Counters
 from sqlalchemy import or_
-
+from collections import Counter
 
 def random_color():
     rc = lambda: random.randint(0, 255)
@@ -11,6 +11,8 @@ def random_color():
 
 def graph_for_mashup_list(mashups):
     artistset = set()
+    extra_artists = {}
+    artist_m_count = Counter()
     nodes = []
     edges = []
     songs = []
@@ -26,15 +28,28 @@ def graph_for_mashup_list(mashups):
             "db_id" : mashup.id,
             "artists" : [a.name for a in mashup.artists]
         })
+        for a in mashup.artists:
+            # Add another node for this artist
+            a_cnt = artist_m_count[a.id]
+            if a_cnt % 7 == 0:
+                if a.id in extra_artists:
+                    extra_artists[a.id] += ["{}-{}".format(a.id, a_cnt // 7)]
+                else:
+                    extra_artists[a.id] = ["{}-{}".format(a.id, 0)]
+
+            artist_m_count[a.id] += 1
+
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
         for i in range(art_len):
             a1 = mashup.artists[i]
+            a1_id = extra_artists[a1.id][-1]
             a2 = mashup.artists[(i + 1) % art_len]
+            a2_id = extra_artists[a2.id][-1]
             eid = len(edges)
             edges.append({
-                "from": a1.id,
-                "to": a2.id,
+                "from": a1_id,
+                "to": a2_id,
                 "id": eid,
                 "color": mashup_color,
                 "title": mashup.clean_title
@@ -44,11 +59,12 @@ def graph_for_mashup_list(mashups):
             if art_len == 2:
                 break
     for a in artistset:
-        nodes.append({
-            "id": a.id,
-            "image": a.imageURL,
-            "label": a.name
-        })
+        for extra_a in extra_artists[a.id]:
+            nodes.append({
+                "id": extra_a,
+                "image": a.imageURL,
+                "label": a.name
+            })
     return nodes, edges, songs, song_for_edge
 
 def get_default_mashup(default_id=None):
