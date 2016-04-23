@@ -40,6 +40,8 @@ def graph_for_mashup_list(mashups):
                 "title": mashup.clean_title
             })
             song_for_edge.append(song_id)
+            if art_len == 2:
+                break
     for a in artistset:
         nodes.append({
             "id": a.id,
