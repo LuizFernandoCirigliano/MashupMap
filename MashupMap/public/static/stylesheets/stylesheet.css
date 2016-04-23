@@ -3,6 +3,9 @@
 Our colors:
 Our dark blue is: #426baa
 */
+    body {
+        background-color: black;
+    }
     div.full-height {
         /*margin-top: 54px;*/
         height: 100vh;
