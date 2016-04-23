@@ -28,33 +28,18 @@ def graph_for_mashup_list(mashups):
         })
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
-        if art_len >= 4:
-            for i in range(art_len):
-                a1 = mashup.artists[i]
-                a2 = mashup.artists[(i + 1) % art_len]
-                eid = len(edges)
-                edges.append({
-                    "from": a1.id,
-                    "to": a2.id,
-                    "id": eid,
-                    "color": mashup_color,
-                    "title": mashup.clean_title
-                })
-                song_for_edge.append(song_id)
-        else:
-            for a1 in mashup.artists:
-                for a2 in mashup.artists:
-                    if a1.id < a2.id:
-                        eid = len(edges)
-                        edges.append({
-                            "from": a1.id,
-                            "to": a2.id,
-                            "id": eid,
-                            "color": mashup_color,
-                            "title": mashup.clean_title
-                        })
-                        song_for_edge.append(song_id)
-
+        for i in range(art_len):
+            a1 = mashup.artists[i]
+            a2 = mashup.artists[(i + 1) % art_len]
+            eid = len(edges)
+            edges.append({
+                "from": a1.id,
+                "to": a2.id,
+                "id": eid,
+                "color": mashup_color,
+                "title": mashup.clean_title
+            })
+            song_for_edge.append(song_id)
     for a in artistset:
         nodes.append({
             "id": a.id,
