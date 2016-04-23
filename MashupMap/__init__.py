@@ -21,7 +21,7 @@ import MashupMap.views
 import MashupMap.models
 
 from Users.admin.views import MashupView,\
-    MyAdminIndexView, UserView, RoleView, ArtistView
+    MyAdminIndexView, UserView, RoleView, ArtistView, ModelView
 admin = Admin(app,
               name='mashupmap',
               template_mode='bootstrap3',
@@ -31,3 +31,4 @@ admin.add_view(ArtistView(MashupMap.models.Artist, db.session))
 admin.add_view(MashupView(MashupMap.models.Mashup, db.session))
 admin.add_view(UserView(Users.models.User, db.session))
 admin.add_view(RoleView(Users.models.Role, db.session))
+admin.add_view(ModelView(MashupMap.models.Counters, db.session))

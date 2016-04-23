@@ -1,6 +1,6 @@
 import random
 from MashupMap import cache
-from MashupMap.models import Mashup, Artist
+from MashupMap.models import Mashup, Artist, Counters
 from sqlalchemy import or_
 
 
@@ -63,24 +63,22 @@ def graph_for_mashup_list(mashups):
         })
     return nodes, edges, songs, song_for_edge
 
+def get_default_mashup(default_id=None):
+    if default_id is None:
+        default_counter = Counters.query.filter_by(key='defmashup').first()
+        default_id = default_counter.value
+    if default_counter is not None:
+        default_mashup = Mashup.query.get(default_id)
+        return None if default_mashup.isBroken else default_mashup
 
 # @cache.cached(timeout=60 * 2, key_prefix='get_mashup_graph')
 def get_mashup_graph(mashup_id=None):
     mashups = random.sample(list(Mashup.query.filter(
         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
 
-        #if a specific mashup was requested (from sharing maybe)
-    if mashup_id:
-        try: #get mashup from DB
-            m = Mashup.query.filter_by(id=mashup_id).first()
-        except Exception as e:
-            print(e, e.args)
-        else:
-            # if mashup not already in list, add it.
-            print('Mashup with id={} found!'.format(mashup_id))
-            if m not in mashups:
-                mashups.append(m)
-
+    default_mashup = get_default_mashup(mashup_id)
+    if default_mashup is not None:
+        mashups.insert(0, default_mashup)
     return graph_for_mashup_list(mashups)
 
 
@@ -91,12 +89,7 @@ def get_artist_mashups(artist_name):
         return get_mashup_graph()
 
     if artist:
-        mashups = []
-        # to use filter method on collection object, we would need to configure the lazy attribute to dynamic.
-        for m in artist.artist_mashups:
-            if not m.isBroken:
-                mashups.append(m)
-
+        mashups = [m for m in artist.artist_mashups if not m.isBroken == True]
     else:
         return get_mashup_graph()
 
