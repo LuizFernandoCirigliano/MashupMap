@@ -86,8 +86,7 @@ function create_network(data) {
 	}
 	if(data.first_song_index != undefined) {
 		console.log('First songs was defined!');
-		add_song_to_playlist(songs[data.first_song_index]);
-		play_song(0);
+		add_song_to_playlist(songs[data.first_song_index], false);
 	}
 }
 
@@ -218,9 +217,11 @@ function draw() {
 		if (is_searching_artist == true) {
 			network.fit();
 		} else {
-			var focusPoint = Object.keys(network.getPositions())[0];
+			// var focusPoint = Object.keys(network.getPositions())[0];
+			var default_song = edges[0];
+			var default_artist = default_song.from;
 			network.focus(
-				focusPoint,
+				default_artist,
 				{scale:1.5, animation:true}
 			);
 			setTimeout(function () {
