@@ -42,10 +42,9 @@ var options = {
 		hoverWidth: 5
 	},
 	physics: {
-	  // enabled: false,
 		stabilization: {
 			enabled:true,
-			iterations:200,
+			iterations:250,
 			fit:true
 		},
 		repulsion: {
