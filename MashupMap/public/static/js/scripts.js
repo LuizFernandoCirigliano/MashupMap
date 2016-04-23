@@ -86,7 +86,9 @@ function create_network(data) {
 	}
 	if(data.first_song_index != undefined) {
 		console.log('First songs was defined!');
-		add_song_to_playlist(songs[data.first_song_index], false);
+		if (current_playlist.length == 0) {
+			add_song_to_playlist(songs[data.first_song_index], false);
+		}
 	}
 }
 
@@ -167,14 +169,16 @@ function cv_resize() {
 }
 
 function set_view_mode(display_artist_covers) {
-	if (!display_artist_covers) {
-		showingImages = false;
-		nodeOptions.shape = "icon";
-		network.setOptions({nodes:nodeOptions});
-	} else {
-		showingImages = true;
-		nodeOptions.shape = "circularImage";
-		network.setOptions({nodes:nodeOptions});
+	if(network != null) {
+		if (!display_artist_covers) {
+			showingImages = false;
+			nodeOptions.shape = "icon";
+			network.setOptions({nodes:nodeOptions});
+		} else {
+			showingImages = true;
+			nodeOptions.shape = "circularImage";
+			network.setOptions({nodes:nodeOptions});
+		}
 	}
 }
 
