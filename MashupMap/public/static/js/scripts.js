@@ -91,6 +91,15 @@ function create_network(data) {
 	}
 }
 
+function display_info_message(msg, hide) {
+	$mapinfo.html(msg);
+	if (hide) {
+		$mapinfo.fadeIn(300).delay(5000).fadeOut(300);
+	} else {
+		$mapinfo.fadeIn(300);
+	}
+}
+
 function request_graph(args) {
 	is_searching_artist = false;
 	if(typeof args != 'undefined' && args['first_song_id']) {
@@ -109,7 +118,12 @@ function request_graph(args) {
 		}
 		else {//if there is no artist name input, request full graph.
 			$.get("/graph").done(function(data) {
-				$mapinfo.html("Displaying a random selection of mashups. <br> Click a line to play a mashup.");
+				display_info_message(
+					"Displaying a random selection of mashups." +
+					"<br> Click a line to play a mashup.",
+					true
+				);
+
 				create_network(data);
 				set_view_mode(false);
 			});
@@ -119,7 +133,11 @@ function request_graph(args) {
 
 function request_artist_graph(artist_name) {
 	$.get("/graph/artist/" + artist_name).done(function(data) {
-		$mapinfo.html("Displaying mashups found for <b>" + artist_name + "</b>" + go_back_html);
+		display_info_message(
+			"Displaying mashups found for <b>" + artist_name +
+			 "</b>" + go_back_html,
+			 false
+		 );
 		create_network(data, artist_name);
 	})
 	.fail(function() { //display error if artist is not found.
@@ -132,11 +150,10 @@ function request_artist_graph(artist_name) {
 
 function request_with_one_mashup(mashup_id) {
 	$.get("/graph/mashup/" + mashup_id).done(function(data) {
-		console.log('Data: ', data);
 		create_network(data);
 		if(data.first_song_index == undefined) {
 			$('#error_display').html(errors['mashup_not_found']);
-			$('#error_display').show(0).delay(2000).hide(0);
+			$('#error_display').fadein(300).delay(2000).fadeout(300);
 		}
 	});
 }
