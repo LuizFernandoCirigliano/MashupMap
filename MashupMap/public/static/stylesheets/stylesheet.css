@@ -31,6 +31,7 @@ Our dark blue is: #426baa
     }
     .fullscreen-display {
       width: 100%;
+      height: 100vh;
       z-index: 0;
       position: absolute;
     }
