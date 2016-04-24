@@ -18,9 +18,9 @@ def register():
     form = SignupForm()
     if form.validate_on_submit():
 
-        user = User(email=form.email.data,
-                    login=form.login.data,
-                    password=form.password.data)
+        user = User(email=form.email_register.data,
+                    login=form.login_register.data,
+                    password=form.password_register.data)
         role = Role.query.filter_by(name='user').first()
         user.roles.append(role)
         db.session.add(user)
