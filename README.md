@@ -20,4 +20,4 @@ Installing:
 
 Hosted on Heroku:
 
-http://stark-refuge-87328.herokuapp.com
+https://www.mashupmap.me
