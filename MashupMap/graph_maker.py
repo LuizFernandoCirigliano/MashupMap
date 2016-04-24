@@ -55,7 +55,7 @@ def graph_for_mashup_list(mashups):
                 "to": a2_id,
                 "id": eid,
                 "color": mashup_color,
-                "title": "<b>Click to play</b> - " + mashup.clean_title
+                "title": "<b>Click to queue</b> - " + mashup.clean_title
             })
             song_for_edge.append(song_id)
             # Prevent making a loop when there's only 2 artists
@@ -68,7 +68,8 @@ def graph_for_mashup_list(mashups):
                 "id": extra_a,
                 "image": a.imageURL,
                 "label": a.name,
-                "size": node_size
+                "size": node_size,
+                "title": "<b>Click for more</b> - " + a.name
             })
     return nodes, edges, songs, song_for_edge
 

@@ -57,6 +57,7 @@ var options = {
 	},
 	interaction: {
 		hover:true,
+		hoverConnectedEdges: true,
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
 		navigationButtons: true,
