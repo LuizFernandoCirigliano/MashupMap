@@ -46,7 +46,8 @@ def edit_playlist(pid, sid, operation):
         if operation == "delete":
             playlist.songs.remove(mashup)
         elif operation == "add":
-            playlist.songs.append(mashup)
+            if mashup not in playlist.songs:
+                playlist.songs.append(mashup)
         db.session.commit()
     else:
         flash("You are not the owner of this playlist")
