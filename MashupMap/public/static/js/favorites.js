@@ -1,7 +1,7 @@
 var favorites_list = []
 
 function get_favorites() {
-    $returnmap.hide();
+    $returnmap.show();
     $mapinfo.hide();
     $.get("/playlist/favorites/").done( function (data) {
         $("#favorites").html(data);
