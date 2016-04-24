@@ -68,7 +68,7 @@ class Counters(db.Model):
     def __repr__(self):
         return self.key + ": " + str(self.value)
 
-    def __init__(self, key, value=0):
+    def __init__(self, key="", value=0):
         self.key = key
         self.value = value
 

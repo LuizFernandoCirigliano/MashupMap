@@ -5,7 +5,10 @@ var song_for_edge = null;
 var network = null;
 var current_song = null;
 var first_song_id = null;
-
+var is_searching_artist = false;
+var $mapinfo = $("#mapinfo");
+var $returnmap = $("#returnmap");
+var go_back_html = '<br> Click <a href="#" onclick=request_graph()>here</a> to return'
 var errors = {
 	'artist_not_found' : 'Sorry, no mashups from this artist.',
 	'mashup_not_found' : 'Sorry, mashup not found.',
@@ -40,10 +43,9 @@ var options = {
 		hoverWidth: 5
 	},
 	physics: {
-	  // enabled: false,
 		stabilization: {
 			enabled:true,
-			iterations:200,
+			iterations:250,
 			fit:true
 		},
 		repulsion: {
@@ -55,6 +57,7 @@ var options = {
 	},
 	interaction: {
 		hover:true,
+		hoverConnectedEdges: true,
 		tooltipDelay: 100,
 		hideEdgesOnDrag: true,
 		navigationButtons: true,
@@ -84,30 +87,58 @@ function create_network(data) {
 	}
 	if(data.first_song_index != undefined) {
 		console.log('First songs was defined!');
-		add_song_to_playlist(songs[data.first_song_index]);
-		play_song(0);
+		if (current_playlist.length == 0) {
+			add_song_to_playlist(songs[data.first_song_index], false);
+		}
+	}
+}
+
+function display_info_message(msg) {
+	$mapinfo.html(msg);
+	$mapinfo.fadeIn(300).delay(3000).fadeOut(2000);
+	if (is_searching_artist) {
+		$returnmap.show();
+	} else {
+		$returnmap.hide();
 	}
 }
 
 function request_graph(args) {
 	clear_favorites();
-	if(args['first_song_id']) {
+	is_searching_artist = false;
+	if(typeof args != 'undefined' && args['first_song_id']) {
 		request_with_one_mashup(args['first_song_id']);
+		set_view_mode(false);
 	}
-	artist_name = args['artist_name'];
-	//if the user inputs an artist name, create graph for this artist.
-	if (typeof artist_name != 'undefined' && artist_name.length > 0) {
-		request_artist_graph(artist_name);
-	}
-	else {//if there is no artist name input, request full graph.
-		$.get("/graph").done(function(data) {
-			create_network(data);
-		});
+	else {
+		if (typeof args != 'undefined' && args['artist_name']) {
+			var artist_name = args['artist_name']
+		}
+			//if the user inputs an artist name, create graph for this artist.
+		if (typeof artist_name != 'undefined' && artist_name.length > 0) {
+			is_searching_artist = true;
+			request_artist_graph(artist_name);
+			set_view_mode(true);
+		}
+		else {//if there is no artist name input, request full graph.
+			$.get("/graph").done(function(data) {
+				display_info_message(
+					"Displaying a random selection of mashups." +
+					"<br> Click a line to play a mashup."
+				);
+
+				create_network(data);
+				set_view_mode(false);
+			});
+		}
 	}
 }
 
 function request_artist_graph(artist_name) {
 	$.get("/graph/artist/" + artist_name).done(function(data) {
+		display_info_message(
+			"Displaying mashups found for <b>" + artist_name
+		 );
 		create_network(data, artist_name);
 	})
 	.fail(function() { //display error if artist is not found.
@@ -120,11 +151,10 @@ function request_artist_graph(artist_name) {
 
 function request_with_one_mashup(mashup_id) {
 	$.get("/graph/mashup/" + mashup_id).done(function(data) {
-		console.log('Data: ', data);
 		create_network(data);
 		if(data.first_song_index == undefined) {
 			$('#error_display').html(errors['mashup_not_found']);
-			$('#error_display').show(0).delay(2000).hide(0);
+			$('#error_display').fadein(300).delay(2000).fadeout(300);
 		}
 	});
 }
@@ -139,6 +169,20 @@ function cv_resize() {
 	network.css("height", h + "px");
 	favorites.css("width", w + "px");
 	favorites.css("height", h + "px");
+}
+
+function set_view_mode(display_artist_covers) {
+	if(network != null) {
+		if (!display_artist_covers) {
+			showingImages = false;
+			nodeOptions.shape = "icon";
+			network.setOptions({nodes:nodeOptions});
+		} else {
+			showingImages = true;
+			nodeOptions.shape = "circularImage";
+			network.setOptions({nodes:nodeOptions});
+		}
+	}
 }
 
 // Called when the Visualization API is loaded.
@@ -169,17 +213,29 @@ function draw() {
 
 	network.on("zoom", function(params) {
 		if (showingImages == true && params.scale < 0.7) {
-			showingImages = false;
-			nodeOptions.shape = "icon";
-			network.setOptions({nodes:nodeOptions});
+			set_view_mode(false);
 		}
 		else if (showingImages == false && params.scale > 0.7) {
-			showingImages = true;
-			nodeOptions.shape = "circularImage";
-			network.setOptions({nodes:nodeOptions});
+			set_view_mode(true);
 		}
 	});
 
+	network.on("stabilizationIterationsDone", function() {
+		if (is_searching_artist == true) {
+			network.fit();
+		} else {
+			// var focusPoint = Object.keys(network.getPositions())[0];
+			var default_song = edges[0];
+			var default_artist = default_song.from;
+			network.focus(
+				default_artist,
+				{scale:1.5, animation:true}
+			);
+			setTimeout(function () {
+				set_view_mode(true);
+			}, 1000);
+		}
+	});
 	cv_resize();
 	$("#mynetwork").show();
 }

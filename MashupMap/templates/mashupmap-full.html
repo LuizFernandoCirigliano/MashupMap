@@ -22,7 +22,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div id="graph_body" style="background: black;">
+<div id="graph_body" style="background: transparent;">
 
   <div id="light" class="white_content">
     <div class="carousel">
@@ -42,32 +42,52 @@ $(document).ready(function() {
     </div>
 
     <div id="#scrollable_div" class="row full-height full-width">
-        <div id="top-hover" class="navigation-arrow"><img src="/static/img/navigation-icons/up.png" height="50px" width="50px"></div>
-        <div id="bottom-hover" class="navigation-arrow" ><img src="/static/img/navigation-icons/down.png" height="50px" width="50px"></div>
-        <div id="right-hover" class="navigation-arrow"><img src="/static/img/navigation-icons/right.png" height="50px" width="50px"></div>
-        <div id="left-hover" class="navigation-arrow" ><img src="/static/img/navigation-icons/left.png" height="50px" width="50px"></div>
-        <div class="col-sm-10">
-            <div class="container">
-                <div id="share_window" class="alert alert-dismissible" hidden>
-                    <label for="share_link_input">Share this mashup!</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" readonly="readonly" title="Share link" id="share_link_input">
-                    </div>
-                    <a id="close_share_window"><span class="glyphicon glyphicon-remove" </span></a>
-                </div>
+        <div id="top-hover" class="navigation-arrow">
+            <img src="/static/img/navigation-icons/up.png" height="50px" width="50px">
+        </div>
+        <div id="bottom-hover" class="navigation-arrow">
+            <img src="/static/img/navigation-icons/down.png" height="50px" width="50px">
+        </div>
+        <div id="right-hover" class="navigation-arrow">
+            <img src="/static/img/navigation-icons/right.png" height="50px" width="50px">
+        </div>
+        <div id="left-hover" class="navigation-arrow">
+            <img src="/static/img/navigation-icons/left.png" height="50px" width="50px">
+        </div>
+        <div id="mynetwork" class="full-width full-height" hidden></div>
+        <div id="favorites" class="fullscreen-display">
+        {%block favorites%}{%endblock%}
+        </div>
+        <div id="share_window" class="alert alert-dismissible" hidden>
+            <label for="share_link_input">Share this mashup!</label>
+            <div class="input-group">
+                <input type="text" class="form-control" readonly="readonly" title="Share link" id="share_link_input">
+            </div>
+            <a id="close_share_window"><span class="glyphicon glyphicon-remove" </span></a>
+        </div>
 
-                <div id="mynetwork" class="fullscreen-display" hidden></div>
-                <div id="favorites" class="fullscreen-display">
-                {%block favorites%}{%endblock%}
-                </div>
-                <div>
-                    <p id="error_display" hidden></p>
-                </div>
 
+
+        <div>
+            <p id="error_display" hidden></p>
+        </div>
+        <div class="col-sm-10 menu ignore-clicks">
+            <div class="col-sm-4">
+                <h3 class="text-white respond-clicks" id="returnmap" hidden>
+                    <a href="#" onclick=request_graph()>
+                        < Return to Full Map
+                    </a>
+                </h3>
+            </div>
+            <div class="col-sm-6">
+                <div class="alert alert-info text-center info-message respond-clicks" role="alert" id="mapinfo">
+                    Displaying a random selection of mashups.
+                    <br> Click a line to play a mashup.
+                </div>
             </div>
         </div>
-        <div class="col-sm-2 menu">
-            <div class="content controls">
+        <div class="col-sm-2 menu ignore-clicks">
+            <div class="content controls respond-clicks">
                 <div class="row">
                     <div id="iframe-div">
 
@@ -101,22 +121,13 @@ $(document).ready(function() {
                             </a>
                         </h4>
                     </div>
-                    <!-- <a class="volume">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a> -->
-                    <!-- <a class="loop">
-                        <i class="fa fa-repeat"></i>
-                    </a> -->
-
-
                 </div>
-                <div class="row">
-                    <ul id="tracks"></ul>
-                </div>
+            </div>
+            <div class="row">
+                <ul id="tracks"></ul>
+                <p class="text-center text-white dashed-box" id="howtoaddq">
+                    Add a song to the queue by selecting from the map.
+                </p>
             </div>
         </div>
     </div>

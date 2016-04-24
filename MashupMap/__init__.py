@@ -3,9 +3,11 @@ from flask.ext.cache import Cache
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask.ext.login import LoginManager
+from flask_sslify import SSLify
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='public')
 app.config.from_object('config')
+sslifiy = SSLify(app)
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 db = SQLAlchemy(app)
@@ -21,7 +23,7 @@ import MashupMap.models
 
 from Users.admin.views import MashupView,\
     MyAdminIndexView, UserView, RoleView, ArtistView, ModelView
-
+    
 admin = Admin(app,
               name='mashupmap',
               template_mode='bootstrap3',
@@ -33,3 +35,4 @@ admin.add_view(ModelView(MashupMap.models.UserProfile, db.session))
 admin.add_view(ModelView(MashupMap.models.Playlist, db.session))
 admin.add_view(UserView(Users.models.User, db.session))
 admin.add_view(RoleView(Users.models.Role, db.session))
+admin.add_view(ModelView(MashupMap.models.Counters, db.session))

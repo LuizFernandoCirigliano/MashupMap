@@ -49,7 +49,7 @@ class LoginForm(FormWithFlash):
             self.login_login.errors.append("Invalid User")
             return False
         # Check if password matches
-        if not user.check_password(self.password.data):
+        if not user.check_password(self.password_login.data):
             self.password_login.errors.append('Invalid Login')
             return False
         return True

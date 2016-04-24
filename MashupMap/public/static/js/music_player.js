@@ -167,18 +167,21 @@ function set_playlist(songs) {
     }, 20);
 }
 
-function add_song_to_playlist(song) {
+function add_song_to_playlist(song, play) {
     current_playlist.push(song);
     $tracks.append(html_for_song(song));
-    if (current_playlist.length == 1) {
+    if (current_playlist.length == 1 && play != false) {
         play_song(0);
+    }
+    if (current_playlist.length > 1) {
+        $("#howtoaddq").hide();
     }
     //Make this more efficient later
     configure_all_panels();
 }
 
 function remove_song_from_playlist(index) {
-    if (index == current_index) {
+    if (index == current_index && player && typeof player != 'undefined') {
         player.pause();
         player = null;
     }
