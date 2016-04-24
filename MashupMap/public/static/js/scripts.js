@@ -7,6 +7,7 @@ var current_song = null;
 var first_song_id = null;
 var is_searching_artist = false;
 var $mapinfo = $("#mapinfo");
+var $returnmap = $("#returnmap");
 var go_back_html = '<br> Click <a href="#" onclick=request_graph()>here</a> to return'
 var errors = {
 	'artist_not_found' : 'Sorry, no mashups from this artist.',
@@ -91,12 +92,13 @@ function create_network(data) {
 	}
 }
 
-function display_info_message(msg, hide) {
+function display_info_message(msg) {
 	$mapinfo.html(msg);
-	if (hide) {
-		$mapinfo.fadeIn(300).delay(5000).fadeOut(300);
+	$mapinfo.fadeIn(300).delay(3000).fadeOut(2000);
+	if (is_searching_artist) {
+		$returnmap.show();
 	} else {
-		$mapinfo.fadeIn(300);
+		$returnmap.hide();
 	}
 }
 
@@ -120,8 +122,7 @@ function request_graph(args) {
 			$.get("/graph").done(function(data) {
 				display_info_message(
 					"Displaying a random selection of mashups." +
-					"<br> Click a line to play a mashup.",
-					true
+					"<br> Click a line to play a mashup."
 				);
 
 				create_network(data);
@@ -134,9 +135,7 @@ function request_graph(args) {
 function request_artist_graph(artist_name) {
 	$.get("/graph/artist/" + artist_name).done(function(data) {
 		display_info_message(
-			"Displaying mashups found for <b>" + artist_name +
-			 "</b>" + go_back_html,
-			 false
+			"Displaying mashups found for <b>" + artist_name
 		 );
 		create_network(data, artist_name);
 	})

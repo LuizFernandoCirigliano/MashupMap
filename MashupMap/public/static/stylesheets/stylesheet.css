@@ -146,3 +146,7 @@ Our dark blue is: #426baa
         margin-top: 30px;
         z-index: 1000;
     }
+
+    .text-white {
+        color:white;
+    }
