@@ -1,6 +1,8 @@
 
 .mm-playlist {
     color: white;
+    overflow: auto;
+    max-height: 100vh;
 }
 .mm-playlist li {
     padding-top: 10px;

@@ -29,7 +29,7 @@ def playlist_for_pid(pid):
 def playlist_index(pid):
     playlist = playlist_for_pid(pid)
     if playlist is not None and playlist.ownerprof.user_id == current_user.id:
-        song_list = [song.to_JSON() for song in playlist.songs]
+        song_list = [song.to_JSON() for song in playlist.songs if not song.isBroken == True]
         return render_template("playlist.html", playlist=playlist, song_list=song_list)
     else:
         flash("You don't have access to this playlist")

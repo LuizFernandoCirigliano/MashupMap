@@ -9,11 +9,13 @@ function get_favorites() {
         $("#favorites_link").unbind('click');
         $("#favorites_link").click(clear_favorites);
         $("#mynetwork").hide();
+        $(".navigation-arrow").hide();
     });
 }
 
 
 function clear_favorites() {
+    $(".navigation-arrow").show();
     $("#favorites").hide();
     $("#mynetwork").show();
     $("#favorites_link").unbind('click');

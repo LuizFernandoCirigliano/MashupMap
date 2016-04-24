@@ -107,6 +107,7 @@ body.music .controls {
     list-style:none;
     padding-left:0;
     padding-bottom: 5px;
+    padding-right: 10px;
     overflow: auto;
     max-height: 60vh;
 }

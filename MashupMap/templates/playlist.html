@@ -14,12 +14,11 @@
                 <div class="col-md-12">Created By - {{playlist.ownerprof.user.login}}</div>
             </div>
             <div class="row text-center">
-
                 <h1 onclick="play_favorites()">
                 <button class="btn btn-lg btn-success play-favorite">
                     <i class="glyphicon glyphicon-play"></i>
                 </button>
-                   Play Favorites
+                   Play {{playlist.name}}
                 <h1>
             </div>
         </div>
@@ -34,8 +33,12 @@
                             <a class="pull-left" href="#"><img class="media-object" src="{{song.artists[0].imageURL}}" height="64" width="64"></a>
                             <div class="media-body">
                                 <h4 class="media-heading">{{song.clean_title}}</h4>
+
                                 <p> {% for artist in song.artists %} {{artist.name}}, {%endfor%}</p>
+                                {%if song.isBroken %} <p class="text-danger"> This song has been removed by the author and no longer works. </p>
+                                {%else%}
                                 <p><a href="{{song.url}}" target="_blank">View Source.</a></p>
+                                {%endif%}
                                 <div class="row">
                                     <div class="col-md-1">
                                         <button class="btn btn-sm btn-danger delete-favorite" id="del-{{playlist.id}}-{{song.id}}" onclick="delete_favorite(this)">
