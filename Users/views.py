@@ -26,10 +26,10 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return redirect(url_for('index'))
+        return redirect(url_for('mashup_map'))
     else:
         form.flash_errors()
-        return redirect(url_for('index'))
+        return redirect(url_for('mashup_map'))
 
 
 @user_api.route('/login', methods=['POST', 'GET'])
@@ -41,14 +41,14 @@ def login():
         login_user(user)
         # if not next_is_valid(next_url):
         #     return abort(400)
-        return redirect(next_url or url_for('index'))
+        return redirect(next_url or url_for('mashup_map'))
     else:
         form.flash_errors()
-        return render_template('login.html', form=form, next_url=next_url)
-        # return redirect(url_for('index'))
+        # return render_template('login.html', form=form, next_url=next_url)
+        return redirect(url_for('mashup_map'))
 
 
 @user_api.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('mashup_map'))

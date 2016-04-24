@@ -33,10 +33,21 @@
     <p class="text-center">Log in
         </>
         <div class="login-form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="col-md-12 text-center">
+                {% for category, message in messages %}
+                {% if category == "login" %}
+                  <p id="login_error" class="text-danger error-message validation-error"> {{message}} </p>  
+                {% endif %}
+                {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
             <form action="/user/login" method="post">
-                {{ login_form.login(class="form-control") }}
+                {{ login_form.login_login(class="form-control") }}
                 </br>
-                {{ login_form.password(class="form-control") }} {{ login_form.csrf_token }}
+                {{ login_form.password_login(class="form-control") }} {{ login_form.csrf_token }}
                 </br>
                 <p>
                     <input type=submit class="btn btn-primary  col-sm-6" value="log in">
@@ -51,14 +62,25 @@
     <p class="text-center">Sign up
         </>
         <div class="login-form">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <div class="col-md-12 text-center">
+                {% for category, message in messages %}
+                {% if category == "register" %}
+                  <p id="register_error" class="text-danger error-message validation-error"> {{message}} </p>
+                {% endif %}
+                {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
             <form action="/user/register" method="post">
-                {{ signup_form.login(class="form-control") }}
+                {{ signup_form.login_register(class="form-control") }}
                 </br>
-                {{ signup_form.email(class="form-control") }}
+                {{ signup_form.email_register(class="form-control") }}
                 </br>
-                {{ signup_form.password(class="form-control") }}
+                {{ signup_form.password_register(class="form-control") }}
                 </br>
-                {{ signup_form.password_confirmation(class="form-control") }} {{ signup_form.csrf_token }}
+                {{ signup_form.password_confirmation_register(class="form-control") }} {{ signup_form.csrf_token }}
                 </br>
                 <p>
                     <input type=submit class="btn btn-primary  col-sm-6" value="Register">
