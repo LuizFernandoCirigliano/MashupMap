@@ -3,6 +3,9 @@ from MashupMap import cache
 from MashupMap.models import Mashup, Artist, Counters
 from sqlalchemy import or_
 from collections import Counter
+import math
+
+default_node_size = 25
 
 def random_color():
     rc = lambda: random.randint(0, 255)
@@ -59,11 +62,13 @@ def graph_for_mashup_list(mashups):
             if art_len == 2:
                 break
     for a in artistset:
+        node_size = 25 if len(extra_artists[a.id]) == 1 else 40
         for extra_a in extra_artists[a.id]:
             nodes.append({
                 "id": extra_a,
                 "image": a.imageURL,
-                "label": a.name
+                "label": a.name,
+                "size": node_size
             })
     return nodes, edges, songs, song_for_edge
 
