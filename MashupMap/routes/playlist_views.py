@@ -28,9 +28,9 @@ def playlist_for_pid(pid):
 @login_required
 def playlist_index(pid):
     playlist = playlist_for_pid(pid)
-    print(playlist)
     if playlist is not None and playlist.ownerprof.user_id == current_user.id:
-        return render_template("playlist.html", playlist=playlist)
+        song_list = [song.to_JSON() for song in playlist.songs]
+        return render_template("playlist.html", playlist=playlist, song_list=song_list)
     else:
         flash("You don't have access to this playlist")
         return redirect(url_for("index"))

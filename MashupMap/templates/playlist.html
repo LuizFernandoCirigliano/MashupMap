@@ -1,3 +1,7 @@
+<script>
+    favorites_list = {{song_list | safe}}
+</script>
+
 <div class="mm-playlist" id="playlist-div">
     <div class="section">
         <div class="container">
@@ -8,6 +12,15 @@
             </div>
             <div class="row">
                 <div class="col-md-12">Created By - {{playlist.ownerprof.user.login}}</div>
+            </div>
+            <div class="row text-center">
+
+                <h1 onclick="play_favorites()">
+                <button class="btn btn-lg btn-success play-favorite">
+                    <i class="glyphicon glyphicon-play"></i>
+                </button>
+                   Play Favorites
+                <h1>
             </div>
         </div>
     </div>
@@ -24,11 +37,6 @@
                                 <p> {% for artist in song.artists %} {{artist.name}}, {%endfor%}</p>
                                 <p><a href="{{song.url}}" target="_blank">View Source.</a></p>
                                 <div class="row">
-                                    <div class="col-md-1">
-                                        <button class="btn btn-sm btn-success" type="submit" form="{{playlist.id}}-{{song.id}}">
-                                            <i class="glyphicon glyphicon-play"></i>
-                                        </button>
-                                    </div>
                                     <div class="col-md-1">
                                         <button class="btn btn-sm btn-danger delete-favorite" id="del-{{playlist.id}}-{{song.id}}" onclick="delete_favorite(this)">
                                             <i class="glyphicon glyphicon-remove"></i>

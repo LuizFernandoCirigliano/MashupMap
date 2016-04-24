@@ -149,6 +149,7 @@ function html_for_song(obj) {
 }
 
 function set_playlist(songs) {
+    $tracks.html("");
     current_playlist = songs;
     var new_songs_html = ''
     for (var i = 0; i < current_playlist.length; i++) {

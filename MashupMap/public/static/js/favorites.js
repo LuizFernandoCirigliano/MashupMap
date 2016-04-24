@@ -1,6 +1,8 @@
 var favorites_list = []
 
 function get_favorites() {
+    $returnmap.hide();
+    $mapinfo.hide();
     $.get("/playlist/favorites/").done( function (data) {
         $("#favorites").html(data);
         $("#favorites").show();
@@ -56,6 +58,10 @@ function favorite_li_for_song(song, playlist) {
             </div>\
         </div>\
     </li>'
+}
+
+function play_favorites() {
+    set_playlist(favorites_list);
 }
 
 $(document).ready(function() {
