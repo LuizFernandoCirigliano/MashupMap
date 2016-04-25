@@ -135,7 +135,8 @@ function html_for_song(obj) {
     };
     output = output.substring(0, output.length - 1);
     output += '</marquee>';;
-    output += '<p><b>Reddit author: </b>' + obj.author + '</p></div>';
+    output += '<p><b>Source: </b><a href="' + obj.redditurl +
+        '" target="_blank">reddit - ' + obj.author + '</a></p></div>';
     output += '<div class="row">'
     output += '<div class="col-md-4">'
     output += '<a class="delete-track" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
