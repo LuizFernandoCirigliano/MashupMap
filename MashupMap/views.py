@@ -20,6 +20,9 @@ def inject_forms():
     signup = SignupForm()
     return dict(login_form=form, signup_form=signup)
 
+# @app.errorhandler(401)
+# def custom_401(error):
+#
 
 @app.route("/")
 def index():

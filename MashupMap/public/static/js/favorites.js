@@ -1,16 +1,17 @@
 var favorites_list = []
 
 function get_favorites() {
-    $returnmap.show();
-    $mapinfo.hide();
     $.ajax({
         url: "/playlist/favorites/",
-        status_code: {
+        statusCode: {
             401: function() {
-                show_signup_form();
+                show_login_form();
             }
         },
         success: function(data, textStatus, jqXHR) {
+            $returnmap.show();
+            $mapinfo.hide();
+            console.log(textStatus);
             $("#favorites").html(data);
             $("#favorites").show();
             $("#favorites_link").unbind('click');
@@ -39,6 +40,7 @@ function delete_favorite(e) {
 
 function play_favorites() {
     set_playlist(favorites_list);
+    play_song(0);
 }
 
 $(document).ready(function() {
@@ -46,12 +48,13 @@ $(document).ready(function() {
         var arr = this.id.split("-");
         $.ajax({
             url:"/playlist/favorites/" + arr[1] + "/add/",
-            status_code: {
+            statusCode: {
                 401: function() {
-                    show_signup_form();
+                    show_login_form();
                 }
             },
-            success: function() {
+            success: function(data, textStatus, jqXHR) {
+                console.log(textStatus);
                 get_favorites();
             }
         });

@@ -25,8 +25,9 @@ def playlist_for_pid(pid):
 
 
 @playlist_api.route("/<pid>/", methods=["GET"])
-@login_required
 def playlist_index(pid):
+    if not current_user.is_authenticated:
+        abort(401)
     playlist = playlist_for_pid(pid)
     if playlist is not None and playlist.ownerprof.user_id == current_user.id:
         song_list = [song.to_JSON() for song in playlist.songs if not song.isBroken == True]
@@ -37,8 +38,9 @@ def playlist_index(pid):
 
 
 @playlist_api.route("/<pid>/<int:sid>/<operation>/", methods=["GET", "POST"])
-@login_required
 def edit_playlist(pid, sid, operation):
+    if not current_user.is_authenticated:
+        abort(401)
     playlist = playlist_for_pid(pid)
     mashup = Mashup.query.get(sid)
 
