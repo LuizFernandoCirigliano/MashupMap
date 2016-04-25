@@ -126,9 +126,6 @@ function configure_all_panels() {
 
 }
 
-
-
-
 function html_for_song(obj) {
     var output = '<li class="track">' + '<div class="track-div">';
     output += '<h5><b> ' + obj.title + '</b></h5>';
@@ -139,15 +136,21 @@ function html_for_song(obj) {
     output = output.substring(0, output.length - 1);
     output += '</marquee>';;
     output += '<p><b>Source: </b><a href="' + obj.redditurl +
-     '" target="_blank">reddit - ' + obj.author + '</a></p></div>';
-    output +='<a class="delete-track"><span class="glyphicon glyphicon-remove"' + '</span></a>';
-    output += '<a class="share_link" title="share this mashup!"><span class="glyphicon glyphicon-share"></span></a></li>'
-
+        '" target="_blank">reddit - ' + obj.author + '</a></p></div>';
+    output += '<div class="row">'
+    output += '<div class="col-md-4">'
+    output += '<a class="delete-track" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+    output += '</div><div class="col-md-4">'
+    output += '<a class="share_link" title="share this mashup!" href="#"><span class="glyphicon glyphicon-share"></span></a>'
+    output += '</div><div class="col-md-4">'
+    output += '<a href="#" class="favorite-button" id="fav-'+obj.db_id+'"><span class="glyphicon glyphicon-heart"></span></a>'
+    output += '</div></div></li>'
     return output;
 
 }
 
 function set_playlist(songs) {
+    $tracks.html("");
     current_playlist = songs;
     var new_songs_html = ''
     for (var i = 0; i < current_playlist.length; i++) {

@@ -104,6 +104,7 @@ function display_info_message(msg) {
 }
 
 function request_graph(args) {
+	clear_favorites();
 	is_searching_artist = false;
 	if(typeof args != 'undefined' && args['first_song_id']) {
 		request_with_one_mashup(args['first_song_id']);
@@ -163,8 +164,11 @@ function cv_resize() {
 	var w = $(window).width();
 	var h = $(window).height();
 	var network = $("#mynetwork");
+	var favorites = $("#favorites");
 	network.css("width", w + "px");
 	network.css("height", h + "px");
+	favorites.css("width", w + "px");
+	favorites.css("height", h + "px");
 }
 
 function set_view_mode(display_artist_covers) {
@@ -338,19 +342,4 @@ $(document).ready(function() {
 	}, function() {
     	clearInterval(interval);
 	});
-
-	$('input').keydown(function(e){
-   		console.log('Yes keydown triggered. ' + e.which)
-	});
-
-	$(document).on('keypress', function(e) {
-	    // var tag = e.target.tagName.toLowerCase();
-	    // if ( e.which === 119 && tag != 'input' && tag != 'textarea')
-	    //     console.log();
-		console.log('Key pressed!');
-	});
-
-
-
-
 });

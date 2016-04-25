@@ -1,7 +1,9 @@
-from MashupMap.models import Counters, get_or_create
+from MashupMap.models import Counters
+from MashupMap.helpers import get_or_create
 from MashupMap import db
 
 key_list = ["strt_index", "scr_index"]
+
 
 def count_stuff(key):
     if key == "playcount":

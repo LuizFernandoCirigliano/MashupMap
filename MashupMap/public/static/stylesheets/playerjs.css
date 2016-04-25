@@ -107,6 +107,7 @@ body.music .controls {
     list-style:none;
     padding-left:0;
     padding-bottom: 5px;
+    padding-right: 10px;
     overflow: auto;
     max-height: 60vh;
 }
@@ -130,12 +131,6 @@ body.music .controls {
     height: 0;
     width: 0;
     overflow: hidden;
-}
-
-.share_link {
-    font-size: 2em;
-    position: relative;
-    left: 13vw;
 }
 
 #share_window {
@@ -174,4 +169,14 @@ body.music .controls {
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #36bfe3;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }

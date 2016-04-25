@@ -6,18 +6,36 @@
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/vis/4.15.0/vis.min.js"></script>
 <link href="/static/stylesheets/vis.min.css" rel="stylesheet" type="text/css" />
+<link href="/static/stylesheets/playlist.css" rel="stylesheet" type="text/css">
+<script src="/static/js/favorites.js" type="text/javascript"></script>
 {% endblock %}
 {% block body_block %}
 
 <script>
-    $(document).ready(function() {
-        $('#full_map_link').attr('href', '#');
-        $('#full_map_link').click(request_graph);
-    });
+$(document).ready(function() {
+    $('#full_map_link').attr('href', '#');
+    $('#full_map_link').click(request_graph);
+    $('#favorites_link').attr('href', '#');
+    $('#favorites_link').click(get_favorites);
+    // document.getElementById('light').style.display='block';
+    // document.getElementById('fade').style.display='block';
+});
 </script>
 
+<div id="graph_body" style="background: transparent;">
 
-<div id="graph_body" style="background-color: transparent;">
+  <div id="light" class="white_content">
+    <div class="carousel">
+        <div><img class="horse is-center" src="/static/img/tutorial/tuto0.jpg"></div>
+        <div><img class="horse is-center" src="/static/img/tutorial/tuto1.png"></div>
+        <div><img class="horse is-center" src="/static/img/tutorial/tuto2.png"></div>
+        <div><img class="horse is-center" src="/static/img/tutorial/tuto3.png"></div>
+        <div><img class="horse is-center" src="/static/img/tutorial/tuto4.png"></div>
+    </div>
+    <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+  </div>
+  <div id="fade" class="black_overlay"></div>
+
     <div>
         <div class="jawn myloader"></div>
         <h3 style="color:black; text-align: center" class="myloader">Loading...</h3>
@@ -36,7 +54,10 @@
         <div id="left-hover" class="navigation-arrow">
             <img src="/static/img/navigation-icons/left.png" height="50px" width="50px">
         </div>
-        <div id="mynetwork" class="full-width full-height" hidden></div>
+        <div id="mynetwork" class="fullscreen-display" hidden></div>
+        <div id="favorites" class="fullscreen-display" hidden>
+        {%block favorites%}{%endblock%}
+        </div>
         <div id="share_window" class="alert alert-dismissible" hidden>
             <label for="share_link_input">Share this mashup!</label>
             <div class="input-group">
@@ -114,5 +135,9 @@
 
 <script type="text/javascript" src="/static/js/music_player.js"></script>
 <script type="text/javascript" src="/static/js/scripts.js"></script>
+<script type="text/javascript" src="/static/stylesheets/slick-1.5.9/slick/slick.min.js"></script>
+<script type="text/javascript">
+    $('.carousel').slick();
+</script>
 
 {% endblock %}

@@ -23,14 +23,7 @@ def graph_for_mashup_list(mashups):
     for mashup in mashups:
         mashup_color = random_color()
         song_id = len(songs)
-        songs.append({
-            "embed": mashup.content,
-            "author": mashup.author,
-            "redditurl": mashup.permalink,
-            "title": mashup.clean_title,
-            "db_id" : mashup.id,
-            "artists" : [a.name for a in mashup.artists]
-        })
+        songs.append(mashup.to_JSON())
         for a in mashup.artists:
             # Add another node for this artist
             a_cnt = artist_m_count[a.id]
@@ -41,7 +34,6 @@ def graph_for_mashup_list(mashups):
                     extra_artists[a.id] = ["{}-{}".format(a.id, 0)]
 
             artist_m_count[a.id] += 1
-
         artistset |= set(mashup.artists)
         art_len = len(mashup.artists)
         for i in range(art_len):
@@ -85,7 +77,6 @@ def get_default_mashup(default_id=None):
 def get_mashup_graph(mashup_id=None):
     mashups = random.sample(list(Mashup.query.filter(
         or_(Mashup.isBroken == None, Mashup.isBroken == False))), 100)
-
     default_mashup = get_default_mashup(mashup_id)
     if default_mashup is not None:
         mashups.insert(0, default_mashup)

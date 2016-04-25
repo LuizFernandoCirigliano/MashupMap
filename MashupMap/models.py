@@ -7,6 +7,13 @@ artists = db.Table(
 )
 
 
+playlist_songs = db.Table(
+    'playlist_songs',
+    db.Column('playlist_id', db.Integer, db.ForeignKey('playlist.id')),
+    db.Column('mashup_id', db.Integer, db.ForeignKey('mashup.id')),
+)
+
+
 class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), index=True, unique=True)
@@ -42,6 +49,16 @@ class Mashup(db.Model):
     def __str__(self):
         return self.title
 
+    def to_JSON(self):
+        return {
+            "embed": self.content,
+            "author": self.author,
+            "redditurl": self.permalink,
+            "title": self.clean_title,
+            "db_id": self.id,
+            "artists": [a.name for a in self.artists]
+        }
+
 
 class Counters(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,28 +73,46 @@ class Counters(db.Model):
         self.value = value
 
 
-def get_or_create(session, model, **kwargs):
-    instance = session.query(model).filter_by(**kwargs).first()
-    if instance:
-        return instance
-    else:
-        instance = model(**kwargs)
-        try:
-            session.add(instance)
-            session.commit()
-            return instance
-        except Exception as e:
-            print(e)
-            session.rollback()
-            return None
+# Note: Flask-SQLAlchemy converts CamelCase classes to camel_case
+class UserProfile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship(
+        'User',
+        uselist=False,
+        backref=db.backref('profile', uselist=False)
+    )
+    playlists = db.relationship('Playlist', backref='ownerprof',
+                                lazy='dynamic')
+
+    def __repr__(self):
+        return '<UserProfile %r>' % (self.id)
+
+    def __str__(self):
+        return str(self.id)
+
+    def __init__(self, name=""):
+        self.name = name
+        favorites = Playlist(name="Favorites", favorites=True)
+        db.session.add(favorites)
+        self.playlists.append(favorites)
+        print(self.playlists)
 
 
-def get_or_create_by_id(session, model, instance_id, **kwargs):
-    instance = session.query(model).get(instance_id)
-    if instance:
-        return instance
-    else:
-        instance = model(id=instance_id, **kwargs)
-        session.add(instance)
-        session.commit()
-        return instance
+class Playlist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    ownerprof_id = db.Column(db.Integer, db.ForeignKey('user_profile.id'))
+    songs = db.relationship(
+        'Mashup',
+        secondary=playlist_songs,
+        backref=db.backref('playlists')
+    )
+    favorites = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Playlist %r>' % (self.name)
+
+    def __str__(self):
+        return self.name

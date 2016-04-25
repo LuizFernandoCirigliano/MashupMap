@@ -14,36 +14,38 @@ KEY_LAST_REDDIT = 'last_reddit_mashup'
 user_agent = os.environ.get('USER_AGENT', 'Default_User_Agent_For_Mashups')
 r = praw.Reddit(user_agent=user_agent)
 
+
 # gets clean title (without artists and duration of the mashup)
 def get_clean_title(full_title):
     text_in_par = re.findall('\(([^\)]+)\) | \[([^\]]+)\]', full_title)
     if len(text_in_par) == 0 or len(text_in_par[0]) == 0:
         return full_title
 
-    text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
+    text_from_match = text_in_par[0][0] if text_in_par[
+        0][0] != '' else text_in_par[0][1]
     index = full_title.find(text_from_match)
-    title = full_title[:index-1]
+    title = full_title[:index - 1]
     return title
 
-def save_clean_titles():
-	mashups = Mashup.query.all()
-	try:
-	    for m in mashups:
-	        m.clean_title = get_clean_title(m.title)
-	except Exception as e:
-	    print('Unknown error')
-	    print(e, e.args)
-	except:
-	    print('User interruption.')
-	finally:
-	    db.session.commit()
 
+def save_clean_titles():
+    mashups = Mashup.query.all()
+    try:
+        for m in mashups:
+            m.clean_title = get_clean_title(m.title)
+    except Exception as e:
+        print('Unknown error')
+        print(e, e.args)
+    except:
+        print('User interruption.')
+    finally:
+        db.session.commit()
 
 
 def save_new_artist_list():
     mashups = Mashup.query.all()
     try:
-    	for i, mashup in enumerate(mashups):
+        for i, mashup in enumerate(mashups):
             artist_list = artist_list_from_title(mashup.title)
             if not artist_list:
                 continue
@@ -51,21 +53,24 @@ def save_new_artist_list():
             # print(str(i), mashup.title, str(artist_list))
             mashup.artists = []
             for name in artist_list:
-                new_artist = m.get_artist(name) # Check Music API to normalize name
+                # Check Music API to normalize name
+                new_artist = m.get_artist(name)
                 if new_artist is not None:
-                    mashup.artists.append(new_artist) # Add artist to the current mashup
+                    # Add artist to the current mashup
+                    mashup.artists.append(new_artist)
     except Exception as e:
-    	print('Unknown error')
-    	print(e, e.args)
+        print('Unknown error')
+        print(e, e.args)
     except:
-    	print('User interruption.')
+        print('User interruption.')
     finally:
-    	db.session.commit()
+        db.session.commit()
+
 
 def strip_artist_name(match):
     print(match)
     # ft_pat = '\s+[fF](ea)?[tT]\.?\s+'
-    names_pat = '[\w\s]+'
+    # names_pat = '[\w\s]+'
     comma_pat = '\s*,\s*'
     vs_pat = '\s+[vV][sS]?\.?\s+'
     x_pat = '\s+[xX]\s+'
@@ -93,7 +98,8 @@ def artist_list_from_title(title):
     if len(text_in_par) == 0 or len(text_in_par[0]) == 0:
         return None
 
-    text_from_match = text_in_par[0][0] if text_in_par[0][0] != '' else text_in_par[0][1]
+    text_from_match = text_in_par[0][0] if text_in_par[
+        0][0] != '' else text_in_par[0][1]
     # print(text_from_match)
     # artists_names = [x.strip() for x in text_from_match.split(',')]
     # return artists_names
@@ -125,7 +131,7 @@ def insert_submission_in_db(submission):
     clean_title = get_clean_title(submission.title)
 
     # isBroken = link_checker.check_link(url)
-    #checking for broken links takes longer and new links are rarely broken.
+    # checking for broken links takes longer and new links are rarely broken.
     isBroken = False
     check_mash = Mashup.query.filter_by(
         permalink=reddit_url
@@ -141,8 +147,8 @@ def insert_submission_in_db(submission):
         date=date,
         content=content,
         url=url,
-        isBroken = isBroken,
-        clean_title = clean_title
+        isBroken=isBroken,
+        clean_title=clean_title
     )
 
     for name in artists_names:

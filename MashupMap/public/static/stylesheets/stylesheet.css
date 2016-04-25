@@ -29,11 +29,12 @@ Our dark blue is: #426baa
     .respond-clicks {
         pointer-events: auto;
     }
-    #mynetwork {
-      background-color:black;
+    .fullscreen-display {
       width: 100%;
+      height: 100vh;
       z-index: 0;
       position: absolute;
+      overflow: hidden;
     }
     .song_info {
         font-size: 0.8em;
@@ -105,6 +106,25 @@ Our dark blue is: #426baa
     .footer {
         color: #777;
     }
+    .small_form {
+      background-color: white;
+      border: 5px solid white;
+      border-radius: 15px;
+      position:fixed;
+      z-index: 1000;
+      line-height: 20px;
+      /*padding: 15px;*/
+    }
+    .arrow-up {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 15px solid white;
+      right: 5%;
+      position: absolute;
+      top: -10px;
+    }
 
     @media only screen and (max-width: 760px) {
       .navigation-arrow {
@@ -142,11 +162,54 @@ Our dark blue is: #426baa
         left: 10px;
         margin-bottom: -30px;
     }
-    .info-message {
-        margin-top: 30px;
-        z-index: 1000;
-    }
 
-    .text-white {
-        color:white;
-    }
+    /*//---------popup-----//*/
+    .black_overlay{
+      	display: none;
+      	position: absolute;
+      	top: 0%;
+      	left: 0%;
+      	width: 100%;
+      	height: 100%;
+      	background-color: black;
+      	z-index:100001;
+      	-moz-opacity: 0.8;
+      	opacity:.80;
+      	filter: alpha(opacity=80);
+      }
+
+      .white_content {
+      	display: none;
+      	position: absolute;
+      	top: 10%;
+      	left: 10%;
+      	width: 80%;
+      	height: 80%;
+      	/*border: 2px solid #2c7dea;*/
+      	/*background-color: white;*/
+      	z-index:100002;
+      	overflow: auto;
+      }
+
+      .carousel {
+        top:10%;
+        left:5%;
+        width:90%;
+      }
+
+      .horse {
+          border-style: solid;
+          border-width: medium;
+          border-color: white;
+          width:80%;
+          height:80%;
+      }
+
+      .info-message {
+          margin-top: 30px;
+          z-index: 1000;
+      }
+
+      .text-white {
+          color:white;
+      }

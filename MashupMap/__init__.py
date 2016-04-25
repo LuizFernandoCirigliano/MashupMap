@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = "user_api.login"
 
 import Users.views
 import Users.models
@@ -22,6 +23,7 @@ import MashupMap.models
 
 from Users.admin.views import MashupView,\
     MyAdminIndexView, UserView, RoleView, ArtistView, ModelView
+    
 admin = Admin(app,
               name='mashupmap',
               template_mode='bootstrap3',
@@ -29,6 +31,8 @@ admin = Admin(app,
               index_view=MyAdminIndexView())
 admin.add_view(ArtistView(MashupMap.models.Artist, db.session))
 admin.add_view(MashupView(MashupMap.models.Mashup, db.session))
+admin.add_view(ModelView(MashupMap.models.UserProfile, db.session))
+admin.add_view(ModelView(MashupMap.models.Playlist, db.session))
 admin.add_view(UserView(Users.models.User, db.session))
 admin.add_view(RoleView(Users.models.Role, db.session))
 admin.add_view(ModelView(MashupMap.models.Counters, db.session))
