@@ -119,6 +119,9 @@ body.music .controls {
     padding: 3px 5px;
     pointer-events: auto;
 }
+.track:hover{
+    background-color: #243a5c;
+}
 .currentTrack {
     background-color: #426baa;
 }
