@@ -14,8 +14,6 @@ function get_favorites() {
             console.log(textStatus);
             $("#favorites").html(data);
             $("#favorites").show();
-            $("#favorites_link").unbind('click');
-            $("#favorites_link").click(clear_favorites);
             $("#mynetwork").hide();
             $(".navigation-arrow").hide();
         }
@@ -27,7 +25,6 @@ function clear_favorites() {
     $(".navigation-arrow").show();
     $("#favorites").hide();
     $("#mynetwork").show();
-    $("#favorites_link").unbind('click');
     $("#favorites_link").click(get_favorites);
 }
 
@@ -44,6 +41,7 @@ function play_favorites() {
 }
 
 $(document).ready(function() {
+    $("#favorites_link").click(get_favorites);
     $("#tracks").on('click', '.favorite-button', function() {
         var arr = this.id.split("-");
         $.ajax({
