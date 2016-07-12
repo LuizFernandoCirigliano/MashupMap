@@ -4,9 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask.ext.login import LoginManager
 from flask_sslify import SSLify
+import sys
+import logging
 
 app = Flask(__name__, static_url_path='', static_folder='public')
 app.config.from_object('config')
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
+
 sslifiy = SSLify(app)
 
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
@@ -23,7 +28,7 @@ import MashupMap.models
 
 from Users.admin.views import MashupView,\
     MyAdminIndexView, UserView, RoleView, ArtistView, ModelView
-    
+
 admin = Admin(app,
               name='mashupmap',
               template_mode='bootstrap3',
