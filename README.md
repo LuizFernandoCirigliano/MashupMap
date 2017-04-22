@@ -20,4 +20,4 @@ Installing:
 
 Hosted on Heroku:
 
-https://www.mashupmap.me
+https://mashupmap.herokuapp.com/
